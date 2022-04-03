@@ -8,10 +8,13 @@
    feel free to play around with these and see what other look you can come up with! :D
 */
 
-$accent: #97ABFF;
-$accentDark: #123597;
-$textColor: white;
-$background: #262632;
+$accent: #97f3ff00;
+$accentDark: #12975400;
+$textColor: black;
+$headertextColor1:#EF8943;
+$headertextColor2:black;
+$background: #0000ff00;
+$fonttype:Manrope;
 
 /* some constants */
 
@@ -22,11 +25,11 @@ $SMALL_WIDTH: 768px;
 
 /* some standard elements */
 /* fonts */
-$fontDefault: "M PLUS Rounded 1c", sans-serif;
-$fontMono: "Roboto Mono", monospace;
-
+$fontDefault: "Manrope", sans-serif;
+$fontMono: "Manrope", sans-serif;
+$fontHeader:"Manrope", sans-serif;
 /* a standard drop shadow */
-$dropShadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25);
+$dropShadow: 0 0.25em 0.25em rgba(229, 29, 29, 0.25);
 
 $borderRadius: 0.75em;
 
@@ -39,4 +42,6 @@ $borderRadius: 0.75em;
   display: flex;
   align-items: center;
   justify-content: center;
+  
+    
 }

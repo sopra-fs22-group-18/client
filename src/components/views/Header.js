@@ -1,5 +1,6 @@
 import React from "react";
 import {ReactLogo} from "components/ui/ReactLogo";
+
 import PropTypes from "prop-types";
 import "styles/views/Header.scss";
 
@@ -11,9 +12,8 @@ import "styles/views/Header.scss";
  * https://reactjs.org/docs/components-and-props.html
  * @FunctionalComponent
  */
-const Header = props => (
+/*const Header = props => (
   <div className="header container" style={{height: props.height}}>
-    <h1 className="header title">Group 18</h1>
     <ReactLogo width="60px" height="60px"/>
   </div>
 );
@@ -24,5 +24,5 @@ Header.propTypes = {
 
 /**
  * Don't forget to export your component!
- */
-export default Header;
+ 
+export default Header;*/
