@@ -171,7 +171,7 @@ const Login = props => {
       
 
           <div className="register-button-container" >
-          <Button disabled={!username || !password}  width="100%"onClick={() => doRegister()}>Login</Button>
+          <Button disabled={!username || !password}  width="100%"onClick={() => doLogin()}>Login</Button>
 
           <td>&nbsp;&nbsp;&nbsp;</td>
           <div className="login-button-container">
