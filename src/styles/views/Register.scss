@@ -1,5 +1,14 @@
 @import 'styles/theme';
+body {
+  box-sizing: border-box;
+  padding: 0em;
+  margin: 0em;
+}
 
+.container {
+  display: flex;
+  height: 100vh;
+}
 
 .bg-image { 
   /* The image used */
@@ -8,62 +17,69 @@
   background-repeat: no-repeat;
   background-position: left top;
   background-size: 100% 100%;
+  flex: 1;
+  height: 100%;
 }
 
 .content {
   flex: 1;
-  position:relative;
   height: 100%;
   overflow: auto;
   /* Center and scale the image nicely */
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-position-y: 2em;
+  background-position-x: 7em;
 
 .Logo{
   flex: 1;
+  height: 40%;
   overflow: auto;
   overflow: hidden; /* Hide scrollbars */
   background-image: url("/img/roastmelogo.svg");
   /* Center and scale the image nicely */
   background-repeat: no-repeat;
   background-position: right top;
- 
+  background-position-y: 2em;
+  background-position-x: 7em;
 
 
 }
 .headerrow{
   display: flex; 
-  margin-left: 5%;;
-  margin-right: 20%;
-  text-align: center;
+  margin-left: 5%;
+  margin-right: 30%;
+  text-align: center
+  margin-top -2em;
+  margin-bottom:-2em;
 }
 
 
-&.headerp1{
-  flex:2;
+.headerp1{
+  margin-right:1em;
+  flex:1;
   color: $headertextColor1;
   font-family: $fontHeader;
-  text-align: right;
-
+  text-align: right
 
 }
 
 
 &.headerp2{
-  flex:2;
+  flex:1;
   color: $headertextColor2;
   font-family: $fontHeader;
   text-align: left
 
-
   }
-  .login {
-
-    &.container {
+.register {
+  &.container {
     /*background-image: url("/img/backgroundimage.jpg");
     background-repeat: no-repeat;
     background-size: cover;*/
-    resize: both;
-    display: flex;
   
+    margin-top: 0em;
+    min-height: 00px;
     /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
     @include center;
   
@@ -73,7 +89,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 80%;
+    width: 60%;
+    max-width: 30em;
+    height: 25em;
     font-size: 16px;
     font-weight: 400;
     padding-left: 37px;
@@ -98,21 +116,21 @@
   }
   &.label {
     color: $textColor;
-    margin-bottom: 2%;
+    margin-bottom: 10px;
     font-weight: 600;
   }
   .login-button-container {
-    margin-top:40%;
+    margin-top:100px;
     color: $headertextColor1;
   }
   .register-button-container {
-    margin-top: 1%;
+    margin-top: 1em;
     margin-bottom:0;
     color: $headertextColor1;
   }
 
   .alreadyhave {
-    height: 3%;
+    height: 2em;
     color: #616161;
     font-weight: 600;
 
