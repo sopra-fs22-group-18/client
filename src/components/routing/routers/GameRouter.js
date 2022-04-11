@@ -1,6 +1,8 @@
 import {Redirect, Route} from "react-router-dom";
 import PropTypes from 'prop-types';
 import Start from "../../views/Start";
+import NewSession from "../../views/NewSession";
+import Session from "../../views/Session";
 
 const GameRouter = props => {
   /**
@@ -11,9 +13,16 @@ const GameRouter = props => {
       <Route exact path={`${props.base}/start`}>
         <Start/>
       </Route>
+      <Route exact path = {`${props.base}/newSession`}>
+          <NewSession/>
+      </Route>
+      <Route path={`${props.base}/session/:sessionId`}>
+          <Session/>
+      </Route>
       <Route exact path={`${props.base}`}>
         <Redirect to={`${props.base}/start`}/>
       </Route>
+
     </div>
   );
 };

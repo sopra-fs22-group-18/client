@@ -8,6 +8,7 @@ export const Navbar = props => {
     const history = useHistory();
     const doLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('userId')
         history.push('/login');
     }
     const goHome = () => {

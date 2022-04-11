@@ -3,8 +3,8 @@
  */
 class User {
   constructor(data = {}) {
-    this.id = null;
-    this.password = null;
+    this.userId = null;
+    this.name = null;
     this.username = null;
     this.token = null;
     this.status = null;
