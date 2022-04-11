@@ -56,9 +56,7 @@ const Start = () => {
       fetchData();
   }, []);
 
-  const countSessions = () => {
-
-  };
+  let numOfSessions = sessions.length;
   let noSessions = "XX";
 
   let newSessionButton = (
@@ -79,7 +77,7 @@ const Start = () => {
     let activeSessions = (
         <div>
             <p>
-                Active Sessions: 
+                Active Sessions: {numOfSessions}
             </p>
         </div>
     )
@@ -99,6 +97,9 @@ const Start = () => {
           </div>
           <div className="start button">
               {joinSessionButton}
+          </div>
+          <div>
+              {activeSessions}
           </div>
 
       <h2 className="start header2">
