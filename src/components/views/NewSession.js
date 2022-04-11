@@ -9,6 +9,7 @@ import plusButton from "../../img/plusButton.png";
 import {api, handleError} from "../../helpers/api";
 import User from "../../models/User";
 import Session from "../../models/Session";
+import UploadPhoto from "./UploadPhoto";
 
 const FormField = props => {
     return (
@@ -73,8 +74,6 @@ const NewSession = () => {
             value={title}
             onChange={t => setTitle(t)}/>)
 
-    let imageUpload = (<div className="image-placeholder">Add image here</div>)
-
     let maxParticipantSetting = (
         <ul className="newSession maxParticipants">
             <li className="newSession list-item text">
@@ -106,7 +105,7 @@ const NewSession = () => {
             <div className="newSession container">
             <div className="newSession form">
                 {sessionTitle}
-                {imageUpload}
+                <UploadPhoto/>
                 {maxParticipantSetting}
             </div>
                 {startButton}
