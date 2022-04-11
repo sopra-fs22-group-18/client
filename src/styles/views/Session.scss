@@ -1,0 +1,23 @@
+@import 'styles/theme';
+
+.Session {
+  background-color: #873e23;
+  overflow: hidden;
+  position: relative;
+  height: 100vh;
+
+  &.container {
+    position: absolute;
+    background-color: white;
+    width: 40%;
+    height: auto;
+    left: 30%;
+    top: 20%;
+    border-radius: $borderRadius;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+
+}
+
