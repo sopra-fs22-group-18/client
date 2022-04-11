@@ -37,9 +37,6 @@ const FormField = props => {
 
 const FormField2 = props => {
   return (
-    
-
-
 
     <div className="login field">
       <label className="login label">
@@ -111,20 +108,6 @@ const Login = props => {
   };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
     <BaseContainer>
 <div id= "container">
@@ -138,19 +121,6 @@ const Login = props => {
       <div className="headerp1" ><h1>Login</h1></div>
       <div className="headerp2"><h1>into the account</h1></div>
   </div>
-
-  
-
-
-
-
-
-
-
-
-
-
-
 
 
       <div className="login container">
