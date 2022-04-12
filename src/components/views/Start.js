@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {Spinner} from 'components/ui/Spinner';
 import {Button, Button2} from 'components/ui/Button';
 import {useHistory} from 'react-router-dom';
@@ -6,12 +6,15 @@ import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/Start.scss";
 import {Navbar} from "../ui/Navbar";
 import logo from "../../img/logo.png"
+import { api, handleError } from 'helpers/api';
+//import { useState } from 'react/cjs/react.production.min';
 
 
 
 const Start = () => {
   // use react-router-dom's hook to access the history
   const history = useHistory();
+  const [sessions, setSessions] = useState(0);
 
   const newSession = () => {
       history.push('/game/newSession');
@@ -23,10 +26,19 @@ const Start = () => {
   // for more information on the effect hook, please see https://reactjs.org/docs/hooks-effect.html
   useEffect(() => {
     // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
-    async function fetchData() {return undefined}
+    async function fetchData() {
+        try{
+            const response = await api.get('/sessions');
+            setSessions(response.data.length);
+        } catch(error){
+            console.error(`Something went wrong while fetching the sessions: \n${handleError(error)}`);
+        }
+
+    }
+    fetchData();
   }, []);
 
-  let noSessions = "XX";
+
 
   let newSessionButton = (
       <Button
@@ -60,7 +72,7 @@ const Start = () => {
           </div>
 
       <h2 className="start header2">
-        Number of open roasting sessions: {noSessions}
+        Number of open roasting sessions: {sessions}
       </h2>
       </div>
       </div>
