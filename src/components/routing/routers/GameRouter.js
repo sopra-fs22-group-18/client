@@ -2,7 +2,7 @@ import {Redirect, Route} from "react-router-dom";
 import PropTypes from 'prop-types';
 import Start from "../../views/Start";
 import NewSession from "../../views/NewSession";
-import Session from "../../views/Session";
+import ActiveSession from "../../views/ActiveSession";
 
 const GameRouter = props => {
   /**
@@ -17,7 +17,7 @@ const GameRouter = props => {
           <NewSession/>
       </Route>
       <Route path={`${props.base}/session/:sessionId`}>
-          <Session/>
+          <ActiveSession/>
       </Route>
       <Route exact path={`${props.base}`}>
         <Redirect to={`${props.base}/start`}/>
