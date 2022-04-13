@@ -9,6 +9,7 @@ import plusButton from "../../img/plusButton.png";
 import {api, handleError} from "../../helpers/api";
 import User from "../../models/User";
 import Session from "../../models/Session";
+import ProgressBar from 'components/firebase comps/ProgressBar'
 
 const FormField = props => {
     return (
@@ -35,6 +36,23 @@ const NewSession = () => {
     const [title, setTitle] = useState(null);
     const [maxParticipants, setMaxParticipants] = useState(2);
 
+    const [file, setFile] = useState(null);
+    const [error, setError] = useState(null);
+  
+    const types = ['image/png', 'image/jpeg'];
+  
+    const handleChange = (e) => {
+      let selected = e.target.files[0]; // to select the first file (in order someone selects more files)
+      console.log(selected); 
+  
+      if (selected && types.includes(selected.type)) {
+        setFile(selected);
+        setError('');
+      } else {
+        setFile(null);
+        setError('Please select an image file (png or jpg)');
+      }
+    };
 
     const createSession = async () => {
         try {
@@ -72,8 +90,20 @@ const NewSession = () => {
             placeholder="Add your session title..."
             value={title}
             onChange={t => setTitle(t)}/>)
-
-    let imageUpload = (<div className="image-placeholder">Add image here</div>)
+    
+    let uploadPhoto = (
+        <form>
+        <label>
+          <input type="file" onChange={handleChange} />
+          <span>+</span>
+        </label>
+        <div className="output">
+          { error && <div className="error">{ error }</div>}
+          { file && <div>{ file.name }</div> }
+          { file && <ProgressBar file={file} setFile={setFile} /> }
+        </div>
+      </form>
+    )
 
     let maxParticipantSetting = (
         <ul className="newSession maxParticipants">
@@ -106,7 +136,7 @@ const NewSession = () => {
             <div className="newSession container">
             <div className="newSession form">
                 {sessionTitle}
-                {imageUpload}
+                {uploadPhoto}
                 {maxParticipantSetting}
             </div>
                 {startButton}
