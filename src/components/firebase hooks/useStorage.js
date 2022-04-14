@@ -10,20 +10,24 @@ const useStorage = (file) => {
 
   useEffect(() => {
     // references
+
     const storageRef = ref(storage, file.name);
     const collectionRef = collection(firestore, 'images');
-    uploadBytes(storageRef, file).then((snap) => {
-      let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
-      setProgress(percentage);
-    }, (err) => {
-      setError(err);
-    }, getDownloadURL(storageRef)
-    .then((url) => {
 
-      const createdAt = timestamp
-      addDoc(collectionRef, { url: url, createdAt: createdAt})
-      setUrl(url);
-    }));
+
+    uploadBytes(storageRef, file).then(
+      () =>{
+        getDownloadURL(storageRef).then(function(url){
+          console.log(url);
+          
+        const createdAt = timestamp
+        addDoc(collectionRef, {
+          url, 
+          createdAt
+        });
+      }
+    );
+    });
   }, [file]);
 
   return { progress, url, error};
