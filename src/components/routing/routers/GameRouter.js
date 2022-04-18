@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Start from "../../views/Start";
 import NewSession from "../../views/NewSession";
 import Session from "../../views/Session";
+import Comment from "../../views/Comment";
+
 
 const GameRouter = props => {
   /**
@@ -15,6 +17,9 @@ const GameRouter = props => {
       </Route>
       <Route exact path = {`${props.base}/newSession`}>
           <NewSession/>
+      </Route>
+      <Route exact path = {`${props.base}/Comment`}>
+          <Comment/>
       </Route>
       <Route path={`${props.base}/session/:sessionId`}>
           <Session/>

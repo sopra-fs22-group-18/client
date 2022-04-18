@@ -1,0 +1,48 @@
+@import 'styles/theme';
+
+.newComment {
+  background-color: #873e23;
+  position: relative;
+  height: 100vh;
+
+  &.container {
+    position: absolute;
+    background-color: white;
+    width: 40%;
+    height: auto;
+    left: 30%;
+    top: 20%;
+    border-radius: $borderRadius;
+    padding: 15px;
+    flex-direction: column;
+    
+  }
+  &.form {
+    background-color: white;
+    height: auto;
+    width: 100%;
+    margin-bottom: 10px;
+    outline:0;  
+  }
+
+  .username {
+    background-color: white;
+    height: auto;
+    left:16vh;
+    width: 40%;
+
+  }
+
+  .avatar {
+    background-color: white;
+    height: auto;
+    float:left;
+    margin-bottom: -4vh;
+  }
+
+
+
+.setting-button {
+  height: 40px;
+  width: 40px;
+}}
