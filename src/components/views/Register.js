@@ -36,16 +36,11 @@ const FormField = props => {
 
 const FormField2 = props => {
   return (
-    
-
-
-
     <div className="register field">
       <label className="register label">
         {props.label}
       </label>
       <input
-      
         className="register input"
         placeholder="Set your password..."
         value={props.value}
@@ -81,7 +76,7 @@ const Register = props => {
       const user = new User(response.data);
       // Store the token into the local storage.
       localStorage.setItem('token', user.token);
-      localStorage.setItem('idlocal', user.id);
+      localStorage.setItem('userId', user.userId);
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
       history.push(`/game`);

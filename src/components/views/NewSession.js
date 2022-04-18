@@ -64,7 +64,8 @@ const NewSession = () => {
 
     let startButton = (<Button
         width="100%"
-        onClick={() => createSession()}> Start session
+        onClick={() => createSession()}
+        > Start session
     </Button>)
 
     let sessionTitle = (

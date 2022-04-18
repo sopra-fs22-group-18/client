@@ -1,5 +1,5 @@
 /**
- * Session model
+ * ActiveSession model
  */
 class Session {
 
@@ -8,9 +8,11 @@ class Session {
     this.title = null;
     this.image = null;
     this.maxParticipants = null;
-    this.status = null;
+    this.sessionStatus = null;
     this.host = null;
+    this.hostUsername = null;
     Object.assign(this, data);
+    this.maxUsers = (this.maxParticipants + 1)
   }
 }
 export default Session;

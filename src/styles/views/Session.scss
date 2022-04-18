@@ -1,6 +1,6 @@
 @import 'styles/theme';
 
-.Session {
+.session {
   background-color: #873e23;
   overflow: hidden;
   position: relative;
@@ -17,6 +17,7 @@
     padding: 15px;
     display: flex;
     flex-direction: column;
+    gap: 10px;
   }
 
 }
