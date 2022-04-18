@@ -12,6 +12,7 @@ class Session {
     this.host = null;
     this.hostUsername = null;
     Object.assign(this, data);
+    this.maxUsers = (this.maxParticipants + 1)
   }
 }
 export default Session;
