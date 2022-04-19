@@ -9,7 +9,7 @@ import plusButton from "../../img/plusButton.png";
 import {api, handleError} from "../../helpers/api";
 import User from "../../models/User";
 import Session from "../../models/Session";
-import ProgressBar from 'components/firebase comps/ProgressBar'
+import ProgressBar from 'components/firebase comps/uploadImage'
 
 const FormField = props => {
     return (
@@ -38,6 +38,7 @@ const NewSession = () => {
 
     const [file, setFile] = useState(null);
     const [error, setError] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null);
   
     const types = ['image/png', 'image/jpeg'];
   
@@ -58,7 +59,7 @@ const NewSession = () => {
         try {
             const userResponse = await api.get('/users/' + localStorage.getItem('userId'));
             const host = new User(userResponse.data);
-            const requestBody = JSON.stringify({title, maxParticipants, host});
+            const requestBody = JSON.stringify({title, maxParticipants, host, imageUrl});
             const response = await api.post('/sessions', requestBody);
 
             // Get the returned user and update a new object.
@@ -92,17 +93,15 @@ const NewSession = () => {
             onChange={t => setTitle(t)}/>)
     
     let uploadPhoto = (
-        <form>
+      <div className = "uploadImage">
+        <div className = "uploadImage input">
         <label>
           <input type="file" onChange={handleChange} />
-          <span>+</span>
         </label>
-        <div className="output">
-          { error && <div className="error">{ error }</div>}
-          { file && <div>{ file.name }</div> }
-          { file && <ProgressBar file={file} setFile={setFile} /> }
         </div>
-      </form>
+        { error && <div className="uploadImage output"><div className="error">{ error }</div></div>}
+        { file && <div className="uploadImage output"><ProgressBar file={file} setFile={setFile} imageUrl={imageUrl} setImageUrl={setImageUrl} /> </div>}
+      </div>
     )
 
     let maxParticipantSetting = (

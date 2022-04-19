@@ -57,14 +57,30 @@
   width: 100%;
 }
 
-.image-placeholder {
-  height: 150px;
-  background:lightgrey;
-  border-color: black;
-  border-radius: $borderRadius;
-  border-style: dotted;
-  text-align: center;
-  line-height: 150px;
+
+.uploadImage {
+  margin-block-end: 20px;
+  &.input {
+    min-height: 50px;
+    overflow: hidden;
+    background:lightgrey;
+    border-color: black;
+    border-radius: $borderRadius;
+    border-style: dotted;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &.output {
+    min-height: 20px;
+    overflow: hidden;
+    background:lightgrey;
+    border-color: black;
+    border-style: dotted;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .setting-icon {

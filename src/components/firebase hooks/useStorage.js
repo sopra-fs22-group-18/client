@@ -19,12 +19,16 @@ const useStorage = (file) => {
       () =>{
         getDownloadURL(storageRef).then(function(url){
           console.log(url);
+
+        const img = document.getElementById('image');
+        img.src = url
           
         const createdAt = timestamp
         addDoc(collectionRef, {
           url, 
           createdAt
         });
+
       }
     );
     });
