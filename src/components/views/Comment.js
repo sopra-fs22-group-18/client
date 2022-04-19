@@ -6,7 +6,7 @@ import {Button} from "../ui/Button";
 import {api, handleError} from "../../helpers/api";
 import User from "../../models/User";
 import Session from "../../models/Session";
-import image from "C:/Users/a/client2/client/src/components/views/avatar.jpg";
+import image from "../views/avatar.jpg";
 
 
 
@@ -46,7 +46,7 @@ const Comment = () => {
       
             const userResponse = await api.get('/sessions/{sessionId}/comments' + localStorage.getItem('userId'));
             const host = new User(userResponse.data);
-            const requestBody = JSON.stringify({commentId, user, session, commentText,createdDate });
+            const requestBody = JSON.stringify({commentId, user, session, commentText, createdDate });
             const response = await api.post('/sessions/{sessionId}/comments', requestBody);
 
             // Get the returned user and update a new object.
