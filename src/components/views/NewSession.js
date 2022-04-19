@@ -9,6 +9,7 @@ import plusButton from "../../img/plusButton.png";
 import {api, handleError} from "../../helpers/api";
 import User from "../../models/User";
 import Session from "../../models/Session";
+import ProgressBar from 'components/firebase comps/uploadImage'
 
 const FormField = props => {
     return (
@@ -35,12 +36,30 @@ const NewSession = () => {
     const [title, setTitle] = useState(null);
     const [maxParticipants, setMaxParticipants] = useState(2);
 
+    const [file, setFile] = useState(null);
+    const [error, setError] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null);
+  
+    const types = ['image/png', 'image/jpeg'];
+  
+    const handleChange = (e) => {
+      let selected = e.target.files[0]; // to select the first file (in order someone selects more files)
+      console.log(selected); 
+  
+      if (selected && types.includes(selected.type)) {
+        setFile(selected);
+        setError('');
+      } else {
+        setFile(null);
+        setError('Please select an image file (png or jpg)');
+      }
+    };
 
     const createSession = async () => {
         try {
             const userResponse = await api.get('/users/' + localStorage.getItem('userId'));
             const host = new User(userResponse.data);
-            const requestBody = JSON.stringify({title, maxParticipants, host});
+            const requestBody = JSON.stringify({title, maxParticipants, host, imageUrl});
             const response = await api.post('/sessions', requestBody);
 
             // Get the returned user and update a new object.
@@ -73,8 +92,18 @@ const NewSession = () => {
             placeholder="Add your session title..."
             value={title}
             onChange={t => setTitle(t)}/>)
-
-    let imageUpload = (<div className="image-placeholder">Add image here</div>)
+    
+    let uploadPhoto = (
+      <div className = "uploadImage">
+        <div className = "uploadImage input">
+        <label>
+          <input type="file" onChange={handleChange} />
+        </label>
+        </div>
+        { error && <div className="uploadImage output"><div className="error">{ error }</div></div>}
+        { file && <div className="uploadImage output"><ProgressBar file={file} setFile={setFile} imageUrl={imageUrl} setImageUrl={setImageUrl} /> </div>}
+      </div>
+    )
 
     let maxParticipantSetting = (
         <ul className="newSession maxParticipants">
@@ -107,7 +136,7 @@ const NewSession = () => {
             <div className="newSession container">
             <div className="newSession form">
                 {sessionTitle}
-                {imageUpload}
+                {uploadPhoto}
                 {maxParticipantSetting}
             </div>
                 {startButton}
