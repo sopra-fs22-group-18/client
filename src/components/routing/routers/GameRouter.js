@@ -4,6 +4,8 @@ import Start from "../../views/Start";
 import NewSession from "../../views/NewSession";
 import ActiveSession from "../../views/ActiveSession";
 import Comment from "../../views/Comment";
+import Report from "../../views/Report";
+
 
 
 const GameRouter = props => {
@@ -21,9 +23,15 @@ const GameRouter = props => {
       <Route exact path = {`${props.base}/Comment`}>
           <Comment/>
       </Route>
-      <Route path={`${props.base}/session/:sessionId`}>
+      <Route exact path={`${props.base}/session/:sessionId`}>
           <ActiveSession/>
       </Route>
+      
+      <Route exact path={`${props.base}/session/:sessionId/Report`}>
+          <Report/>
+      </Route>
+
+
       <Route exact path={`${props.base}`}>
         <Redirect to={`${props.base}/start`}/>
       </Route>

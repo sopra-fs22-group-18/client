@@ -20,6 +20,10 @@ const Start = () => {
       history.push('/game/newSession');
   }
 
+  const getSession = () => {
+    history.push('/game/newSession');
+}
+
   // the effect hook can be used to react to change in your component.
   // in this case, the effect hook is only run once, the first time the component is mounted
   // this can be achieved by leaving the second argument an empty array.
@@ -51,6 +55,7 @@ const Start = () => {
     let joinSessionButton = (
         <Button2
             width="100%">
+            onClick={() => newSession()}>
             Join a session
         </Button2>
     )
