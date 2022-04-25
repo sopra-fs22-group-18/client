@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 import useStorage from '../firebase hooks/useStorage';
 
 const ProgressBar = ({ file, setFile, setImageUrl}) => {
-  const { progress, url} = useStorage(file);
-  console.log(progress, url);
+  const {url} = useStorage(file);
+  console.log(url);
 
   useEffect(() => {
     if (url) {
       setFile(null);
       setImageUrl(url);
     }
-  }, [url, setFile]);
+  }, [url, setFile, setImageUrl]);
 
   return (
       <img src="" alt="" id="image" width= "200" height="200">
