@@ -10,7 +10,7 @@ import User from "../../models/User";
 import PropTypes from "prop-types";
 import {Button} from 'components/ui/Button';
 
-const FormField = props => {
+const MessageField = props => {
     return (
       
       <div className="login field">
@@ -26,7 +26,7 @@ const FormField = props => {
   };
 
   
-  FormField.propTypes = {
+  MessageField.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func
@@ -39,7 +39,6 @@ const ActiveSession = () => {
     const [user, setUser] = useState(null);
     const [session, setSession] = useState(null);
     const [socket, setSocket] = useState(null);
-    const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState();
 
     const sendMessage = async () => {
@@ -50,6 +49,13 @@ const ActiveSession = () => {
         socket.send(JSON.stringify(msg));
       };
 
+    function MessageAdd(message) {
+        var chat_messages = document.getElementById("chat-messages");
+        chat_messages.insertAdjacentHTML("beforeend", message);
+        chat_messages.scrollTop = chat_messages.scrollHeight;
+        console.log("hello")
+    }
+
     useEffect(() => {
         let wsocket = new WebSocket(getWsDomain() + '/' + userId + '/' + sessionId);
         setSocket(wsocket)
@@ -59,11 +65,8 @@ const ActiveSession = () => {
         }
 
         wsocket.onmessage = (e) => {
-            console.log(e);
-            console.log(e.data);
-            const message = e.data;
-            setMessages(messages => [...messages, message])
-            console.log(messages)
+            var data = JSON.parse(e.data);
+            MessageAdd('<div>' + data.from + ': ' + data.content + '</div>')
         }
 
         wsocket.onclose = () => {
@@ -108,8 +111,9 @@ const ActiveSession = () => {
         if(session.sessionStatus === "CREATED") {
             content = (
             <div className="session container">
-                <SessionWait session={session} messages={messages}/>
-                <FormField value={inputMessage} onChange={im => setInputMessage(im)} />
+                <SessionWait session={session}/>
+                <div id = "chat-messages"></div>
+                <MessageField value={inputMessage} onChange={im => setInputMessage(im)} />
                 <Button disabled={!inputMessage}  width="100%" onClick={() => sendMessage()}>Send</Button>
             </div>
             )
