@@ -31,7 +31,7 @@ const useStorage = (file) => {
     });
   }, [file]);
 
-  return { url };
+  return {url};
 }
 
 export default useStorage;

@@ -45,7 +45,7 @@ const NewSession = () => {
     const handleChange = (e) => {
       let selected = e.target.files[0]; // to select the first file (in order someone selects more files)
       console.log(selected); 
-  
+      
       if (selected && types.includes(selected.type)) {
         setFile(selected);
         setError('');
