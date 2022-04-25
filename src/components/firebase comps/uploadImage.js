@@ -12,7 +12,7 @@ const ProgressBar = ({ file, setFile, setImageUrl}) => {
   }, [url, setFile, setImageUrl]);
 
   return (
-      <img src="" alt="" id="image" width= "200" height="200">
+      <img src="" alt="" id="image" width= "400" height="400">
       </img>
   );
 } 
