@@ -9,12 +9,14 @@ import "styles/views/Comment.scss"
 import PropTypes from "prop-types";
 import {Button} from "../ui/Button";
 import image from "../views/avatar.jpg";
+import { async, isEmpty } from "@firebase/util";
 /*
 It is possible to add multiple components inside a single file,
 however be sure not to clutter your files with an endless amount!
 As a rule of thumb, use one file per component and only add small,
 specific components that belong to the main one in the same file.
  */
+
 
 
 const FormField = props => {
@@ -41,17 +43,21 @@ const ActiveSession = () => {
   const history = useHistory();
   const sessionId = useParams().sessionId;
   const userId = localStorage.getItem('userId');
+    const [show, setShow] = useState(false);
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
   const [socket, setSocket] = useState(new WebSocket(getWsDomain() + '/' + userId + '/' + sessionId));
   const [messages, setMessages] = useState([]);
+  const [member, setMember] = useState([]);
+  const [liste, setListe] = useState(null);
+
 
 
   const [title, setTitle] = useState(null);
   const [title2, setTitle2] = useState(null);
   const [commentId, setCommentId] = useState(null);
   const [createdDate, setCreatedDate] = useState(null);
-  const [username, setUsername] = useState("maxihassluja");
+  const [username, setUsername] = useState("username");
 
 
   
@@ -120,6 +126,18 @@ const ActiveSession = () => {
     }
   };
 
+  const allParticipants = async () => {
+      let SessionInfo = await api.get('/sessions/' + sessionId);
+      SessionInfo.data["participants"].forEach(function(item, index, array){
+          setMember(member.push(item["username"]))
+      })
+      setShow(true);
+      setListe(member.map((i) => 
+        <li>{i}</li>
+      ));
+      console.log(member);
+  }
+
 
 
   const reportComment = async () => {
@@ -136,6 +154,32 @@ let reportComments = (<Button
 width="100%"
 onClick={() => reportComment()}> Report comment
 </Button>)
+
+function hideAllParticipants(){
+    setMember([]);
+    setShow(false);
+}
+
+
+
+
+let showParticipants = (
+    <div>
+        <Button width = "100%"
+        onClick={() => allParticipants()}>
+            show all participants
+        </Button>
+    </div>
+)
+
+let hideParticipants = (
+    <div>
+        <Button width = "100%"
+        onClick={() => hideAllParticipants()}>
+            hide participants
+        </Button>
+    </div>
+)
 
 
 
@@ -157,7 +201,6 @@ let commentText = (
      <div className="session">
             <Navbar/>
             <div>{content}</div>
-
             <div className="newComment">
             <div className="newComment container">
             <div className="newComment avatar">
@@ -172,7 +215,15 @@ let commentText = (
                 {addComments}
                 <div>&nbsp;</div>
                 {reportComments}
-                
+                <div>&nbsp;</div>
+                {!show && showParticipants}
+                {show && hideParticipants}
+                <div>&nbsp;</div>
+                {show && <center>
+                    <ul>
+                        {liste}
+                    </ul>
+                </center>}
             </div>
             
         </div>
