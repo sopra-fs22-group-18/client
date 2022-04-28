@@ -55,6 +55,11 @@ const ActiveSession = () => {
         socket.send(JSON.stringify(msg));
     };
 
+    function MessageAdd(message) {
+        // need to save and display received messages in this function
+        console.log(message);
+    }
+
     useEffect(() => {
         let wsocket = new WebSocket(getWsDomain() + '/' + userId + '/' + sessionId);
         setSocket(wsocket);
@@ -65,7 +70,7 @@ const ActiveSession = () => {
 
         wsocket.onmessage = (e) => {
             var data = JSON.parse(e.data);
-            console.log(data)
+            MessageAdd(data);
         }
 
         wsocket.onclose = () => {
