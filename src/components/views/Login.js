@@ -77,6 +77,7 @@ const Login = () => {
       localStorage.setItem('token', user.token);
       // login worked route to /game 
       localStorage.setItem('userId', user.userId);
+      localStorage.setItem('username', user.username);
       history.push(`/game`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
