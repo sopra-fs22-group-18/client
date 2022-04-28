@@ -1,12 +1,12 @@
 import {useEffect, useState} from 'react';
-import {Spinner} from 'components/ui/Spinner';
 import {Button, Button2} from 'components/ui/Button';
 import {useHistory} from 'react-router-dom';
-import BaseContainer from "components/ui/BaseContainer";
+
 import "styles/views/Start.scss";
 import {Navbar} from "../ui/Navbar";
 import logo from "../../img/logo.png"
 import { api, handleError } from 'helpers/api';
+import Session from "../../models/Session";
 //import { useState } from 'react/cjs/react.production.min';
 
 
@@ -20,9 +20,21 @@ const Start = () => {
       history.push('/game/newSession');
   }
 
-  const getSession = () => {
-    history.push('/game/newSession');
-}
+  const joinSession = async() => {
+      try {
+          const userId = localStorage.getItem('userId');
+          const response = await api.get('/sessions/join/' + userId);
+          const session = new Session(response.data);
+          localStorage.setItem('sessionId', session.sessionId);
+          history.push(`/game/session/` + session.sessionId);
+
+      } catch (error) {
+          alert(`Something went wrong when trying to join a session: \n${handleError(error)}`);
+      }
+
+
+  };
+
 
   // the effect hook can be used to react to change in your component.
   // in this case, the effect hook is only run once, the first time the component is mounted
@@ -54,8 +66,8 @@ const Start = () => {
 
     let joinSessionButton = (
         <Button2
-            width="100%">
-            onClick={() => newSession()}>
+            width="100%"
+            onClick={() => joinSession()}>
             Join a session
         </Button2>
     )
