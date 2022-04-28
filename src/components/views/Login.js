@@ -7,14 +7,6 @@ import {Button2} from 'components/ui/Button';
 import 'styles/views/Login.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import {ReactLogo} from "components/ui/ReactLogo";
-/*
-It is possible to add multiple components inside a single file,
-however be sure not to clutter your files with an endless amount!
-As a rule of thumb, use one file per component and only add small,
-specific components that belong to the main one in the same file.
- */
-
 
 
 const FormField = props => {
@@ -65,28 +57,12 @@ FormField2.propTypes = {
   onChange: PropTypes.func
 };
 
-const Login = props => {
+const Login = () => {
   const history = useHistory();
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   
-  
-  const doRegister = async () => {
-    try {
-      const requestBody = JSON.stringify({user, password});
-      const response = await api.post('/users', requestBody);
-      // Get the returned user and update a new object.
-      const user = new User(response.data);
-      // Store the token into the local storage.
-      localStorage.setItem('token', user.token);
-      localStorage.setItem('userId', user.userId);
 
-      // Login successfully worked --> navigate to the route /game in the GameRouter
-      history.push(`/game`);
-    } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
-    }
-  };
 
 
   const doLogin = async () => {
@@ -111,12 +87,12 @@ const Login = props => {
   return (
     <BaseContainer>
 <div id= "container">
-    <section class="container">
-  <div class="bg-image"></div>
-  <div class="content" >
+    <section className="container">
+  <div className="bg-image"></div>
+  <div className="content" >
     
   <div></div>
-  <div class="Logo"></div>
+  <div className="Logo"></div>
   <div className="headerrow" >
       <div className="headerp1" ><h1>Login</h1></div>
       <div className="headerp2"><h1>into the account</h1></div>
@@ -141,13 +117,13 @@ const Login = props => {
       
 
           <div className="register-button-container" >
-          <Button disabled={!username || !password}  width="100%"onClick={() => doLogin()}>Login</Button>
+          <Button disabled={!username || !password}  width="100%" onClick={() => doLogin()}>Login</Button>
 
           <td>&nbsp;&nbsp;&nbsp;</td>
           <div className="login-button-container">
           <div className="alreadyhave"><text >Create a new account</text></div>
 
-          <Button2   width="100%"onClick={() => history.push('/register')}>Register</Button2>
+          <Button2   width="100%" onClick={() => history.push('/register')}>Register</Button2>
 
           </div>
           </div>
