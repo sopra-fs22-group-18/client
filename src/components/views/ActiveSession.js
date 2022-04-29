@@ -175,7 +175,7 @@ let commentText = (
                 <div className="session session-child">
                     <div className="newSession container">
                     <div className="newSession form">
-                    <FormField placeholder={session.title}/>
+                    <h1>{session.title}</h1>
                     <div><img alt="Qries" src={session.imageUrl} width="455" height="455"></img></div>
                     </div>
                     </div>

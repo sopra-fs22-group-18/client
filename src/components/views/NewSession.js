@@ -57,6 +57,7 @@ const NewSession = () => {
 
     const createSession = async () => {
         try {
+            console.log(title);
             const userResponse = await api.get('/users/' + localStorage.getItem('userId'));
             const host = new User(userResponse.data);
             const requestBody = JSON.stringify({title, maxParticipants, host, imageUrl});
