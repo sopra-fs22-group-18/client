@@ -31,6 +31,15 @@
   &.rightChild {
     flex: 1;
   }
+  .leaveSession { 
+    position: center;
+    display:flex;
+    flex-wrap: wrap;
+    gap: 140px;
+    margin-left: 10px;
+  
+    
+  }
 
 }  
 

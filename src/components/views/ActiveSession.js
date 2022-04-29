@@ -5,7 +5,7 @@ import "styles/views/Session.scss"
 import "styles/views/Chat.scss"
 import {api, handleError} from "../../helpers/api";
 import {getWsDomain} from "../../helpers/getWsDomain";
-
+import logoutIcon from "../../img/logout.png";
 import "styles/views/Comment.scss"
 import PropTypes from "prop-types";
 import {Button} from "../ui/Button";
@@ -42,6 +42,7 @@ const ActiveSession = () => {
     const history = useHistory();
     const sessionId = useParams().sessionId;
     const userId = localStorage.getItem('userId');
+    console.log(userId);
     const username = localStorage.getItem('username');
     const [socket, setSocket] = useState(null);
     const [inputMessage, setInputMessage] = useState();
@@ -112,6 +113,18 @@ const ActiveSession = () => {
       fetchData()
     }, []);
 
+    const leaveSession = async () => {
+      try {
+        const userId = localStorage.getItem('userId');
+        const request = await api.put(`/sessions/${sessionId}/leave/` + userId);
+
+        history.push(`/game/start`);
+
+    } catch (error) {
+        alert(`Something went wrong when trying to leave the session: \n${handleError(error)}`);
+    }
+  }
+
     const reportComment = async () => {
         
         history.push('/game/session/'+sessionId+'/Report');    
@@ -137,7 +150,11 @@ const ActiveSession = () => {
 
             let content = (<div className="session container">Loading session...</div>)
     
-
+    let leaveSessionButton = (<Button
+      width="100%"
+      onClick={() => leaveSession()}
+      > <div className = "leaveSession"><div>Leave session</div> <div><img className="icon" src={logoutIcon} alt="logout"/></div></div>
+    </Button>)
     return (
 
         <div className="session">
@@ -158,6 +175,7 @@ const ActiveSession = () => {
                           </div>
                         </div>
                     </div>
+                    {(username != "session.hostUsername") && <div>{leaveSessionButton}</div>}
                   </div>
                 </div>
               </div>
