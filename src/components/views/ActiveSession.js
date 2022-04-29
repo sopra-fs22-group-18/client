@@ -2,6 +2,7 @@ import {useHistory, useParams} from "react-router-dom";
 import {Navbar} from "../ui/Navbar";
 import React, {useEffect, useState} from "react";
 import "styles/views/Session.scss"
+import "styles/views/Chat.scss"
 import {api, handleError} from "../../helpers/api";
 import {getWsDomain} from "../../helpers/getWsDomain";
 
@@ -44,6 +45,7 @@ const ActiveSession = () => {
     const username = localStorage.getItem('username');
     const [socket, setSocket] = useState(null);
     const [inputMessage, setInputMessage] = useState();
+    const messages = [];
 
     const [title, setTitle] = useState(null);
 
@@ -56,8 +58,8 @@ const ActiveSession = () => {
     };
 
     function MessageAdd(message) {
-        // need to save and display received messages in this function
-        console.log(message);
+        messages.push(<div className="chatMessage"> {message.from}: {message.content} </div>);
+        console.log(messages);
     }
 
     useEffect(() => {
@@ -96,18 +98,19 @@ const ActiveSession = () => {
     onClick={() => reportComment()}> Report comment
     </Button>)
 
+    let messageContent = messages.map(item => {
+        return (
+            <div> hello </div>
+        );
+    });
 
+    let avatar = ( <FormField/>)
 
-    let avatar = (
-    <FormField
-    />)
     let commentText = (
         <FormField
             placeholder="Add your comment..."
             value={title}
             onChange={im => setInputMessage(im)}/>)
-
-
 
             let content = (<div className="session container">Loading session...</div>)
 
@@ -124,7 +127,9 @@ const ActiveSession = () => {
                     <div className="newComment username">
                         {"Session " + sessionId + ": " + username}
                     </div>
-                    
+                    <div className="chatContainer">
+                        {messageContent}
+                    </div>
                     <div>&nbsp;</div>
                     <div className="newComment form">
                         {commentText}
