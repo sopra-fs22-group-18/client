@@ -114,31 +114,27 @@ const ActiveSession = () => {
     return (
 
         <div className="session">
-                <Navbar/>
-                <div>{content}</div>
-
-                <div className="newComment">
+            <Navbar/>
+            <div>{content}</div>
+            <div className="newComment">
                 <div className="newComment container">
-                <div className="newComment avatar">
-            <img src={image} width={80} height={80} alt='Avatar' /></div>
-            <div className="newComment username">
-                    {"Session " + sessionId + ": " + username}
-                </div>
-            <div>&nbsp;</div>
-                <div className="newComment form">
-                    {commentText}
-                </div>
+                    <div className="newComment avatar">
+                        <img src={image} width={80} height={80} alt='Avatar' />
+                    </div>
+                    <div className="newComment username">
+                        {"Session " + sessionId + ": " + username}
+                    </div>
+                    
+                    <div>&nbsp;</div>
+                    <div className="newComment form">
+                        {commentText}
+                    </div>
                     {addComments}
                     <div>&nbsp;</div>
                     {reportComments}
-                    
                 </div>
-                
-            </div>
-
-        )
-
-            </div>
+            </div>)
+        </div>
         )
     }
 
