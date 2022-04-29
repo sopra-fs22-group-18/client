@@ -45,7 +45,7 @@ const ActiveSession = () => {
     const username = localStorage.getItem('username');
     const [socket, setSocket] = useState(null);
     const [inputMessage, setInputMessage] = useState();
-    const messages = [];
+    const [messages, setInputMessages] = useState([]);
 
     const [title, setTitle] = useState(null);
 
@@ -58,7 +58,8 @@ const ActiveSession = () => {
     };
 
     function MessageAdd(message) {
-        messages.push(<div className="chatMessage"> {message.from}: {message.content} </div>);
+        messages.push(message);
+        // here we have the array with all messages in order
         console.log(messages);
     }
 
@@ -98,12 +99,6 @@ const ActiveSession = () => {
     onClick={() => reportComment()}> Report comment
     </Button>)
 
-    let messageContent = messages.map(item => {
-        return (
-            <div> hello </div>
-        );
-    });
-
     let avatar = ( <FormField/>)
 
     let commentText = (
@@ -128,7 +123,6 @@ const ActiveSession = () => {
                         {"Session " + sessionId + ": " + username}
                     </div>
                     <div className="chatContainer">
-                        {messageContent}
                     </div>
                     <div>&nbsp;</div>
                     <div className="newComment form">
