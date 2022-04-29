@@ -46,6 +46,7 @@ const ActiveSession = () => {
     const [socket, setSocket] = useState(null);
     const [inputMessage, setInputMessage] = useState();
     const [messages, setInputMessages] = useState([]);
+    let messageIndex = 0;
 
     const [title, setTitle] = useState(null);
 
@@ -58,9 +59,9 @@ const ActiveSession = () => {
     };
 
     function MessageAdd(message) {
-        messages.push(message);
-        // here we have the array with all messages in order
-        console.log(messages);
+        setInputMessages(messages => [...messages, <div className="chatMessage" key={messageIndex}> {message.from}: {message.content} </div>]);
+        //messages.push(<div className="chatMessage" key={messageIndex}> {message.from}: {message.content} </div>);
+        messageIndex += 1;
     }
 
     useEffect(() => {
@@ -123,6 +124,7 @@ const ActiveSession = () => {
                         {"Session " + sessionId + ": " + username}
                     </div>
                     <div className="chatContainer">
+                        {messages}
                     </div>
                     <div>&nbsp;</div>
                     <div className="newComment form">
