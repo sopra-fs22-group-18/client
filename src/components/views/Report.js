@@ -4,7 +4,6 @@ import React, {useEffect, useState} from "react";
 import "styles/views/Session.scss"
 import {api, handleError} from "../../helpers/api";
 import {getWsDomain} from "../../helpers/getWsDomain";
-import Dropdown  from 'react-dropdown';
 
 import "styles/views/Comment.scss"
 import PropTypes from "prop-types";

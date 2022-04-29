@@ -7,6 +7,7 @@ class Session {
     this.sessionId = null;
     this.title = null;
     this.image = null;
+    this.imageUrl = null;
     this.maxParticipants = null;
     this.sessionStatus = null;
     this.host = null;

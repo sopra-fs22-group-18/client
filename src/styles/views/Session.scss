@@ -18,7 +18,22 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+  }
+  &.session-container {
+    display: flex;
   }
 
+  &session-child {
+    flex: 1;
+    border: 2px solid black;
+
+  &.session-child:first-child {
+    margin-right: 20px;
+  } 
+
+}  
+
+  
 }
 

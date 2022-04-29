@@ -53,7 +53,23 @@ const ActiveSession = () => {
   const [createdDate, setCreatedDate] = useState(null);
   const [username, setUsername] = useState("maxihassluja");
 
+  useEffect(() => {
+    // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
+    async function fetchData() {
+      try {
+        const response =  await api.get('/sessions/'+ sessionId );
 
+        setSession(response.data);
+
+      } catch (error) {
+        console.error(`Something went wrong while getting the data for the session: \n${handleError(error)}`);
+        console.error("Details:", error);
+        alert("Something went wrong while getting the data for the session! See the console for details.");
+      }
+    }
+
+    fetchData();
+  }, []);
   
   const createComment = async () => {
     try {
@@ -150,37 +166,45 @@ let commentText = (
 
 
 
-        let content = (<div className="session container">Loading session...</div>)
 
   return (
 
-     <div className="session">
-            <Navbar/>
-            <div>{content}</div>
-
-            <div className="newComment">
-            <div className="newComment container">
-            <div className="newComment avatar">
-           <img src={image} width={80} height={80} alt='Avatar' /></div>
-           <div className="newComment username">
-                {username}
-            </div>
-           <div>&nbsp;</div>
-            <div className="newComment form">
-                {commentText}
-            </div>
-                {addComments}
-                <div>&nbsp;</div>
-                {reportComments}
-                
-            </div>
+    <div className="session">
+        <Navbar/>
+            <div className="session session-container">
+                <div className="session session-child">
+                    <div className="newSession container">
+                    <div className="newSession form">
+                    <FormField placeholder={session.title}/>
+                    <div><img alt="Qries" src={session.imageUrl} width="455" height="455"></img></div>
+                    </div>
+                    </div>
+                </div>
+                <div className="session session-child">
+                    <div className="newComment">
+                        <div className="newComment container">
+                            <div className="newComment avatar">
+                            <img src={image} width={80} height={80} alt='Avatar' /></div>
+                            <div className="newComment username">
+                                {username}
+                            </div>
+                            <div>&nbsp;</div>
+                            <div className="newComment form">
+                                {commentText}
+                            </div>
+                            {addComments}
+                            <div>&nbsp;</div>
+                            {reportComments}
             
-        </div>
+                        </div>
+                    </div>
+                </div>
 
-    )
 
-        </div>
-    )
+            </div>
+)
+    </div>
+)
 }
 
 export default ActiveSession
