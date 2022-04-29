@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 import { storage, ref, uploadBytes, getDownloadURL, firestore, timestamp, collection} from '../../firebase/config';
 
 const useStorage = (file) => {
-  const [progress, setProgress] = useState(0);
-  const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
 
 
@@ -18,8 +16,7 @@ const useStorage = (file) => {
     uploadBytes(storageRef, file).then(
       () =>{
         getDownloadURL(storageRef).then(function(url){
-          console.log(url);
-
+        setUrl(url);  
         const img = document.getElementById('image');
         img.src = url
           
@@ -34,7 +31,7 @@ const useStorage = (file) => {
     });
   }, [file]);
 
-  return { progress, url, error};
+  return {url};
 }
 
 export default useStorage;

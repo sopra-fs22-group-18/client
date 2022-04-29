@@ -45,7 +45,7 @@ const NewSession = () => {
     const handleChange = (e) => {
       let selected = e.target.files[0]; // to select the first file (in order someone selects more files)
       console.log(selected); 
-  
+      
       if (selected && types.includes(selected.type)) {
         setFile(selected);
         setError('');
@@ -57,6 +57,7 @@ const NewSession = () => {
 
     const createSession = async () => {
         try {
+            console.log(title);
             const userResponse = await api.get('/users/' + localStorage.getItem('userId'));
             const host = new User(userResponse.data);
             const requestBody = JSON.stringify({title, maxParticipants, host, imageUrl});
