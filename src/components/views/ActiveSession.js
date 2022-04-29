@@ -46,6 +46,8 @@ const ActiveSession = () => {
     const [socket, setSocket] = useState(null);
     const [inputMessage, setInputMessage] = useState();
     const [messages, setInputMessages] = useState([]);
+    const [session, setSession] = useState([]);
+
     let messageIndex = 0;
 
     const [title, setTitle] = useState(null);
@@ -67,7 +69,7 @@ const ActiveSession = () => {
     useEffect(() => {
         let wsocket = new WebSocket(getWsDomain() + '/' + userId + '/' + sessionId);
         setSocket(wsocket);
-
+        
         wsocket.onopen = () => {
             console.log("WebSocket Connected");
         }
@@ -80,9 +82,34 @@ const ActiveSession = () => {
         wsocket.onclose = () => {
             console.log("WebSocket Closed")
         }
+        
         return () => {
             wsocket.close();
         }
+
+
+    }, []);
+
+    useEffect(() => {
+      // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
+      const fetchData = async () => {
+        try {
+          const response =  await api.get('/sessions/'+ sessionId );
+
+          setSession(response.data);
+
+          console.log('request to:', response.request.responseURL);
+          console.log('status code:', response.status);
+          console.log('status text:', response.statusText);
+          console.log('requested data:', response.data);
+        } catch (error) {
+          console.error(`Something went wrong while getting the data for the session: \n${handleError(error)}`);
+          console.error("Details:", error);
+          alert("Something went wrong while getting the data for the session! See the console for details.");
+        }
+      }
+
+      fetchData()
     }, []);
 
     const reportComment = async () => {
@@ -109,11 +136,32 @@ const ActiveSession = () => {
             onChange={im => setInputMessage(im)}/>)
 
             let content = (<div className="session container">Loading session...</div>)
+    
 
     return (
 
         <div className="session">
             <Navbar/>
+            <div class='session parent'>
+              <div class='session leftChild'>
+                  <div className="newSession">
+                    <div className="newSession container">
+                        <div className="newSession form">
+                        <div className = "uploadImage">
+                          <div className = "uploadImage input">
+                            <label>
+                            <div className title-field>{session.title}</div>
+                            </label>
+                          </div>
+                          <div className="uploadImage output">
+                            <img alt="Image" src={session.imageUrl}></img>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class='session rightChild'>
             <div>{content}</div>
             <div className="newComment">
                 <div className="newComment container">
@@ -134,6 +182,8 @@ const ActiveSession = () => {
                     <div>&nbsp;</div>
                     {reportComments}
                 </div>
+            </div> 
+            </div>
             </div>)
         </div>
         )

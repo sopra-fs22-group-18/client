@@ -4,7 +4,7 @@
   background-color: #873e23;
   overflow: hidden;
   position: relative;
-  height: 100vh;
+  height: 200vh;
 
   &.container {
     position: absolute;
@@ -20,20 +20,18 @@
     gap: 10px;
 
   }
-  &.session-container {
+
+  &.parent {
     display: flex;
+    flex-flow:row;
   }
-
-  &session-child {
+  &.leftChild {
     flex: 1;
-    border: 2px solid black;
-
-  &.session-child:first-child {
-    margin-right: 20px;
-  } 
+  }
+  &.rightChild {
+    flex: 1;
+  }
 
 }  
 
-  
-}
 
