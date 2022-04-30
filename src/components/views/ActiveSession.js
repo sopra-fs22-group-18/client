@@ -118,6 +118,13 @@ const ActiveSession = () => {
         const userId = localStorage.getItem('userId');
         const request = await api.put(`/sessions/${sessionId}/leave/` + userId);
 
+        var msg = {
+            from: "Server",
+            content: `${username} has left the session!`
+        };
+
+        socket.send(JSON.stringify(msg));
+
         history.push(`/game/start`);
 
     } catch (error) {
@@ -148,7 +155,7 @@ const ActiveSession = () => {
             value={title}
             onChange={im => setInputMessage(im)}/>)
 
-            let content = (<div className="session container">Loading session...</div>)
+    let content = (<div className="session container">Loading session...</div>)
     
     let leaveSessionButton = (<Button
       width="100%"
@@ -175,7 +182,7 @@ const ActiveSession = () => {
                           </div>
                         </div>
                     </div>
-                    {(username != "session.hostUsername") && <div>{leaveSessionButton}</div>}
+                    {(username != session.hostUsername) && <div>{leaveSessionButton}</div>}
                   </div>
                 </div>
               </div>
@@ -194,9 +201,9 @@ const ActiveSession = () => {
                     </div>
                     <div>&nbsp;</div>
                     <div className="newComment form">
-                        {commentText}
+                      {(username != session.hostUsername) && <div>{commentText}</div>}
                     </div>
-                    {addComments}
+                    {(username != session.hostUsername) && <div>{addComments}</div>}
                     <div>&nbsp;</div>
                     {reportComments}
                 </div>
