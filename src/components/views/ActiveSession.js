@@ -50,6 +50,9 @@ const ActiveSession = () => {
     const [inputMessage, setInputMessage] = useState();
     const [messages, setInputMessages] = useState([]);
     const [session, setSession] = useState([]);
+    const [show, setShow] = useState(false);
+    const [participantsList, setParticipantsList] = useState ([]);
+
 
     let messageIndex = 0;
 
@@ -164,6 +167,33 @@ const ActiveSession = () => {
       onClick={() => leaveSession()}
       > <div className = "leaveSession"><div>Leave session</div> <div><img className="icon" src={logoutIcon} alt="logout"/></div></div>
     </Button>)
+
+    function selectTheWinner(){
+      setShow(true);
+    }
+
+    function hideAllParticipants(){
+      setShow(false);
+    }
+
+    let hideParticipants = (
+      <div>
+          <Button width = "100%"
+          onClick={() => hideAllParticipants()}>
+              Don't select the Winner now
+          </Button>
+      </div>
+  )
+  
+    let showParticipants = (
+      <div>
+        <Button width = "100%"
+        onClick ={() => selectTheWinner()}>
+          Select the Winner
+        </Button>
+      </div>
+    )
+
     return (
 
         <div className="session">
@@ -184,7 +214,7 @@ const ActiveSession = () => {
                           </div>
                         </div>
                     </div>
-                    {(username != session.hostUsername) && <div>{leaveSessionButton}</div>}
+                    {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
                   </div>
                 </div>
               </div>
@@ -203,11 +233,21 @@ const ActiveSession = () => {
                     </div>
                     <div>&nbsp;</div>
                     <div className="newComment form">
-                      {(username != session.hostUsername) && <div>{commentText}</div>}
+                      {(username !== session.hostUsername) && <div>{commentText}</div>}
                     </div>
-                    {(username != session.hostUsername) && <div>{addComments}</div>}
+                    {(username !== session.hostUsername) && <div>{addComments}</div>}
                     <div>&nbsp;</div>
                     {reportComments}
+                    <div>&nbsp;</div>
+                    {(username === session.hostUsername && !show) && showParticipants}
+                    <div>&nbsp;</div>
+                    {(username === session.hostUsername && show) && hideParticipants}
+                    <div>&nbsp;</div>
+                    {show && <center>
+                      <ul>
+                        <li>{session.participants[0].username}</li>
+                        </ul>
+                      </center>}
                 </div>
             </div> 
             </div>
