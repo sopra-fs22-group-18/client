@@ -4,7 +4,7 @@
   background-color: #873e23;
   overflow: hidden;
   position: relative;
-  height: 100vh;
+  height: 200vh;
 
   &.container {
     position: absolute;
@@ -46,6 +46,7 @@
     &.text {
       padding-top: 10px;
     }
+
   }
 }
 
@@ -79,6 +80,10 @@
     border-style: dotted;
     display: flex;
     justify-content: center;
+  }
+  img {
+    width:100%;
+    height:100%;
   }
 }
 

@@ -1,0 +1,127 @@
+@import 'styles/theme';
+
+
+.bg-image { 
+  /* The image used */
+  background-image: url("/img/backgroundimage.jpg");
+  /* Center and scale the image nicely */
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: 100% 100%;
+}
+
+.content {
+  flex: 1;
+  position:relative;
+  height: 100%;
+  overflow: auto;
+  /* Center and scale the image nicely */
+
+.Logo{
+  flex: 1;
+  overflow: auto;
+  overflow: hidden; /* Hide scrollbars */
+  background-image: url("/img/roastmelogo.svg");
+  /* Center and scale the image nicely */
+  background-repeat: no-repeat;
+  background-position: right top;
+ 
+
+
+}
+.headerrow{
+  display: flex; 
+  margin-left: 5%;;
+  margin-right: 20%;
+  text-align: center;
+}
+
+
+&.headerp1{
+  flex:2;
+  color: $headertextColor1;
+  font-family: $fontHeader;
+  text-align: right;
+
+
+}
+
+
+&.headerp2{
+  flex:2;
+  color: $headertextColor2;
+  font-family: $fontHeader;
+  text-align: left
+
+
+  }
+  .sendMessage {
+
+    &.container {
+    /*background-image: url("/img/backgroundimage.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;*/
+    resize: both;
+    display: flex;
+  
+    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
+    @include center;
+  
+    flex-direction: column;
+  }
+  &.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    font-size: 16px;
+    font-weight: 400;
+    padding-left: 37px;
+    padding-right: 37px;
+    background-color: $background;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  &.field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  &.input {
+    height: 50px;
+    padding-left: 15px;
+    margin-left: -4px;
+    border: solid #dbdfe5;
+    border-radius: 5em;
+    margin-bottom: 20px;
+   
+    color: $textColor;
+  }
+  &.label {
+    color: $textColor;
+    margin-bottom: 2%;
+    font-weight: 600;
+  }
+  .login-button-container {
+    margin-top:40%;
+    color: $headertextColor1;
+  }
+  .register-button-container {
+    margin-top: 1%;
+    margin-bottom:0;
+    color: $headertextColor1;
+  }
+
+  .alreadyhave {
+    height: 3%;
+    color: #616161;
+    font-weight: 600;
+
+  }
+
+  
+
+
+}
+  
+
+}

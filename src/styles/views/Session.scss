@@ -4,7 +4,7 @@
   background-color: #873e23;
   overflow: hidden;
   position: relative;
-  height: 100vh;
+  height: 200vh;
 
   &.container {
     position: absolute;
@@ -18,7 +18,29 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+
   }
 
-}
+  &.parent {
+    display: flex;
+    flex-flow:row;
+  }
+  &.leftChild {
+    flex: 1;
+  }
+  &.rightChild {
+    flex: 1;
+  }
+  .leaveSession { 
+    position: center;
+    display:flex;
+    flex-wrap: wrap;
+    gap: 140px;
+    margin-left: 10px;
+  
+    
+  }
+
+}  
+
 

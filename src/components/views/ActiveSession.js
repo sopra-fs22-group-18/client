@@ -2,9 +2,10 @@ import {useHistory, useParams} from "react-router-dom";
 import {Navbar} from "../ui/Navbar";
 import React, {useEffect, useState} from "react";
 import "styles/views/Session.scss"
+import "styles/views/Chat.scss"
 import {api, handleError} from "../../helpers/api";
 import {getWsDomain} from "../../helpers/getWsDomain";
-
+import logoutIcon from "../../img/logout.png";
 import "styles/views/Comment.scss"
 import PropTypes from "prop-types";
 import {Button} from "../ui/Button";
@@ -40,198 +41,179 @@ FormField.propTypes = {
 
 
 const ActiveSession = () => {
-  const history = useHistory();
-  const sessionId = useParams().sessionId;
-  const userId = localStorage.getItem('userId');
-    const [show, setShow] = useState(false);
-  const [user, setUser] = useState(null);
-  const [session, setSession] = useState(null);
-  const [socket, setSocket] = useState(new WebSocket(getWsDomain() + '/' + userId + '/' + sessionId));
-  const [messages, setMessages] = useState([]);
-  const [member, setMember] = useState([]);
-  const [liste, setListe] = useState(null);
+    const history = useHistory();
+    const sessionId = useParams().sessionId;
+    const userId = localStorage.getItem('userId');
+    console.log(userId);
+    const username = localStorage.getItem('username');
+    const [socket, setSocket] = useState(null);
+    const [inputMessage, setInputMessage] = useState();
+    const [messages, setInputMessages] = useState([]);
+    const [session, setSession] = useState([]);
+
+    let messageIndex = 0;
+
+    const [title, setTitle] = useState(null);
+
+    const sendMessage = async () => {
+        var msg = {
+            from: username,
+            content: inputMessage
+        };
+        socket.send(JSON.stringify(msg));
+    };
+
+    function MessageAdd(message) {
+        setInputMessages(messages => [...messages, <div className="chatMessage" key={messageIndex}> {message.from}: {message.content} </div>]);
+        //messages.push(<div className="chatMessage" key={messageIndex}> {message.from}: {message.content} </div>);
+        messageIndex += 1;
+    }
+
+    useEffect(() => {
+        let wsocket = new WebSocket(getWsDomain() + '/' + userId + '/' + sessionId);
+        setSocket(wsocket);
+        
+        wsocket.onopen = () => {
+            console.log("WebSocket Connected");
+        }
+
+        wsocket.onmessage = (e) => {
+            var data = JSON.parse(e.data);
+            MessageAdd(data);
+        }
+
+        wsocket.onclose = () => {
+            console.log("WebSocket Closed")
+        }
+        
+        return () => {
+            wsocket.close();
+        }
 
 
+    }, []);
 
-  const [title, setTitle] = useState(null);
-  const [title2, setTitle2] = useState(null);
-  const [commentId, setCommentId] = useState(null);
-  const [createdDate, setCreatedDate] = useState(null);
-  const [username, setUsername] = useState("username");
+    useEffect(() => {
+      // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
+      const fetchData = async () => {
+        try {
+          const response =  await api.get('/sessions/'+ sessionId );
 
+          setSession(response.data);
 
-  
-  const createComment = async () => {
-    try {
-      const session =  await api.get('/sessions/'+sessionId );
-      const user =  await api.get('/users/'+userId);
-      const ma="max";
-      const sa=null;
-      const requestBody1 = JSON.stringify({user, session, ma,sa });
+          console.log('request to:', response.request.responseURL);
+          console.log('status code:', response.status);
+          console.log('status text:', response.statusText);
+          console.log('requested data:', response.data);
+        } catch (error) {
+          console.error(`Something went wrong while getting the data for the session: \n${handleError(error)}`);
+          console.error("Details:", error);
+          alert("Something went wrong while getting the data for the session! See the console for details.");
+        }
+      }
 
-      const requestBody2 = {
-        "user": {
-                "userId": 54,
-                "username": "carol2",
-                "password": "carol2",
-                "userStatus": "ONLINE",
-                "token": "96c0ad76-9819-4f6a-892c-1fecaa576a11",
-                "imagepath": null,
-                "userType": null
-            },
-        "session":{
-            "sessionId":4,
-        "host": {
-            "userId": 1,
-            "username": "test1",
-            "password": "test1",
-            "userStatus": "ONLINE",
-            "token": "fb7849c5-c0cb-43fa-ac02-04c094af055b",
-            "imagepath": null,
-            "userType": "STANDARD"
-        },
-        "participants": [
-            {
-                "userId": 54,
-                "username": "carol2",
-                "password": "carol2",
-                "userStatus": "ONLINE",
-                "token": "96c0ad76-9819-4f6a-892c-1fecaa576a11",
-                "imagepath": null,
-                "userType": null
-            },
-            {
-                "userId": 55,
-                "username": "carol1",
-                "password": "carol1",
-                "userStatus": "ONLINE",
-                "token": "08b12917-5327-4231-9d74-3feb85ff0a2e",
-                "imagepath": null,
-                "userType": null
-            }
-        ],
-        "maxParticipants": 2,
-        "sessionStatus": "ONGOING",
-        "title": "testsession",
-        "hostUsername": "test1",
-        "imageUrl": null
-    },"commentText":"maxjj","createdDate":null};
+      fetchData()
+    }, []);
 
-     api.post('/sessions/'+sessionId+'/comments', requestBody2);
-     api.post('/sessions/'+sessionId+'/comments', requestBody1);
-     history.push('/game/sesssion/'+sessionId);    
+    const leaveSession = async () => {
+      try {
+        const userId = localStorage.getItem('userId');
+        const request = await api.put(`/sessions/${sessionId}/leave/` + userId);
+
+        var msg = {
+            from: "Server",
+            content: `${username} has left the session!`
+        };
+
+        socket.send(JSON.stringify(msg));
+
+        history.push(`/game/start`);
 
     } catch (error) {
-      alert(`Something went wrong during the cration of the comment: \n${handleError(error)}`);
+        alert(`Something went wrong when trying to leave the session: \n${handleError(error)}`);
     }
-  };
-
-  const allParticipants = async () => {
-      let SessionInfo = await api.get('/sessions/' + sessionId);
-      SessionInfo.data["participants"].forEach(function(item, index, array){
-          setMember(member.push(item["username"]))
-      })
-      setShow(true);
-      setListe(member.map((i) => 
-        <li>{i}</li>
-      ));
-      console.log(member);
   }
 
+    const reportComment = async () => {
+        
+        history.push('/game/session/'+sessionId+'/Report');    
+    };
 
+    let addComments = (<Button
+        width="100%"
+        onClick={() => sendMessage()}> Add comment
+    </Button>)
 
-  const reportComment = async () => {
-    
-    history.push('/game/session/'+sessionId+'/Report');    
-  };
-
-  let addComments = (<Button
+    let reportComments = (<Button
     width="100%"
-    onClick={() => createComment()}> Add comment
-</Button>)
+    onClick={() => reportComment()}> Report comment
+    </Button>)
 
-let reportComments = (<Button
-width="100%"
-onClick={() => reportComment()}> Report comment
-</Button>)
+    let avatar = ( <FormField/>)
 
-function hideAllParticipants(){
-    setMember([]);
-    setShow(false);
-}
+    let commentText = (
+        <FormField
+            placeholder="Add your comment..."
+            value={title}
+            onChange={im => setInputMessage(im)}/>)
 
+    let content = (<div className="session container">Loading session...</div>)
+    
+    let leaveSessionButton = (<Button
+      width="100%"
+      onClick={() => leaveSession()}
+      > <div className = "leaveSession"><div>Leave session</div> <div><img className="icon" src={logoutIcon} alt="logout"/></div></div>
+    </Button>)
+    return (
 
-
-
-let showParticipants = (
-    <div>
-        <Button width = "100%"
-        onClick={() => allParticipants()}>
-            show all participants
-        </Button>
-    </div>
-)
-
-let hideParticipants = (
-    <div>
-        <Button width = "100%"
-        onClick={() => hideAllParticipants()}>
-            hide participants
-        </Button>
-    </div>
-)
-
-
-
-let avatar = (
-<FormField
-/>)
-let commentText = (
-    <FormField
-        placeholder="Add your comment..."
-        value={title}
-        onChange={e => commentText.onChange(e.target.value)}/>)
-
-
-
-        let content = (<div className="session container">Loading session...</div>)
-
-  return (
-
-     <div className="session">
+        <div className="session">
             <Navbar/>
+            <div class='session parent'>
+              <div class='session leftChild'>
+                  <div className="newSession">
+                    <div className="newSession container">
+                        <div className="newSession form">
+                        <div className = "uploadImage">
+                          <div className = "uploadImage input">
+                            <label>
+                            <div className title-field>{session.title}</div>
+                            </label>
+                          </div>
+                          <div className="uploadImage output">
+                            <img alt="Image" src={session.imageUrl}></img>
+                          </div>
+                        </div>
+                    </div>
+                    {(username != session.hostUsername) && <div>{leaveSessionButton}</div>}
+                  </div>
+                </div>
+              </div>
+            <div class='session rightChild'>
             <div>{content}</div>
             <div className="newComment">
-            <div className="newComment container">
-            <div className="newComment avatar">
-           <img src={image} width={80} height={80} alt='Avatar' /></div>
-           <div className="newComment username">
-                {username}
+                <div className="newComment container">
+                    <div className="newComment avatar">
+                        <img src={image} width={80} height={80} alt='Avatar' />
+                    </div>
+                    <div className="newComment username">
+                        {"Session " + sessionId + ": " + username}
+                    </div>
+                    <div className="chatContainer">
+                        {messages}
+                    </div>
+                    <div>&nbsp;</div>
+                    <div className="newComment form">
+                      {(username != session.hostUsername) && <div>{commentText}</div>}
+                    </div>
+                    {(username != session.hostUsername) && <div>{addComments}</div>}
+                    <div>&nbsp;</div>
+                    {reportComments}
+                </div>
+            </div> 
             </div>
-           <div>&nbsp;</div>
-            <div className="newComment form">
-                {commentText}
-            </div>
-                {addComments}
-                <div>&nbsp;</div>
-                {reportComments}
-                <div>&nbsp;</div>
-                {!show && showParticipants}
-                {show && hideParticipants}
-                <div>&nbsp;</div>
-                {show && <center>
-                    <ul>
-                        {liste}
-                    </ul>
-                </center>}
-            </div>
-            
+            </div>)
         </div>
+        )
+    }
 
-    )
-
-        </div>
-    )
-}
-
-export default ActiveSession
+    export default ActiveSession

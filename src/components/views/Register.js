@@ -7,12 +7,7 @@ import {Button2} from 'components/ui/Button';
 import 'styles/views/Register.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-/*
-It is possible to add multiple components inside a single file,
-however be sure not to clutter your files with an endless amount!
-As a rule of thumb, use one file per component and only add small,
-specific components that belong to the main one in the same file.
- */
+
 
 
 
@@ -62,7 +57,7 @@ FormField2.propTypes = {
   onChange: PropTypes.func
 };
 
-const Register = props => {
+const Register = () => {
   const history = useHistory();
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
@@ -77,6 +72,7 @@ const Register = props => {
       // Store the token into the local storage.
       localStorage.setItem('token', user.token);
       localStorage.setItem('userId', user.userId);
+      localStorage.setItem('username', user.username);
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
       history.push(`/game`);
@@ -86,48 +82,19 @@ const Register = props => {
   };
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
     <BaseContainer>
 
-    <section class="container">
-  <div class="bg-image"></div>
-  <div class="content" >
+    <section className="container">
+  <div className="bg-image"></div>
+  <div className="content" >
     
   <div></div>
-  <div class="Logo"></div>
+  <div className="Logo"></div>
   <div className="headerrow">
       <div className="headerp1" ><h1>Create</h1></div>
       <div className="headerp2"><h1>a new account</h1></div>
   </div>
-
-  
-
-
-
-
-
-
-
-
-
-
-
 
 
       <div className="login container">
@@ -148,13 +115,13 @@ const Register = props => {
       
 
           <div className="register-button-container" >
-          <Button disabled={!username || !password}  width="100%"onClick={() => doRegister()}>Register</Button>
+          <Button disabled={!username || !password}  width="100%" onClick={() => doRegister()}>Register</Button>
 
           <td>&nbsp;&nbsp;&nbsp;</td>
           <div className="login-button-container">
           <div className="alreadyhave"><text >Already have an account?</text></div>
 
-          <Button2   width="100%"onClick={() => history.push('/login')}>Login</Button2>
+          <Button2   width="100%" onClick={() => history.push('/login')}>Login</Button2>
 
           </div>
           </div>
@@ -167,8 +134,5 @@ const Register = props => {
   );
 };
 
-/**
- * You can get access to the history object's properties via the withRouter.
- * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
- */
+
 export default Register;

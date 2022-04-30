@@ -1,0 +1,21 @@
+/* Chat containers */
+.chatContainer {
+    overflow-y: auto;
+    height: 300px;
+    margin-top: 20px;
+}
+.chatMessage {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    height: 50px;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0;
+    text-align: start;
+}
+  /* Clear floats */
+  .chatcontainer::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
