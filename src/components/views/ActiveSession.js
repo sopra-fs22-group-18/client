@@ -132,6 +132,16 @@ const ActiveSession = () => {
     }
   }
 
+  const determineWinner = async () => {
+    try {
+
+      /* history.push(`/sessions/{sessionId}/{winnerId}`); TODO: go to the determine winner page, where the host chooses the winner*/
+
+  } catch (error) {
+      alert(`Something went wrong when trying to leave the session: \n${handleError(error)}`);
+  }
+}
+
     const reportComment = async () => {
         
         history.push('/game/session/'+sessionId+'/Report');    
@@ -162,6 +172,13 @@ const ActiveSession = () => {
       onClick={() => leaveSession()}
       > <div className = "leaveSession"><div>Leave session</div> <div><img className="icon" src={logoutIcon} alt="logout"/></div></div>
     </Button>)
+
+    let determineWinnerButton = (<Button
+      width="100%"
+      onClick={() => determineWinner()}
+      > <div className = "determineWinner"><div>Determine winner</div></div>
+    </Button>)
+
     return (
 
         <div className="session">
@@ -183,6 +200,7 @@ const ActiveSession = () => {
                         </div>
                     </div>
                     {(username != session.hostUsername) && <div>{leaveSessionButton}</div>}
+                    {(username == session.hostUsername) && <div>{determineWinnerButton}</div>}
                   </div>
                 </div>
               </div>
