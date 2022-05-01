@@ -142,16 +142,6 @@ const ActiveSession = () => {
     }
   }
 
-  const determineWinner = async () => {
-    try {
-
-      /* history.push(`/sessions/{sessionId}/{winnerId}`); TODO: go to the determine winner page, where the host chooses the winner*/
-
-  } catch (error) {
-      alert(`Something went wrong when trying to leave the session: \n${handleError(error)}`);
-  }
-}
-
     const reportComment = async () => {
         
         history.push('/game/session/'+sessionId+'/Report');    
@@ -183,11 +173,6 @@ const ActiveSession = () => {
       > <div className = "leaveSession"><div>Leave session</div> <div><img className="icon" src={logoutIcon} alt="logout"/></div></div>
     </Button>)
 
-    let determineWinnerButton = (<Button
-      width="100%"
-      onClick={() => determineWinner()}
-      > <div className = "determineWinner"><div>Determine winner</div></div>
-    </Button>)
     function selectTheWinner(){
       session.participants.forEach(function(item, index, array){
         if(item["userId"] !== session.host["userId"]){
@@ -282,7 +267,16 @@ const ActiveSession = () => {
                           </div>
                         </div>
                     </div>
-                    {(username == session.hostUsername) && <div>{determineWinnerButton}</div>}
+                    {(username === session.hostUsername && !show) && showParticipants}
+                    <div>&nbsp;</div>
+                    {(username === session.hostUsername && show) && hideParticipants}
+                    <div>&nbsp;</div>
+                    {show && <center>
+                      <ul>
+                          {showList}
+                      </ul>
+                      </center>}
+                    {noParticipants && noActiveParticipants}
                     {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
                   </div>
                 </div>
@@ -309,17 +303,6 @@ const ActiveSession = () => {
                     {(username !== session.hostUsername) && <div>{addComments}</div>}
                     <div>&nbsp;</div>
                     {reportComments}
-                    <div>&nbsp;</div>
-                    {(username === session.hostUsername && !show) && showParticipants}
-                    <div>&nbsp;</div>
-                    {(username === session.hostUsername && show) && hideParticipants}
-                    <div>&nbsp;</div>
-                    {show && <center>
-                      <ul>
-                          {showList}
-                      </ul>
-                      </center>}
-                    {noParticipants && noActiveParticipants}
                 </div>
             </div> 
             </div>
