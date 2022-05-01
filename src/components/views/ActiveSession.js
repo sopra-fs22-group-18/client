@@ -52,6 +52,10 @@ const ActiveSession = () => {
     const [session, setSession] = useState([]);
     const [show, setShow] = useState(false);
     const [participantsList, setParticipantsList] = useState ([]);
+    const [showList, setShowList] = useState(null);
+    const [sessionWinner, setSessionWinner] = useState(null);
+    const [showWinner, setShowWinner] = useState(false);
+    const [winnerId, setWinnerId] = useState([]);
 
 
     let messageIndex = 0;
@@ -160,7 +164,7 @@ const ActiveSession = () => {
             value={title}
             onChange={im => setInputMessage(im)}/>)
 
-    let content = (<div className="session container">Loading session...</div>)
+    let content = (<div className="session container">Loading session...</div>)         
     
     let leaveSessionButton = (<Button
       width="100%"
@@ -169,10 +173,43 @@ const ActiveSession = () => {
     </Button>)
 
     function selectTheWinner(){
+      session.participants.forEach(function(item, index, array){
+        setParticipantsList(participantsList.push(item));
+        console.log(participantsList);
+      });
       setShow(true);
+      setShowList(participantsList.map((i) => 
+      <li>
+        <Button width="100%" onClick={()=> TheWinnerisSelected(i)}>
+          {i["username"]}
+        </Button>
+      </li> 
+      ));
     }
 
+    function TheWinnerisSelected(x){
+      setSessionWinner(x["username"]);
+      setWinnerId(winnerId.push(x["userId"]));
+      setShowWinner(true);
+      postTheWinner();
+    }
+
+    //const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    const postTheWinner = async() => {
+      await api.post(`/sessions/${sessionId}/${winnerId[0]}`);
+    }
+
+    let ShowMessage = (
+      <div>
+        <h1>
+          The Winner is: {sessionWinner}
+        </h1>
+      </div>
+    )
+
     function hideAllParticipants(){
+      setParticipantsList([]);
       setShow(false);
     }
 
@@ -230,6 +267,7 @@ const ActiveSession = () => {
                     </div>
                     <div className="chatContainer">
                         {messages}
+                        {(showWinner) && ShowMessage}
                     </div>
                     <div>&nbsp;</div>
                     <div className="newComment form">
@@ -245,8 +283,8 @@ const ActiveSession = () => {
                     <div>&nbsp;</div>
                     {show && <center>
                       <ul>
-                        <li>{session.participants[0].username}</li>
-                        </ul>
+                          {showList}
+                      </ul>
                       </center>}
                 </div>
             </div> 
