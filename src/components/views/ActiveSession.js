@@ -9,6 +9,9 @@ import logoutIcon from "../../img/logout.png";
 import "styles/views/Comment.scss"
 import PropTypes from "prop-types";
 import {Button} from "../ui/Button";
+import {Button3} from "../ui/Button";
+import {Button4} from "../ui/Button";
+
 import image from "../views/avatar.jpg";
 import { async, isEmpty } from "@firebase/util";
 /*
@@ -165,7 +168,7 @@ const ActiveSession = () => {
             value={title}
             onChange={im => setInputMessage(im)}/>)
 
-    let content = (<div className="session container">Loading session...</div>)         
+    let content = (<div className="session container"></div>)         
     
     let leaveSessionButton = (<Button
       width="100%"
@@ -184,11 +187,15 @@ const ActiveSession = () => {
       if(participantsList.length !== 0){
         setNoParticipants(false);
         setShowList(participantsList.map((i) => 
-          <li>
-            <Button width="100%" onClick={()=> TheWinnerisSelected(i)}>
-              {i["username"]}
-            </Button>
-          </li> 
+          
+            <Button3 width="100%" onClick={()=> TheWinnerisSelected(i)}>
+              {i["username"]+'\n'+'\n'+'\n'}
+            </Button3>
+           
+           
+           
+            
+        
       ));}else{
         setNoParticipants(true);
       }
@@ -223,10 +230,10 @@ const ActiveSession = () => {
 
     let hideParticipants = (
       <div>
-          <Button width = "100%"
+          <Button4 width = "90%" 
           onClick={() => hideAllParticipants()}>
               Don't select the Winner now
-          </Button>
+          </Button4>
       </div>
   )
   
@@ -254,6 +261,10 @@ const ActiveSession = () => {
             <div class='session parent'>
               <div class='session leftChild'>
                   <div className="newSession">
+                  <div className="headerrow">
+      <div className="headerp1" ><h1>Let the</h1></div>
+      <div className="headerp2"><h1>roast begin</h1></div>
+  </div>
                     <div className="newSession container">
                         <div className="newSession form">
                         <div className = "uploadImage">
