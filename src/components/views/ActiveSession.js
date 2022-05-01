@@ -10,12 +10,14 @@ import "styles/views/Comment.scss"
 import PropTypes from "prop-types";
 import {Button} from "../ui/Button";
 import image from "../views/avatar.jpg";
+import { async, isEmpty } from "@firebase/util";
 /*
 It is possible to add multiple components inside a single file,
 however be sure not to clutter your files with an endless amount!
 As a rule of thumb, use one file per component and only add small,
 specific components that belong to the main one in the same file.
  */
+
 
 
 const FormField = props => {
@@ -48,6 +50,9 @@ const ActiveSession = () => {
     const [inputMessage, setInputMessage] = useState();
     const [messages, setInputMessages] = useState([]);
     const [session, setSession] = useState([]);
+    const [show, setShow] = useState(false);
+    const [participantsList, setParticipantsList] = useState ([]);
+
 
     let messageIndex = 0;
 
@@ -178,6 +183,31 @@ const ActiveSession = () => {
       onClick={() => determineWinner()}
       > <div className = "determineWinner"><div>Determine winner</div></div>
     </Button>)
+    function selectTheWinner(){
+      setShow(true);
+    }
+
+    function hideAllParticipants(){
+      setShow(false);
+    }
+
+    let hideParticipants = (
+      <div>
+          <Button width = "100%"
+          onClick={() => hideAllParticipants()}>
+              Don't select the Winner now
+          </Button>
+      </div>
+  )
+  
+    let showParticipants = (
+      <div>
+        <Button width = "100%"
+        onClick ={() => selectTheWinner()}>
+          Select the Winner
+        </Button>
+      </div>
+    )
 
     return (
 
@@ -199,8 +229,8 @@ const ActiveSession = () => {
                           </div>
                         </div>
                     </div>
-                    {(username != session.hostUsername) && <div>{leaveSessionButton}</div>}
                     {(username == session.hostUsername) && <div>{determineWinnerButton}</div>}
+                    {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
                   </div>
                 </div>
               </div>
@@ -219,11 +249,21 @@ const ActiveSession = () => {
                     </div>
                     <div>&nbsp;</div>
                     <div className="newComment form">
-                      {(username != session.hostUsername) && <div>{commentText}</div>}
+                      {(username !== session.hostUsername) && <div>{commentText}</div>}
                     </div>
-                    {(username != session.hostUsername) && <div>{addComments}</div>}
+                    {(username !== session.hostUsername) && <div>{addComments}</div>}
                     <div>&nbsp;</div>
                     {reportComments}
+                    <div>&nbsp;</div>
+                    {(username === session.hostUsername && !show) && showParticipants}
+                    <div>&nbsp;</div>
+                    {(username === session.hostUsername && show) && hideParticipants}
+                    <div>&nbsp;</div>
+                    {show && <center>
+                      <ul>
+                        <li>{session.participants[0].username}</li>
+                        </ul>
+                      </center>}
                 </div>
             </div> 
             </div>
