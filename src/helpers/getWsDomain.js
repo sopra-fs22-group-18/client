@@ -7,7 +7,7 @@ import { isProduction } from 'helpers/isProduction';
  * @returns {string}
  */
 export const getWsDomain = () => {
-  const prodUrl = 'ws://sopra-fs22-group-18-server.herokuapp.com/websocket';
+  const prodUrl = 'wss://sopra-fs22-group-18-server.herokuapp.com/websocket';
   const devUrl = 'ws://localhost:8080/websocket';
 
   return isProduction() ? prodUrl : devUrl;
