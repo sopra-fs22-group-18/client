@@ -3,6 +3,7 @@
 .primary-button {
   &:hover {
     transform: translateY(-2px);
+    background-color: rgb(255, 100, 0);
   }
   &:disabled {
     cursor: default;
@@ -52,6 +53,7 @@
 .primary-button3 {
   &:hover {
     transform: translateY(-2px);
+    background-color: rgb(255, 100, 0);
   }
   &:disabled {
     cursor: default;
@@ -70,13 +72,14 @@
   cursor: pointer;
   opacity: 1;
   color: white;
-  background-color: $headertextColor1;
+  background-color: rgb(255, 140, 0);
   transition: all 0.3s ease;
 }
 
 .primary-button4 {
   &:hover {
     transform: translateY(-2px);
+    background-color: rgb(9, 130, 11);
   }
   &:disabled {
     cursor: default;
@@ -95,13 +98,14 @@
   cursor: pointer;
   opacity: 1;
   color: white;
-  background-color: $headertextColor1;
+  background-color: rgb(10, 181, 13);
   transition: all 0.3s ease;
 }
 
 .primary-button5 {
   &:hover {
     transform: translateY(-2px);
+    background-color: rgb(193, 0, 0);
   }
   &:disabled {
     cursor: default;
@@ -120,6 +124,6 @@
   cursor: pointer;
   opacity: 1;
   color: white;
-  background-color: $headertextColor1;
+  background-color: rgb(255, 0, 0);
   transition: all 0.3s ease;
 }

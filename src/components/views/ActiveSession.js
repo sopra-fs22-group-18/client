@@ -175,7 +175,7 @@ const ActiveSession = () => {
     let leaveSessionButton = (<Button5
       width="100%"
       onClick={() => leaveSession()}
-      > <div className = "leaveSession"><div>Leave session</div> <div><img className="icon" src={logoutIcon} alt="logout"/></div></div>
+      > <div className = "leaveSession"><div width = "90%">Leave session</div> <div width = "10%"><img className="icon" src={logoutIcon} alt="logout"/></div></div>
     </Button5>)
 
     function selectTheWinner(){
