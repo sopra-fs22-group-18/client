@@ -84,12 +84,37 @@
       transform: none;
     }
   }
-  margin-left:10%;
+  margin-right:10%;
   font-weight: 1000;
   font-size: 13px;
   text-align: center;
   height: 35px;
   margin-bottom:2em;
+  border: none;
+  border-radius: $borderRadius;
+  cursor: pointer;
+  opacity: 1;
+  color: white;
+  background-color: $headertextColor1;
+  transition: all 0.3s ease;
+}
+
+.primary-button5 {
+  &:hover {
+    transform: translateY(-2px);
+  }
+  &:disabled {
+    cursor: default;
+    &:hover {
+      transform: none;
+    }
+  }
+  margin-left:0%;
+  font-weight: 1000;
+  font-size: 13px;
+  text-align: center;
+  height: 59px;
+  margin-bottom:5em;
   border: none;
   border-radius: $borderRadius;
   cursor: pointer;

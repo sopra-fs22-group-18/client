@@ -11,6 +11,8 @@ import PropTypes from "prop-types";
 import {Button} from "../ui/Button";
 import {Button3} from "../ui/Button";
 import {Button4} from "../ui/Button";
+import {Button5} from "../ui/Button";
+
 
 import image from "../views/avatar.jpg";
 import { async, isEmpty } from "@firebase/util";
@@ -170,11 +172,11 @@ const ActiveSession = () => {
 
     let content = (<div className="session container"></div>)         
     
-    let leaveSessionButton = (<Button
+    let leaveSessionButton = (<Button5
       width="100%"
       onClick={() => leaveSession()}
       > <div className = "leaveSession"><div>Leave session</div> <div><img className="icon" src={logoutIcon} alt="logout"/></div></div>
-    </Button>)
+    </Button5>)
 
     function selectTheWinner(){
       session.participants.forEach(function(item, index, array){
@@ -230,7 +232,7 @@ const ActiveSession = () => {
 
     let hideParticipants = (
       <div>
-          <Button4 width = "90%" 
+          <Button4 width = "100%" 
           onClick={() => hideAllParticipants()}>
               Don't select the Winner now
           </Button4>
@@ -239,10 +241,10 @@ const ActiveSession = () => {
   
     let showParticipants = (
       <div>
-        <Button width = "100%"
+        <Button4 width = "100%"
         onClick ={() => selectTheWinner()}>
           Select the Winner
-        </Button>
+        </Button4>
       </div>
     )
 
@@ -283,9 +285,9 @@ const ActiveSession = () => {
                     {(username === session.hostUsername && show) && hideParticipants}
                     <div>&nbsp;</div>
                     {show && <center>
-                      <ul>
+                      
                           {showList}
-                      </ul>
+                      
                       </center>}
                     {noParticipants && noActiveParticipants}
                     {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
