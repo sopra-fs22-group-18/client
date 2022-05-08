@@ -60,7 +60,8 @@ const NewSession = () => {
             console.log(title);
             const userResponse = await api.get('/users/' + localStorage.getItem('userId'));
             const host = new User(userResponse.data);
-            const requestBody = JSON.stringify({title, maxParticipants, host, imageUrl});
+            const isPrivate = false;
+            const requestBody = JSON.stringify({title, maxParticipants, host, imageUrl, isPrivate});
             const response = await api.post('/sessions', requestBody);
 
             // Get the returned user and update a new object.
