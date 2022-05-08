@@ -3,6 +3,8 @@ import "styles/ui/Navbar.scss";
 import {Link, useHistory} from "react-router-dom";
 import logoutIcon from "../../img/logout.png";
 import logoIcon from "../../img/logo.png"
+import profileIcon from "../../img/profileIcon.png"
+
 
 export const Navbar = props => {
     const history = useHistory();
@@ -13,6 +15,10 @@ export const Navbar = props => {
     }
     const goHome = () => {
         history.push('/game');
+    }
+    const goToMyProfile = () => {
+        const userId = localStorage.getItem('userId');
+        history.push(`/game/profile/` + userId);
     }
     return (
       <div className="nav-bar-container-light">
@@ -26,6 +32,13 @@ export const Navbar = props => {
               </li>
           </div>
           <ul className="middle-items">
+            <li className="list-item">
+                    <button
+                        className= "nav-button"
+                        onClick={() => goToMyProfile()} >
+                    <img className="icon" src={profileIcon} alt="myProfile"/>
+                    </button>
+            </li>
           </ul>
           <ul className="right-items">
               <li className="list-item">

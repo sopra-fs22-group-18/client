@@ -133,8 +133,8 @@ const NewSession = () => {
     )
 
     return (
+    <div><Navbar />
         <div className="newSession">
-        <Navbar/>
             <div className="newSession container">
             <div className="newSession form">
                 {sessionTitle}
@@ -144,6 +144,7 @@ const NewSession = () => {
                 {startButton}
             </div>
         </div>
+    </div>
     )
 }
 

@@ -1,0 +1,89 @@
+@import 'styles/theme';
+
+/* The '&' is a shorthand for the containing element,
+  so for example a '&.user-list' inside .game will compile to
+  .game.user-list
+
+  for more information visit https://sass-lang.com/guide
+ */
+
+ .profile {
+    background-color: #873e23;
+    height: 200vh;
+  
+    &.container {
+      position: absolute;
+      background-color: white;
+      width: 40%;
+      height: auto;
+      left: 30%;
+      top: 20%;
+      border-radius: $borderRadius;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+    &.form {
+      background-color: white;
+      text-align: center;
+      height: auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: left;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+    &.maxParticipants {
+      display: flex;
+      flex-direction: row;
+      list-style: none;
+      justify-content: space-between;
+      background-color: white;
+      padding-left: 0;
+      height: 35px;
+    }
+    &.list-item {
+      height: 35px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: white;
+  
+      &.text {
+        padding-top: 10px;
+      }
+  
+    }
+
+}
+
+.uploadAvatar {
+    margin-block-end: 20px;
+    &.input {
+      min-height: 50px;
+      overflow: hidden;
+      background:lightgrey;
+      border-color: black;
+      border-radius: $borderRadius;
+      border-style: dotted;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &.output {
+      min-height: 20px;
+      overflow: hidden;
+      background:lightgrey;
+      border-color: black;
+      border-style: dotted;
+      display: flex;
+      justify-content: center;
+    }
+    img {
+      width:30%;
+      height:30%;
+      border-radius: 50%;
+      border-style: solid;
+    }
+}
+  

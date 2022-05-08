@@ -5,6 +5,7 @@ import NewSession from "../../views/NewSession";
 import ActiveSession from "../../views/ActiveSession";
 import Comment from "../../views/Comment";
 import Report from "../../views/Report";
+import Profile from "../../views/Profile";
 
 
 
@@ -29,6 +30,10 @@ const GameRouter = props => {
       
       <Route exact path={`${props.base}/session/:sessionId/Report`}>
           <Report/>
+      </Route>
+
+      <Route exact path={`${props.base}/profile/:userId`}>
+        <Profile/>
       </Route>
 
 
