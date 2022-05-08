@@ -15,10 +15,6 @@ const UploadAvatar = ({ file, setFile, setAvatarUrl, userId}) => {
             const requestBody = JSON.stringify({url});
             const response = await api.put('/users/' + userId, requestBody);
     
-            console.log('request to:', response.request.responseURL);
-            console.log('status code:', response.status);
-            console.log('status text:', response.statusText);
-            console.log('requested data:', response.data);
 
         } catch (error) {
             alert(`Something went wrong when trying to update the avatarUrl: \n${handleError(error)}`);
