@@ -135,6 +135,10 @@ const NewSession = () => {
     return (
         <div className="newSession">
         <Navbar/>
+        <div className="headerrow">
+      <div className="headerp1" ><h1>Create</h1></div>
+      <div className="headerp2"><h1>a new session</h1></div>
+  </div>
             <div className="newSession container">
             <div className="newSession form">
                 {sessionTitle}
