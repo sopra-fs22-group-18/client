@@ -9,7 +9,7 @@
 
  .profile {
     background-color: #873e23;
-    height: 200vh;
+    height: 100vh;
   
     &.container {
       position: absolute;
@@ -34,15 +34,6 @@
       gap: 15px;
       margin-bottom: 10px;
     }
-    &.maxParticipants {
-      display: flex;
-      flex-direction: row;
-      list-style: none;
-      justify-content: space-between;
-      background-color: white;
-      padding-left: 0;
-      height: 35px;
-    }
     &.list-item {
       height: 35px;
       font-size: 16px;
@@ -57,28 +48,15 @@
 
 }
 
-.uploadAvatar {
+.avatar {
     margin-block-end: 20px;
-    &.input {
-      min-height: 50px;
-      overflow: hidden;
-      background:lightgrey;
-      border-color: black;
-      border-radius: $borderRadius;
-      border-style: dotted;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    &.output {
-      min-height: 20px;
-      overflow: hidden;
-      background:lightgrey;
-      border-color: black;
-      border-style: dotted;
-      display: flex;
-      justify-content: center;
-    }
+    min-height: 20px;
+    overflow: hidden;
+    background:lightgrey;
+    border-color: black;
+    display: flex;
+    justify-content: center;
+
     img {
       width:30%;
       height:30%;

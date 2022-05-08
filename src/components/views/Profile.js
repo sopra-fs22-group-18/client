@@ -5,6 +5,7 @@ import {Navbar} from "../ui/Navbar";
 import { api, handleError } from 'helpers/api';
 import UploadAvatar from 'components/firebase comps/uploadAvatar';
 import PropTypes from "prop-types";
+import noAvatar from "../../img/noAvatar.png";
 
 const FormField = props => {
     return (
@@ -98,17 +99,18 @@ const Profile = () => {
       <div className="profile" >
       <div className="profile container">
             <div className="profile form">
-                {uploadAvatar}
-                {user !== [] && <h1>Username: {user.username}</h1>}
-                {user !== [] && <h2>Name: {user.name}</h2>}
-                {user !== [] && <h2>Bio: {user.bio}</h2>}
-            </div>
-            </div>
+            <div className = "avatar">
+                { user.avatarUrl && user && (<img alt="Avatar" src={user.avatarUrl}></img>)}
+                { !user.avatarUrl && (<img alt="Avatar" src={noAvatar}></img>)}
+                </div>
 
+                {user.username && user && <h1>{user.username}</h1>}
+                {user.name && user &&<h2>Name: {user.name}</h2>}
+                {user.bio && user && <h2>Bio: {user.bio}</h2>}
 
+            </div>
       </div>
-
-
+      </div>
       </div>
 
   );
