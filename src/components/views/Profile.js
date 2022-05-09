@@ -6,6 +6,7 @@ import { api, handleError } from 'helpers/api';
 import UploadAvatar from 'components/firebase comps/uploadAvatar';
 import PropTypes from "prop-types";
 import noAvatar from "../../img/noAvatar.png";
+import {Button6} from "../ui/Button";
 
 const FormField = props => {
     return (
@@ -30,6 +31,7 @@ FormField.propTypes = {
 
 const Profile = () => {
   // use react-router-dom's hook to access the history
+  const history = useHistory();
   const userId = useParams().userId;
   const [user, setUser] = useState([]);
   const [file, setFile] = useState(null);
@@ -51,6 +53,19 @@ const Profile = () => {
       setError('Please select an image file (png or jpg)');
     }
   };
+
+  const editProfile = (userId) => {
+    try {
+      if(localStorage.getItem('userId') == user.userId){history.push(`/game/profile/${user.userId}/edit`)}
+      
+      else{alert("You can't access this profil page");}
+     } catch (error) {
+        console.error(`Something went wrong while trying to edit the user: \n${handleError(error)}`);
+        console.error("Details:", error);
+        alert("Something went wrong when trying to edit the profile! See the console for details.");
+    }
+  };
+
 
   // the effect hook can be used to react to change in your component.
   // in this case, the effect hook is only run once, the first time the component is mounted
@@ -91,7 +106,14 @@ const Profile = () => {
     </div>
   )
 
-
+  let editProfileButton = (
+    <div>
+        <Button6 width = "100%" 
+        onClick={() => editProfile(user.userId)}>
+            Edit Profile
+        </Button6>
+    </div>
+)
 
 
   return (
@@ -107,7 +129,7 @@ const Profile = () => {
                 {user.username && user && <h1>{user.username}</h1>}
                 {user.name && user &&<h2>Name: {user.name}</h2>}
                 {user.bio && user && <h2>Bio: {user.bio}</h2>}
-
+                {localStorage.getItem('userId') == user.userId && editProfileButton}
             </div>
       </div>
       </div>
