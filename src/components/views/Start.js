@@ -26,14 +26,17 @@ const Start = () => {
           const response = await api.get('/sessions/join/' + userId);
           const session = new Session(response.data);
           localStorage.setItem('sessionId', session.sessionId);
+          const user = await api.get(`/users/${userId}`);
+          updateParticipatedSessions(user.data);
           history.push(`/game/session/` + session.sessionId);
-
       } catch (error) {
           alert(`Something went wrong when trying to join a session: \n${handleError(error)}`);
       }
 
 
+
   };
+
 
 
   // the effect hook can be used to react to change in your component.
@@ -53,6 +56,19 @@ const Start = () => {
     }
     fetchData();
   }, []);
+
+  const updateParticipatedSessions = async(x) => {
+    var obj = new Object();
+    obj.userId = x["userId"];
+    obj.username = x["username"];
+    obj.name = x["name"];
+    obj.token = x["token"];
+    obj.avatarUrl = x["avatarUrl"];
+    obj.bio = x["bio"];
+    obj.participated_sessions = x["participated_sessions"]+1;
+    obj.wonSessions = x["wonSessions"];
+    await api.put(`/users/statistics/${x["userId"]}`, JSON.stringify(obj));
+  }
 
 
 
