@@ -31,7 +31,7 @@ const Start = () => {
   // use react-router-dom's hook to access the history
     const history = useHistory();
     const [sessions, setSessions] = useState(0);
-    const [identifier, setIdentifier] = useState();
+    const [identifier, setIdentifier] = useState("");
 
     const newSession = () => {
         history.push('/game/newSession');
