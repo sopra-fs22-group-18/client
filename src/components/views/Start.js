@@ -18,8 +18,9 @@ const FormField = props => {
         <input
         
           className="identifier input"
-          placeholder="Set identifier..."
+          placeholder="Set code..."
           value={props.value}
+          maxLength = "6"
           onChange={e => props.onChange(e.target.value)}
         />
       </div>
@@ -114,7 +115,7 @@ const Start = () => {
 
     let joinSessionByIdentifierButton = (
         <Button2
-            disabled = {!identifier}
+            disabled = {identifier.length != 6}
             width="100%"
             onClick={() => joinSessionByIdentifier()}>
             Join a session by identifier

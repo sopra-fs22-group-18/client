@@ -8,6 +8,8 @@
  */
 
 .start {
+  caret-color: transparent;
+
   &.container {
     background: #873e23;
     padding: 1.5em;
@@ -31,7 +33,7 @@
     width:auto;
     border-radius: 50%;
     position: center;
-    padding-top:5px
+    padding-top:5px;
   }
   &.button-container {
     width: fit-content;
@@ -46,7 +48,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      width: 60%;
+      width: 50%;
       max-width: 30em;
       height: 25em;
       font-size: 16px;
@@ -60,32 +62,24 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      
       margin-top: 20px;
     }
     &.input {
-      height: 35px;
+      height: 30px;
       padding-left: 15px;
-      margin-left: -4px;
+      margin: auto;
       border: solid #dbdfe5;
       border-radius: 5em;
-      margin-bottom: 0px;
-     
+      width: 30%;
+      min-width: 80px;
       color: $textColor;
+      caret-color: auto;
+      text-align: justify;
     }
     &.label {
       color: $textColor;
       margin-bottom: 10px;
       font-weight: 600;
-    }
-    .login-button-container {
-      margin-top:100px;
-      color: $headertextColor1;
-    }
-    .register-button-container {
-      margin-top: 1em;
-      margin-bottom:0;
-      color: $headertextColor1;
     }
   
     .alreadyhave {
