@@ -180,6 +180,7 @@ const ActiveSession = () => {
 
     function selectTheWinner(){
       session.participants.forEach(function(item, index, array){
+        console.log(item["participated_sessions"]);
         if(item["userId"] !== session.host["userId"]){
           setParticipantsList(participantsList.push(item));
           console.log("participants activated");
@@ -208,12 +209,28 @@ const ActiveSession = () => {
       setWinnerId(winnerId.push(x["userId"]));
       setShowWinner(true);
       postTheWinner();
+      updateWonSessions(x);
     }
 
     //const delay = ms => new Promise(res => setTimeout(res, ms));
 
     const postTheWinner = async() => {
       await api.post(`/sessions/${sessionId}/${winnerId[0]}`);
+    }
+    const updateWonSessions = async(x) => {
+      var obj = new Object();
+      obj.userId = x["userId"];
+      obj.password = x["password"];
+      obj.username = x["username"];
+      obj.name = x["name"];
+      obj.type = x["type"];
+      obj.userStatus = x["userStatus"];
+      obj.token = x["token"];
+      obj.avatarUrl = x["avatarUrl"];
+      obj.bio = x["bio"];
+      obj.participated_sessions = x["participated_sessions"];
+      obj.wonSessions = x["wonSessions"] + 1;
+      await api.put(`/users/statistics/${x["userId"]}`, JSON.stringify(obj));
     }
 
     let ShowMessage = (

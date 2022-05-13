@@ -4,6 +4,7 @@ import {Spinner} from 'components/ui/Spinner';
 
 import {Link, useHistory} from "react-router-dom";
 import logoutIcon from "../../img/logout.png";
+
 import logoIcon from "../../img/roastmeIcon.svg";
 import gameIcon from "../../img/gamepad.svg";
 import profileIcon from "../../img/profile.svg";
@@ -11,7 +12,6 @@ import commentIcon from "../../img/comment.svg";
 import postIcon from "../../img/post.svg";
 import  {useEffect, useState} from "react";
 import {Button} from 'components/ui/Button';
-
 
 
 
@@ -30,6 +30,7 @@ export const Navbar = props => {
         setActive("home")
         history.push('/game');
     }
+
 
     const goCurrentSession = () => {
         history.push('/');
@@ -78,6 +79,12 @@ export const Navbar = props => {
 
 
     
+
+    const goToMyProfile = () => {
+        const userId = localStorage.getItem('userId');
+        history.push(`/game/profile/` + userId);
+    }
+
     return (
       <div className="nav-bar-container-light">
           <div className="left-item">
@@ -90,6 +97,7 @@ export const Navbar = props => {
               </button>
               </li>
           </div>
+
           <ul className="middle-items" >
 
             <button
@@ -134,6 +142,7 @@ export const Navbar = props => {
                   <img className="game-icon" src={gameIcon} alt="current-session"/>
             </button>
               
+
 
 
           </ul>
