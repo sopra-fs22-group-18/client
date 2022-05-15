@@ -62,6 +62,7 @@ const ActiveSession = () => {
     const [showWinner, setShowWinner] = useState(false);
     const [winnerId, setWinnerId] = useState([]);
     const [noParticipants, setNoParticipants] = useState(false);
+    const [identifier, setIdentifier] = useState("");
 
 
     let messageIndex = 0;
@@ -113,6 +114,7 @@ const ActiveSession = () => {
           const response =  await api.get('/sessions/'+ sessionId );
 
           setSession(response.data);
+          setIdentifier(response.data.identifier);
 
           console.log('request to:', response.request.responseURL);
           console.log('status code:', response.status);
@@ -283,7 +285,7 @@ const ActiveSession = () => {
                   <div className="headerrow">
       <div className="headerp1" ><h1>Let the</h1></div>
       <div className="headerp2"><h1>roast begin</h1></div>
-  </div>
+    </div>  
                     <div className="newSession container">
                         <div className="newSession form">
                         <div className = "uploadImage">
