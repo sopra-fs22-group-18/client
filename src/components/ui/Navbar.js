@@ -44,7 +44,7 @@ export const Navbar = props => {
    
 
     const goPostsList = () => {
-        history.push('/');
+        history.push('/game/post');
     }
 
     const goCommentList = () => {
@@ -92,7 +92,7 @@ export const Navbar = props => {
 
               <button
                 className={` ${isActive === "home" ? 'btn__nav-bar-btn active-link' : 'btn__nav-bar-btn'}`} 
-                onClick={() => goHome()}>
+                onClick={() => goPostsList()}>
                   <img className="home-icon" src={logoIcon} alt="home"/>
               </button>
               </li>
@@ -102,7 +102,7 @@ export const Navbar = props => {
 
             <button
                 className={` ${isActive === "profile" ? 'btn__nav-bar-btn active-link' : 'btn__nav-bar-btn'}`}
-                onClick={() => setActive("home")}>
+                onClick={() => goPostsList()}>
                   <img className="post-icon" src={postIcon} alt="post"/>
             </button>
             &nbsp;&nbsp;&nbsp;
