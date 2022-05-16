@@ -126,7 +126,7 @@ export const Navbar = props => {
             &nbsp;&nbsp;&nbsp;
             <button
                 className="nav-button"
-                onClick={()=>goProfile(1)}>
+                onClick={()=>goToMyProfile()}>
                   <img className="profile-icon" src={profileIcon} alt="profile"/>
             </button>
             &nbsp;&nbsp;&nbsp;
