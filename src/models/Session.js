@@ -12,6 +12,7 @@ class Session {
     this.sessionStatus = null;
     this.host = null;
     this.hostUsername = null;
+    this.identifier = null;
     Object.assign(this, data);
     this.maxUsers = (this.maxParticipants + 1)
   }

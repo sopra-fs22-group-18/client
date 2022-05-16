@@ -13,9 +13,10 @@ import {Button3} from "../ui/Button";
 import {Button4} from "../ui/Button";
 import {Button5} from "../ui/Button";
 
-
 import image from "../views/avatar.jpg";
 import { async, isEmpty } from "@firebase/util";
+import Textarea from 'react-expanding-textarea'
+
 /*
 It is possible to add multiple components inside a single file,
 however be sure not to clutter your files with an endless amount!
@@ -28,11 +29,14 @@ specific components that belong to the main one in the same file.
 const FormField = props => {
   return (
       <div className="title-field">
-          <input
+          <Textarea
               className="title-field"
               placeholder={props.placeholder}
               value={props.value}
+              maxLength="300"
+              max-height= "200px"
               onChange={e => props.onChange(e.target.value)}
+              
           />
       </div>
   );
@@ -66,7 +70,6 @@ const ActiveSession = () => {
 
     let messageIndex = 0;
 
-    const [title, setTitle] = useState(null);
 
     const sendMessage = async () => {
         var msg = {
@@ -74,6 +77,7 @@ const ActiveSession = () => {
             content: inputMessage
         };
         socket.send(JSON.stringify(msg));
+        setInputMessage("");
     };
 
     function MessageAdd(message) {
@@ -157,6 +161,7 @@ const ActiveSession = () => {
         onClick={() => sendMessage()}> Add comment
     </Button>)
 
+
     let reportComments = (<Button
     width="100%"
     onClick={() => reportComment()}> Report comment
@@ -167,7 +172,7 @@ const ActiveSession = () => {
     let commentText = (
         <FormField
             placeholder="Add your comment..."
-            value={title}
+            value={inputMessage}
             onChange={im => setInputMessage(im)}/>)
 
     let content = (<div className="session container"></div>)         
@@ -313,7 +318,7 @@ const ActiveSession = () => {
               </div>
             <div class='session rightChild'>
             <div>{content}</div>
-            <div className="newComment">
+            <div className="newComment" >
                 <div className="newComment container">
                     <div className="newComment avatar">
                         <img src={image} width={80} height={80} alt='Avatar' />
@@ -321,18 +326,33 @@ const ActiveSession = () => {
                     <div className="newComment username">
                         {"Session " + sessionId + ": " + username}
                     </div>
-                    <div className="chatContainer">
+                    <div className="chatContainer" >
                         {messages}
                         {(showWinner) && ShowMessage}
                         {(showWinner) && leaveSessionButton}
                     </div>
                     <div>&nbsp;</div>
-                    <div className="newComment form">
+                    <div className="newCommentform">
                       {(username !== session.hostUsername) && <div>{commentText}</div>}
                     </div>
-                    {(username !== session.hostUsername) && <div>{addComments}</div>}
                     <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+
+                    <div className="addcomment">
+                    {(username !== session.hostUsername) && <div>{addComments}</div>}
+                    </div>
+                    <div>&nbsp;</div>
+                    <div className="reportcomment">
                     {reportComments}
+                    </div>
                 </div>
             </div> 
             </div>
