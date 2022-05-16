@@ -13,10 +13,9 @@ import {Button3} from "../ui/Button";
 import {Button4} from "../ui/Button";
 import {Button5} from "../ui/Button";
 
-
 import image from "../views/avatar.jpg";
 import { async, isEmpty } from "@firebase/util";
-import Textarea from 'react-expanding-textarea';
+import Textarea from 'react-expanding-textarea'
 
 /*
 It is possible to add multiple components inside a single file,
@@ -161,6 +160,7 @@ const ActiveSession = () => {
         width="100%"
         onClick={() => sendMessage()}> Add comment
     </Button>)
+
 
     let reportComments = (<Button
     width="100%"
