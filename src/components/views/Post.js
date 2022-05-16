@@ -28,7 +28,7 @@ PlayerProfile.propTypes = {
 user: PropTypes.object
 };
 
-const Profile = () => {
+const Posts = () => {
 const history = useHistory();
 const [user, setUser] = useState(1);
 const [Posts, setPosts] = useState(1);
@@ -45,9 +45,8 @@ const ShowListOfAllUsers=() => {history.push('/Game');}//back button
 useEffect(() => {// effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
   async function fetchData() {
   try {
-    const response = await api.get(`/users/${localStorage.getItem("redirectedId")}`);
     const response2 = await api.get(`/sessions/1/posts`);
-
+    const response=response2;
     console.log(response.data);
     const response3=response2.data;
     const response4=JSON.stringify(response3);
@@ -71,26 +70,23 @@ useEffect(() => {// effect callbacks are synchronous to prevent race conditions.
 fetchData();
 }, []);
 
-
 let content = <Spinner/>;
-let text=Posts;
-let title=text.indexOf('title');
-let title2=text.indexOf('hostUsername');
-let title3=text.substr(title+8,title2-title-11);
-
+let text1=Posts;
+//let title=text1.indexOf('title');
+//let title2=text1.indexOf('hostUsername');
+//let title3=text1.substr(title+8,title2-title-11);
 content = (
 <div className="game"> 
 <h2>Title</h2>
 
-<div className="Title" > {title3}</div>
+<div className="Title" > {text1}</div>
 <h2>Image</h2>
-<div className="Image" >Image: {text}</div>
+<div className="Image" >Image: {text1}</div>
 <h2>Status</h2>
-<div className="Status" >Status: {text}</div>
+<div className="Status" >Status: {text1}</div>
 
 <PlayerProfile  user={Posts}/>
 
-    
 </div>);
 
 return (
@@ -99,5 +95,10 @@ return (
 {content}
 </BaseContainer>);}
 
-export default Profile;
+
+
+
+
+
+export default Posts;
 
