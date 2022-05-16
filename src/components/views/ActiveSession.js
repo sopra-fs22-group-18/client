@@ -157,9 +157,16 @@ const ActiveSession = () => {
         history.push('/game/session/'+sessionId+'/Report');    
     };
 
+    const handleKeyPress = e => {
+      if(e.key === 'Enter'){
+        this.btn.click();
+      }
+    }
+
     let addComments = (<Button
         width="100%"
-        onClick={() => sendMessage()}> Add comment
+        onClick={() => sendMessage()}
+        ref={node => (this.btn = node)}> Add comment
     </Button>)
 
     let reportComments = (<Button
@@ -173,7 +180,8 @@ const ActiveSession = () => {
         <FormField
             placeholder="Add your comment..."
             value={title}
-            onChange={im => setInputMessage(im)}/>)
+            onChange={im => setInputMessage(im)}
+            onKeyPress={handleKeyPress}/>)
 
     let content = (<div className="session container"></div>)         
     
@@ -356,7 +364,7 @@ const ActiveSession = () => {
                 </div>
             </div> 
             </div>
-            </div>)
+            </div>
         </div>
         )
     }
