@@ -1,4 +1,5 @@
-import {useEffect, useState} from 'react';
+import { useState, useEffect } from 'react';
+
 import {useHistory, useParams} from 'react-router-dom';
 import "styles/views/Profile.scss";
 import {Navbar} from "../ui/Navbar";
