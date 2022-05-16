@@ -66,7 +66,6 @@ const ActiveSession = () => {
 
     let messageIndex = 0;
 
-    const [title, setTitle] = useState(null);
 
     const sendMessage = async () => {
         var msg = {
@@ -74,6 +73,7 @@ const ActiveSession = () => {
             content: inputMessage
         };
         socket.send(JSON.stringify(msg));
+        setInputMessage("");
     };
 
     function MessageAdd(message) {
@@ -167,7 +167,7 @@ const ActiveSession = () => {
     let commentText = (
         <FormField
             placeholder="Add your comment..."
-            value={title}
+            value={inputMessage}
             onChange={im => setInputMessage(im)}/>)
 
     let content = (<div className="session container"></div>)         
