@@ -41,7 +41,15 @@
 
   }
 
+  &.toggleOptions {
+    display: flex;
+    background-color: white;
+    height: 100px;
 
+    .toggleButton {
+      width: 40%;
+    }
+  }
 
 
   &.container {
