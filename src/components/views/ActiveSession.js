@@ -222,7 +222,7 @@ const ActiveSession = () => {
     //const delay = ms => new Promise(res => setTimeout(res, ms));
 
     const postTheWinner = async() => {
-      await api.post(`/sessions/${sessionId}/${winnerId[0]}`);
+      await api.post(`/sessions/${sessionId}/close/${winnerId[0]}`);
     }
     const updateWonSessions = async(x) => {
       var obj = new Object();
