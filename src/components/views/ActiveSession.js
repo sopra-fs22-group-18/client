@@ -134,6 +134,14 @@ const ActiveSession = () => {
       fetchData()
     }, []);
 
+    const closeSessionByHost = async () => {
+      try {
+        const request = await api.post(`/sessions/${sessionId}/close`);
+      } catch (error) {
+        alert(`Something went wrong when trying to leave the session: \n${handleError(error)}`);
+      }
+    }
+
     const leaveSession = async () => {
       try {
         const userId = localStorage.getItem('userId');
@@ -185,10 +193,16 @@ const ActiveSession = () => {
       > <div className = "leaveSession"><div width = "90%">Leave session</div> <div width = "10%"><img className="icon" src={logoutIcon} alt="logout"/></div></div>
     </Button5>)
 
+    let closeSessionByHostButton = (<Button5
+      width="100%"
+      onClick={() => closeSessionByHost()}
+      > <div className = "leaveSession"><div width = "90%">Close session</div> <div width = "10%"><img className="icon" src={logoutIcon} alt="close session"/></div></div>
+    </Button5>)
+
     function selectTheWinner(){
       session.participants.forEach(function(item, index, array){
         console.log(item["participated_sessions"]);
-        if(item["userId"] !== session.host["userId"]){
+        if(item["userId"] !== session.host["userId"]) {
           setParticipantsList(participantsList.push(item));
           console.log("participants activated");
         }
@@ -201,11 +215,7 @@ const ActiveSession = () => {
             <Button3 width="100%" onClick={()=> TheWinnerisSelected(i)}>
               {i["username"]+'\n'+'\n'+'\n'}
             </Button3>
-           
-           
-           
-            
-        
+
       ));}else{
         setNoParticipants(true);
       }
@@ -315,6 +325,7 @@ const ActiveSession = () => {
                       </center>}
                     {noParticipants && noActiveParticipants}
                     {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
+                    {(username == session.hostUsername) && <div>{closeSessionByHostButton}</div>}
                   </div>
                 </div>
               </div>
