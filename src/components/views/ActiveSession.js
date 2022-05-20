@@ -37,7 +37,7 @@ const FormField = props => {
               maxLength="300"
               max-height= "200px"
               onChange={e => props.onChange(e.target.value)}
-              
+              //onKeyPress={handleKeyPress}
           />
       </div>
   );
@@ -80,6 +80,7 @@ const ActiveSession = () => {
         };
         socket.send(JSON.stringify(msg));
     };
+
 
     function MessageAdd(message) {
         setInputMessages(messages => [...messages, <div className="chatMessage" key={messageIndex}> {message.from}: {message.content} </div>]);
@@ -157,17 +158,24 @@ const ActiveSession = () => {
         history.push('/game/session/'+sessionId+'/Report');    
     };
 
-    const handleKeyPress = e => {
-      if(e.key === 'Enter'){
+    const handleKeyDown = (e) => {
+      console.log("MUAHAUAKSLE");
+      if(e.keyCode === 13){
         this.btn.click();
-      }
+      } 
     }
+   
 
-    let addComments = (<Button
-        width="100%"
-        onClick={() => sendMessage()}
-        ref={node => (this.btn = node)}> Add comment
-    </Button>)
+
+
+    let addComments = (
+        <Button
+            width="100%"
+            onClick={() => sendMessage()}
+            onKeyDown = {handleKeyDown()}
+            ref={node => (this.btn = node)}> Add comment
+        </Button>
+    )
 
     let reportComments = (<Button
     width="100%"
@@ -181,7 +189,7 @@ const ActiveSession = () => {
             placeholder="Add your comment..."
             value={title}
             onChange={im => setInputMessage(im)}
-            onKeyPress={handleKeyPress}/>)
+        />)
 
     let content = (<div className="session container"></div>)         
     
