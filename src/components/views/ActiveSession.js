@@ -36,7 +36,9 @@ const FormField = props => {
               maxLength="300"
               max-height= "200px"
               onChange={e => props.onChange(e.target.value)}
-              
+              onKeyDown={(event) => {
+                props.onKeyDown(event);
+              }}
           />
       </div>
   );
@@ -166,6 +168,14 @@ const ActiveSession = () => {
         history.push('/game/session/'+sessionId+'/Report');    
     };
 
+    const handleKeyDown = (e) => {
+      console.log("Parent Function from child is called");
+      if (e.keyCode === 13) {
+        alert("Enter Pressed");
+        this.btn.click();
+      }
+    };
+    
     let addComments = (<Button
         width="100%"
         onClick={() => sendMessage()}> Add comment
@@ -183,7 +193,10 @@ const ActiveSession = () => {
         <FormField
             placeholder="Add your comment..."
             value={inputMessage}
-            onChange={im => setInputMessage(im)}/>)
+            onChange={im => setInputMessage(im)}
+            onKeyDown={handleKeyDown}
+            />
+      );
 
     let content = (<div className="session container"></div>)         
     
@@ -369,7 +382,7 @@ const ActiveSession = () => {
                 </div>
             </div> 
             </div>
-            </div>)
+            </div>
         </div>
         )
     }

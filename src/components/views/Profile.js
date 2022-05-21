@@ -130,6 +130,8 @@ const Profile = () => {
                 {user.username && user && <h1>{user.username}</h1>}
                 {user.name && user &&<h2>Name: {user.name}</h2>}
                 {user.bio && user && <h2>Bio: {user.bio}</h2>}
+                <h2>Participated Sessions: {user["participated_sessions"]}</h2>
+                <h2>Won Sessions: {user["wonSessions"]}</h2>
                 {localStorage.getItem('userId') == user.userId && editProfileButton}
             </div>
       </div>
