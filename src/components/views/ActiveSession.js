@@ -169,13 +169,11 @@ const ActiveSession = () => {
     };
 
     const handleKeyDown = (e) => {
-      console.log("Parent Function from child is called");
       if (e.keyCode === 13) {
-        alert("Enter Pressed");
-        this.btn.click();
+        sendMessage();
       }
     };
-    
+
     let addComments = (<Button
         width="100%"
         onClick={() => sendMessage()}> Add comment
