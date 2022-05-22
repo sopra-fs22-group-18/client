@@ -1,29 +1,45 @@
 @import 'styles/theme';
 
 .editProfile {
+  background-color: #873e23;
+  height: 130vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   &.container {
-    margin-top: 2em;
-    min-height: 300px;
-    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
-    @include center;
-    flex-direction: column;
-  }
-  &.form {
+    position: absolute;
+    background-color: white;
+    width: 40%;
+    height: auto;
+    left: 30%;
+    top: 20%;
+    border-radius: $borderRadius;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 60%;
-    max-width: 30em;
-    height: 20em;
-    font-size: 16px;
-    font-weight: 300;
-    padding-left: 37px;
-    padding-right: 37px;
-    border-radius: 0.75em;
-    background-color: $background;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    box-shadow: $dropShadow;
+    align-items: center;
+
   }
+  &.form {
+    background-color: white;
+    text-align: center;
+    height: auto;
+    width: 100%;
+    gap: 15px;
+    margin-bottom: 10px;
+    
+  }
+  &.list-item {
+    height: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: white;
+
+    &.text {
+      padding-top: 10px;
+    }
+    }
   &.field {
     display: flex;
     flex-direction: column;
@@ -50,6 +66,54 @@
     justify-content: center;
     margin-top: 2em;
   }
+
+  .image-upload {
+    height: 170px;
+    width: 170px;
+    border-radius: 50%;
+    box-shadow: rgb(0, 0, 0 / 16%) 0px 3px 6px, rgb(0, 0, 0 / 23%) 0px 3px 6px;
+    margin: 0px auto 0px auto;
+    
+    &.addIcon {
+      width: 50x;
+      top: 200px;
+      left: 100px;
+    }
+    img {
+      width:100%;
+      height:100%;
+      border-radius: 50%;
+      cursor: pointer;	
+      
+    }
+    
+}
+
+
+.image-upload > input
+{
+    display: none;
+}
+
+.uploadAvatar {
+  margin-block-end: 20px;
+
+  &.output {
+    padding: 10px;
+    min-height: 20px;
+    overflow: hidden;
+    color:white;
+    background: red;
+    border-color: black;
+    border-style: solid;
+    display: flex;
+    justify-content: center;
+  }
+  img {
+    width:100%;
+    height:100%;
+  }
+}
 
   
 
