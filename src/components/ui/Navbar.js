@@ -10,6 +10,7 @@ import gameIcon from "../../img/gamepad.svg";
 import profileIcon from "../../img/profile.svg";
 import commentIcon from "../../img/comment.svg";
 import postIcon from "../../img/post.svg";
+import helpIcon from "../../img/help.png";
 import  {useEffect, useState} from "react";
 import {Button} from 'components/ui/Button';
 
@@ -42,14 +43,13 @@ export const Navbar = props => {
         history.push(`/profile`)}
 
 
-
-    const goPostsList = () => {
-        history.push('/');
-    }
-
     const goCommentList = () => {
         history.push('/');
     }
+
+    const goToHelpPage = () => {
+      history.push(`/game/helpPage` );
+  }
     const Player = ({user}) => (   
         <div className="player container" >
         <div className="player username"  key={user.id} onClick={()=>goProfile(localStorage.gettItem('redirectedId'))}>{user.username}</div>
@@ -126,7 +126,7 @@ export const Navbar = props => {
             &nbsp;&nbsp;&nbsp;
             <button
                 className="nav-button"
-                onClick={()=>goProfile(1)}>
+                onClick={()=>goToMyProfile()}>
                   <img className="profile-icon" src={profileIcon} alt="profile"/>
             </button>
             &nbsp;&nbsp;&nbsp;
@@ -140,6 +140,18 @@ export const Navbar = props => {
                 className="nav-button"
                 onClick={() => goCurrentSession()}>
                   <img className="game-icon" src={gameIcon} alt="current-session"/>
+            </button>
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            <button
+                className="nav-button"
+                onClick={() => goToHelpPage()}>
+                  <img className="help-icon" src={helpIcon} alt="help" style={{ width: 40, height:40 }}/>
             </button>
               
 

@@ -4,7 +4,6 @@ import {useHistory, useParams} from 'react-router-dom';
 import "styles/views/Profile.scss";
 import {Navbar} from "../ui/Navbar";
 import { api, handleError } from 'helpers/api';
-import UploadAvatar from 'components/firebase comps/uploadAvatar';
 import PropTypes from "prop-types";
 import noAvatar from "../../img/noAvatar.png";
 import {Button6} from "../ui/Button";
@@ -55,7 +54,7 @@ const Profile = () => {
     }
   };
 
-  const editProfile = (userId) => {
+  const editProfile = () => {
     try {
       if(localStorage.getItem('userId') == user.userId){history.push(`/game/profile/${user.userId}/edit`)}
       
@@ -95,22 +94,10 @@ const Profile = () => {
       fetchData()
     }, []);
 
-  let uploadAvatar = (
-    <div className = "profile form">
-    <div className = "uploadAvatar">
-      <div className = "uploadAvatar input">
-      <input type="file" src= {user !== [] && user.avatarUrl} onChange={handleAvatarChange}/>
-      </div>
-      { error && <div className="uploadAvatar output"><div className="error">{ error }</div></div>}
-      { (file || avatarUrl) && <UploadAvatar file={file} setFile={setFile} avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} />}
-    </div>
-    </div>
-  )
-
   let editProfileButton = (
     <div>
         <Button6 width = "100%" 
-        onClick={() => editProfile(user.userId)}>
+        onClick={() => editProfile()}>
             Edit Profile
         </Button6>
     </div>

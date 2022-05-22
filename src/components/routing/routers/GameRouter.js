@@ -7,6 +7,7 @@ import Comment from "../../views/Comment";
 import Report from "../../views/Report";
 import Profile from "../../views/Profile";
 import EditProfile from "components/views/EditProfile";
+import HelpPage from "components/views/HelpPage";
 
 
 
@@ -19,12 +20,19 @@ const GameRouter = props => {
       <Route exact path={`${props.base}/start`}>
         <Start/>
       </Route>
+
+      <Route exact path={`${props.base}/helpPage`}>
+        <HelpPage/>
+      </Route>
+
       <Route exact path = {`${props.base}/newSession`}>
           <NewSession/>
       </Route>
+
       <Route exact path = {`${props.base}/Comment`}>
           <Comment/>
       </Route>
+
       <Route exact path={`${props.base}/session/:sessionId`}>
           <ActiveSession/>
       </Route>
@@ -40,7 +48,6 @@ const GameRouter = props => {
       <Route exact path={`${props.base}/profile/:userId/edit`}>
         <EditProfile/>
       </Route>
-
 
       <Route exact path={`${props.base}`}>
         <Redirect to={`${props.base}/start`}/>
