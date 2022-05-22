@@ -39,9 +39,9 @@ export const Navbar = props => {
         localStorage.setItem('redirectedId', localStorage.getItem('userId'));
         console.log(    localStorage.getItem('redirectedId'));
         
-        history.push("/profile")}
+        history.push(`/profile`)}
 
-   
+
 
     const goPostsList = () => {
         history.push('/');

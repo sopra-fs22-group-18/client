@@ -14,7 +14,6 @@ import {Button4} from "../ui/Button";
 import {Button5} from "../ui/Button";
 
 import image from "../views/avatar.jpg";
-import { async, isEmpty } from "@firebase/util";
 import Textarea from 'react-expanding-textarea'
 
 /*
