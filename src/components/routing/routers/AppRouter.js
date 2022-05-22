@@ -5,7 +5,6 @@ import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 import Login from "components/views/Login";
 import Register from "components/views/Register";
 import Profile from "components/views/Profile";
-import Edit from "components/views/Edit";
 
 /**
  * Main router of your application.
@@ -31,7 +30,6 @@ const AppRouter = () => {
           </LoginGuard>
         </Route>
         <Route  exact path={`/Profile/`}><Profile/></Route>
-        <Route  exact path="/Edit"><Edit/></Route>
 
         <Route  exact path={`/register/`}><Register/></Route>
         <Route exact path="/">
