@@ -58,10 +58,9 @@ const Report = () => {
 
   const reportComment = async () => {
     try {
-      const requestBody = JSON.stringify({comment, session, user, description, reason });
-      const response =  api.post('/sessions/{sessionId}/comments/report', requestBody);
+      const requestBody = JSON.stringify({session, user, description, reason});
+      const response =  api.post(`/sessions/${sessionId}/reports`, requestBody);
       // Get the returned user and update a new object.
-      const comment = new Comment(response.data);
 
     } catch (error) {
       alert(`Something went wrong during reporting of the comment: \n${handleError(error)}`);
