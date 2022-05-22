@@ -16,14 +16,6 @@ import {Button5} from "../ui/Button";
 import image from "../views/avatar.jpg";
 import Textarea from 'react-expanding-textarea'
 
-/*
-It is possible to add multiple components inside a single file,
-however be sure not to clutter your files with an endless amount!
-As a rule of thumb, use one file per component and only add small,
-specific components that belong to the main one in the same file.
- */
-
-
 
 const FormField = props => {
   return (
@@ -35,7 +27,9 @@ const FormField = props => {
               maxLength="300"
               max-height= "200px"
               onChange={e => props.onChange(e.target.value)}
-              
+              onKeyDown={(event) => {
+                props.onKeyDown(event);
+              }}
           />
       </div>
   );
@@ -65,6 +59,8 @@ const ActiveSession = () => {
     const [showWinner, setShowWinner] = useState(false);
     const [winnerId, setWinnerId] = useState([]);
     const [noParticipants, setNoParticipants] = useState(false);
+    const [identifier, setIdentifier] = useState("");
+    const [sessionStatus, setSessionStatus] = useState(null);
 
 
     let messageIndex = 0;
@@ -95,7 +91,17 @@ const ActiveSession = () => {
 
         wsocket.onmessage = (e) => {
             var data = JSON.parse(e.data);
-            MessageAdd(data);
+            console.log(data);
+            switch (data.messageType) {
+                case 'CommentText':
+                    MessageAdd(data);
+                    break;
+                case 'StatusUpdate':
+                    setSessionStatus(data.sessionStatus);
+                    break;
+                case 'Error':
+                    break;
+            }
         }
 
         wsocket.onclose = () => {
@@ -116,6 +122,8 @@ const ActiveSession = () => {
           const response =  await api.get('/sessions/'+ sessionId );
 
           setSession(response.data);
+          setIdentifier(response.data.identifier);
+          setSessionStatus(response.data.sessionStatus);
 
           console.log('request to:', response.request.responseURL);
           console.log('status code:', response.status);
@@ -130,6 +138,14 @@ const ActiveSession = () => {
 
       fetchData()
     }, []);
+
+    const closeSessionByHost = async () => {
+      try {
+        const request = await api.post(`/sessions/${sessionId}/close`);
+      } catch (error) {
+        alert(`Something went wrong when trying to leave the session: \n${handleError(error)}`);
+      }
+    }
 
     const leaveSession = async () => {
       try {
@@ -155,6 +171,12 @@ const ActiveSession = () => {
         history.push('/game/session/'+sessionId+'/Report');    
     };
 
+    const handleKeyDown = (e) => {
+      if (e.keyCode === 13) {
+        sendMessage();
+      }
+    };
+
     let addComments = (<Button
         width="100%"
         onClick={() => sendMessage()}> Add comment
@@ -172,9 +194,10 @@ const ActiveSession = () => {
         <FormField
             placeholder="Add your comment..."
             value={inputMessage}
-            onChange={im => setInputMessage(im)}/>)
-
-    let content = (<div className="session container"></div>)         
+            onChange={im => setInputMessage(im)}
+            onKeyDown={handleKeyDown}
+            />
+      );
     
     let leaveSessionButton = (<Button5
       width="100%"
@@ -182,10 +205,16 @@ const ActiveSession = () => {
       > <div className = "leaveSession"><div width = "90%">Leave session</div> <div width = "10%"><img className="icon" src={logoutIcon} alt="logout"/></div></div>
     </Button5>)
 
+    let closeSessionByHostButton = (<Button5
+      width="100%"
+      onClick={() => closeSessionByHost()}
+      > <div className = "leaveSession"><div width = "90%">Close session</div> <div width = "10%"><img className="icon" src={logoutIcon} alt="close session"/></div></div>
+    </Button5>)
+
     function selectTheWinner(){
       session.participants.forEach(function(item, index, array){
         console.log(item["participated_sessions"]);
-        if(item["userId"] !== session.host["userId"]){
+        if(item["userId"] !== session.host["userId"]) {
           setParticipantsList(participantsList.push(item));
           console.log("participants activated");
         }
@@ -198,11 +227,7 @@ const ActiveSession = () => {
             <Button3 width="100%" onClick={()=> TheWinnerisSelected(i)}>
               {i["username"]+'\n'+'\n'+'\n'}
             </Button3>
-           
-           
-           
-            
-        
+
       ));}else{
         setNoParticipants(true);
       }
@@ -219,7 +244,7 @@ const ActiveSession = () => {
     //const delay = ms => new Promise(res => setTimeout(res, ms));
 
     const postTheWinner = async() => {
-      await api.post(`/sessions/${sessionId}/${winnerId[0]}`);
+      await api.post(`/sessions/${sessionId}/close/${winnerId[0]}`);
     }
     const updateWonSessions = async(x) => {
       var obj = new Object();
@@ -277,6 +302,98 @@ const ActiveSession = () => {
       </div>
     )
 
+
+    let commentingSection = "";
+
+    switch (sessionStatus) {
+        case "CREATED":
+            console.log("SessionStatus is CREATED");
+            commentingSection = (
+            <div className="newComment" >
+                <div className="newComment container">
+                    <div className="newComment avatar">
+                        <img src={image} width={80} height={80} alt='Avatar' />
+                    </div>
+                    <div className="newComment username">
+                        {"Session " + sessionId + ": " + username}
+                    </div>
+                    <div className="chatContainer" >
+                        <br/>
+                        <div>Session number {session.sessionId} hosted by {session.hostUsername} is waiting for participants.</div>
+                        <br/>
+                        <div>Total number of participants required for the session to start: {session.maxParticipants}</div>
+                        <br/>
+                        {messages}
+                        {(showWinner) && ShowMessage}
+                        {(showWinner) && leaveSessionButton}
+                    </div>
+                    <div>&nbsp;</div>
+
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                </div>
+            </div>
+            )
+            break;
+        case "ONGOING":
+            console.log("SessionStatus is ONGOING");
+            commentingSection = (
+                <div className="newComment" >
+                    <div className="newComment container">
+                        <div className="newComment avatar">
+                            <img src={image} width={80} height={80} alt='Avatar' />
+                        </div>
+                        <div className="newComment username">
+                            {"Session " + sessionId + ": " + username}
+                        </div>
+                        <div className="chatContainer" >
+                            {messages}
+                            {(showWinner) && ShowMessage}
+                            {(showWinner) && leaveSessionButton}
+                        </div>
+                        <div>&nbsp;</div>
+                        <div className="newCommentform">
+                            {(username !== session.hostUsername) && <div>{commentText}</div>}
+                        </div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+
+                        <div className="addcomment">
+                            {(username !== session.hostUsername) && <div>{addComments}</div>}
+                        </div>
+                        <div>&nbsp;</div>
+                        <div className="reportcomment">
+                            {reportComments}
+                        </div>
+                    </div>
+                </div>
+            )
+            break;
+        case "FINISHED":
+            console.log("SessionStatus is FINISHED");
+            break;
+        default:
+            console.log("No SessionStatus available");
+            break;
+    }
+
+
     return (
 
         <div className="session">
@@ -285,9 +402,9 @@ const ActiveSession = () => {
               <div class='session leftChild'>
                   <div className="newSession">
                   <div className="headerrow">
-      <div className="headerp1" ><h1>Let the</h1></div>
-      <div className="headerp2"><h1>roast begin</h1></div>
-  </div>
+                      <div className="headerp1" ><h1>Let the</h1></div>
+                      <div className="headerp2"><h1>roast begin</h1></div>
+                </div>
                     <div className="newSession container">
                         <div className="newSession form">
                         <div className = "uploadImage">
@@ -306,56 +423,18 @@ const ActiveSession = () => {
                     {(username === session.hostUsername && show) && hideParticipants}
                     <div>&nbsp;</div>
                     {show && <center>
-                      
                           {showList}
-                      
                       </center>}
                     {noParticipants && noActiveParticipants}
                     {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
+                    {(username == session.hostUsername) && <div>{closeSessionByHostButton}</div>}
                   </div>
                 </div>
               </div>
             <div class='session rightChild'>
-            <div>{content}</div>
-            <div className="newComment" >
-                <div className="newComment container">
-                    <div className="newComment avatar">
-                        <img src={image} width={80} height={80} alt='Avatar' />
-                    </div>
-                    <div className="newComment username">
-                        {"Session " + sessionId + ": " + username}
-                    </div>
-                    <div className="chatContainer" >
-                        {messages}
-                        {(showWinner) && ShowMessage}
-                        {(showWinner) && leaveSessionButton}
-                    </div>
-                    <div>&nbsp;</div>
-                    <div className="newCommentform">
-                      {(username !== session.hostUsername) && <div>{commentText}</div>}
-                    </div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-
-                    <div className="addcomment">
-                    {(username !== session.hostUsername) && <div>{addComments}</div>}
-                    </div>
-                    <div>&nbsp;</div>
-                    <div className="reportcomment">
-                    {reportComments}
-                    </div>
-                </div>
-            </div> 
+                <div>{commentingSection}</div>
             </div>
-            </div>)
+            </div>
         </div>
         )
     }
