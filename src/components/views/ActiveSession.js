@@ -36,7 +36,9 @@ const FormField = props => {
               maxLength="300"
               max-height= "200px"
               onChange={e => props.onChange(e.target.value)}
-              
+              onKeyDown={(event) => {
+                props.onKeyDown(event);
+              }}
           />
       </div>
   );
@@ -66,6 +68,7 @@ const ActiveSession = () => {
     const [showWinner, setShowWinner] = useState(false);
     const [winnerId, setWinnerId] = useState([]);
     const [noParticipants, setNoParticipants] = useState(false);
+    const [identifier, setIdentifier] = useState("");
 
 
     let messageIndex = 0;
@@ -117,6 +120,7 @@ const ActiveSession = () => {
           const response =  await api.get('/sessions/'+ sessionId );
 
           setSession(response.data);
+          setIdentifier(response.data.identifier);
 
           console.log('request to:', response.request.responseURL);
           console.log('status code:', response.status);
@@ -131,6 +135,14 @@ const ActiveSession = () => {
 
       fetchData()
     }, []);
+
+    const closeSessionByHost = async () => {
+      try {
+        const request = await api.post(`/sessions/${sessionId}/close`);
+      } catch (error) {
+        alert(`Something went wrong when trying to leave the session: \n${handleError(error)}`);
+      }
+    }
 
     const leaveSession = async () => {
       try {
@@ -156,6 +168,12 @@ const ActiveSession = () => {
         history.push('/game/session/'+sessionId+'/Report');    
     };
 
+    const handleKeyDown = (e) => {
+      if (e.keyCode === 13) {
+        sendMessage();
+      }
+    };
+
     let addComments = (<Button
         width="100%"
         onClick={() => sendMessage()}> Add comment
@@ -173,7 +191,10 @@ const ActiveSession = () => {
         <FormField
             placeholder="Add your comment..."
             value={inputMessage}
-            onChange={im => setInputMessage(im)}/>)
+            onChange={im => setInputMessage(im)}
+            onKeyDown={handleKeyDown}
+            />
+      );
 
     let content = (<div className="session container"></div>)         
     
@@ -183,10 +204,16 @@ const ActiveSession = () => {
       > <div className = "leaveSession"><div width = "90%">Leave session</div> <div width = "10%"><img className="icon" src={logoutIcon} alt="logout"/></div></div>
     </Button5>)
 
+    let closeSessionByHostButton = (<Button5
+      width="100%"
+      onClick={() => closeSessionByHost()}
+      > <div className = "leaveSession"><div width = "90%">Close session</div> <div width = "10%"><img className="icon" src={logoutIcon} alt="close session"/></div></div>
+    </Button5>)
+
     function selectTheWinner(){
       session.participants.forEach(function(item, index, array){
         console.log(item["participated_sessions"]);
-        if(item["userId"] !== session.host["userId"]){
+        if(item["userId"] !== session.host["userId"]) {
           setParticipantsList(participantsList.push(item));
           console.log("participants activated");
         }
@@ -199,11 +226,7 @@ const ActiveSession = () => {
             <Button3 width="100%" onClick={()=> TheWinnerisSelected(i)}>
               {i["username"]+'\n'+'\n'+'\n'}
             </Button3>
-           
-           
-           
-            
-        
+
       ));}else{
         setNoParticipants(true);
       }
@@ -220,7 +243,7 @@ const ActiveSession = () => {
     //const delay = ms => new Promise(res => setTimeout(res, ms));
 
     const postTheWinner = async() => {
-      await api.post(`/sessions/${sessionId}/${winnerId[0]}`);
+      await api.post(`/sessions/${sessionId}/close/${winnerId[0]}`);
     }
     const updateWonSessions = async(x) => {
       var obj = new Object();
@@ -288,7 +311,7 @@ const ActiveSession = () => {
                   <div className="headerrow">
       <div className="headerp1" ><h1>Let the</h1></div>
       <div className="headerp2"><h1>roast begin</h1></div>
-  </div>
+    </div>  
                     <div className="newSession container">
                         <div className="newSession form">
                         <div className = "uploadImage">
@@ -313,6 +336,7 @@ const ActiveSession = () => {
                       </center>}
                     {noParticipants && noActiveParticipants}
                     {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
+                    {(username == session.hostUsername) && <div>{closeSessionByHostButton}</div>}
                   </div>
                 </div>
               </div>
@@ -356,7 +380,7 @@ const ActiveSession = () => {
                 </div>
             </div> 
             </div>
-            </div>)
+            </div>
         </div>
         )
     }

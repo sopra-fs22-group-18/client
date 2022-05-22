@@ -10,6 +10,7 @@ import {api, handleError} from "../../helpers/api";
 import User from "../../models/User";
 import Session from "../../models/Session";
 import ProgressBar from 'components/firebase comps/uploadImage'
+import Switch from "components/ui/Switch";
 
 const FormField = props => {
     return (
@@ -39,6 +40,7 @@ const NewSession = () => {
     const [file, setFile] = useState(null);
     const [error, setError] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
+    const [isPrivate, setIsPrivate] = useState(false);
   
     const types = ['image/png', 'image/jpeg'];
   
@@ -60,7 +62,6 @@ const NewSession = () => {
             console.log(title);
             const userResponse = await api.get('/users/' + localStorage.getItem('userId'));
             const host = new User(userResponse.data);
-            const isPrivate = false;
             const requestBody = JSON.stringify({title, maxParticipants, host, imageUrl, isPrivate});
             const response = await api.post('/sessions', requestBody);
 
@@ -132,6 +133,18 @@ const NewSession = () => {
         </ul>
     )
 
+    let toggleOptions = (
+        <div className = "newSession toggleOptions">
+            <div className="newSession list-item text">
+                Toggle private game: 
+            </div>
+            <Switch
+                isOn={isPrivate}
+                handleToggle={() => setIsPrivate(!isPrivate)}
+            />
+        </div>
+    )
+
     return (
     <div className="newSession">
 
@@ -146,6 +159,7 @@ const NewSession = () => {
                 {sessionTitle}
                 {uploadPhoto}
                 {maxParticipantSetting}
+                {toggleOptions}
             </div>
                 {startButton}
         </div>
