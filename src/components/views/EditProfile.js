@@ -32,6 +32,7 @@ const EditProfile = () => { //setting start states of username and birthday
   const [error, setError] = useState(null);
   const [avatarUrl, setAvatarUrl] = useState(null);
   const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
   const [name, setName] = useState(null);
   const [bio, setBio] = useState(null);
 
@@ -39,17 +40,22 @@ const EditProfile = () => { //setting start states of username and birthday
   
  
   const edit = async () => {
+
     try {  
       if(localStorage.getItem('userId') == user.userId){
+        
         const requestBody = JSON.stringify({
           "userId": userId,
+          "name": name,
           "username": username,
+          "password": password, 
           "avatarUrl": avatarUrl,
           "name": name,
           "bio": bio
+
       });
         await api.put("/users/"+ userId, requestBody);
-        history.push(`/Profile`);
+        history.push(`/game/profile/` + userId);
       }
       else{
       
@@ -108,14 +114,18 @@ const EditProfile = () => { //setting start states of username and birthday
               <div class="image-upload">
           
                 <label for="file-input">
-                  {user.avatarUrl && <img alt="Avatar" src={user.avatarUrl}></img>}
-                  {!user.avatarUrl && <img alt="Avatar" src={noAvatar}></img>}
+                  {avatarUrl && <img alt="Avatar" src={avatarUrl}></img>}
+                  {user.avatarUrl && !avatarUrl && <img alt="Avatar" src={user.avatarUrl}></img>}
+                  {!user.avatarUrl && !avatarUrl && <img alt="Avatar" src={noAvatar}></img>}
+                  
+
                 </label>
                 <input id="file-input" type="file" onChange={handleChange}/>
             </div>
             { error && <div className="uploadAvatar output"><div className="error">{ error }</div></div>}
             { file && <div className="uploadAvatar output"><UploadAvatar file={file} setFile={setFile} avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} /> </div>}
             <FormField label="Username" value={username} onChange={un => setUsername(un)}/>
+            <FormField label="Password" value={password} onChange={pa => setPassword(pa)}/>
             <FormField label="Name" value={name} onChange={na => setName(na)}/>
             <FormField label="Bio" value={bio} onChange={bi => setBio(bi)}/>
             <div className="loginbutton-container"></div>
