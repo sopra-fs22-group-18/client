@@ -10,21 +10,22 @@ const useStorage = (file) => {
     // references
 
     const storageRef = ref(storage, file.name);
-    const collectionRef = collection(firestore, 'images');
+    /*const collectionRef = collection(firestore, 'images');*/
 
 
     uploadBytes(storageRef, file).then(
       () =>{
         getDownloadURL(storageRef).then(function(url){
         setUrl(url);  
-        const img = document.getElementById('image');
+
+        /*const img = document.getElementById('image');
         img.src = url
           
         const createdAt = timestamp
         addDoc(collectionRef, {
           url, 
           createdAt
-        });
+        });*/
 
       }
     );

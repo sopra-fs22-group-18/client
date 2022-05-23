@@ -108,8 +108,11 @@ const EditProfile = () => { //setting start states of username and birthday
               <div class="image-upload">
           
                 <label for="file-input">
-                  {user.avatarUrl && <img alt="Avatar" src={user.avatarUrl}></img>}
-                  {!user.avatarUrl && <img alt="Avatar" src={noAvatar}></img>}
+                  {avatarUrl && <img alt="Avatar" src={avatarUrl}></img>}
+                  {user.avatarUrl && !avatarUrl && <img alt="Avatar" src={user.avatarUrl}></img>}
+                  {!user.avatarUrl && !avatarUrl && <img alt="Avatar" src={noAvatar}></img>}
+                  
+
                 </label>
                 <input id="file-input" type="file" onChange={handleChange}/>
             </div>
