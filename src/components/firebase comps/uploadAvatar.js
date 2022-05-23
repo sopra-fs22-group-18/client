@@ -16,7 +16,7 @@ const UploadAvatar = ({ file, setFile, avatarUrl, setAvatarUrl}) => {
 
 
   return (
-   <text>Avatar has been uploaded!</text>
+    <b>The avatar has been uploaded!</b>
   );
 } 
 
