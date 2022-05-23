@@ -20,4 +20,4 @@ const UploadAvatar = ({ file, setFile, avatarUrl, setAvatarUrl}) => {
   );
 } 
 
-export default UploadAvatar;gi
+export default UploadAvatar;
