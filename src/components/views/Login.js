@@ -35,7 +35,7 @@ const FormField2 = props => {
         {props.label}
       </label>
       <input
-      
+        type="password"
         className="login input"
         placeholder="Set your password..."
         value={props.value}
