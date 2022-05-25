@@ -1,14 +1,16 @@
 import {useHistory, useParams} from "react-router-dom";
 import {Navbar} from "../ui/Navbar";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import "styles/views/Session.scss"
 import {api, handleError} from "../../helpers/api";
-import {getWsDomain} from "../../helpers/getWsDomain";
 
 import "styles/views/Comment.scss"
 import PropTypes from "prop-types";
 import {Button} from "../ui/Button";
 import image from "../views/avatar.jpg";
+import User from "../../models/User";
+import Session from "../../models/Session";
+import SessionReport from "../../models/SessionReport";
 /*
 It is possible to add multiple components inside a single file,
 however be sure not to clutter your files with an endless amount!
@@ -40,42 +42,41 @@ FormField.propTypes = {
 const Report = () => {
   const history = useHistory();
   const sessionId = useParams().sessionId;
-  const userId = localStorage.getItem('userId');
-  const [user, setUser] = useState(null);
-  const [session, setSession] = useState(null);
-  const [socket, setSocket] = useState(new WebSocket(getWsDomain() + '/' + userId + '/' + sessionId));
-  const [messages, setMessages] = useState([]);
 
-
-  const [title, setTitle] = useState(null);
-  const [title2, setTitle2] = useState(null);
-  const [commentId, setCommentId] = useState(null);
   const [description, setDescription] = useState(null);
   const [reason, setReason] = useState(null);
 
 
-
-
   const reportComment = async () => {
     try {
+      const userResponse = await api.get('/users/' + localStorage.getItem('userId'));
+      const user = new User(userResponse.data);
+
+      const sessionResponse = await api.get('/sessions/' + sessionId);
+      const session = new Session(sessionResponse.data);
+
       const requestBody = JSON.stringify({session, user, description, reason});
-      const response =  api.post(`/sessions/${sessionId}/reports`, requestBody);
+      const reportResponse =  api.post(`/reports`, requestBody);
       // Get the returned user and update a new object.
+
+      const report = new SessionReport(reportResponse.data);
+      console.log(report);
+      history.push('/game');
 
     } catch (error) {
       alert(`Something went wrong during reporting of the comment: \n${handleError(error)}`);
     }
-    history.push('/game/session/'+sessionId);    
+
   };
 
 
-  let reportReasons =  (
-    <select name="reason" value={reason} onChange={event => handleReasonchange(event.target.value)}>
-    <option id="0" >Swear words</option>
-    <option id="1" >Threat</option>
-    <option id="2" >Racism</option>
-    <option id="3" >Sexual Harassment</option>
-</select>
+    let reportReasonsDropdown =  (
+        <select name="reason" value={reason} onChange={event => handleReasonchange(event.target.value)}>
+            <option id="0" >Swearing</option>
+            <option id="1" >Threat</option>
+            <option id="2" >Racism</option>
+            <option id="3" >Harassment</option>
+        </select>
     )
 
     const handleReasonchange = (reason) => {
@@ -83,32 +84,25 @@ const Report = () => {
        console.log(reason);
    }
 
-let avatar = (
-<FormField
-/>)
-let reportReason = (
+
+let reportDescription = (
     <FormField
-        placeholder="Add Report Reason..."
-        value={title}
-        onChange={e => reportReason.onChange(e.target.value)}/>)
+        placeholder="Add a description..."
+        value={description}
+        onChange={desc => setDescription(desc)}/>)
 
 
 
-        let content = (<div className="session container">Report comment...</div>)
-
-
-let submitReport = (<Button
-width="100%"
-onClick={() => reportComment()}> Submit report
-</Button>)
+let submitReport = (<Button width="100%" onClick={() => reportComment()}> Submit report</Button>)
 
   return (
 
      <div className="session">
             <Navbar/>
-            <div>{content}</div>
+         {/*<div>{content}</div>*/}
 
             <div className="newComment">
+
             <div className="newComment container">
             <div className="newComment avatar">
            <img src={image} width={80} height={80} alt='Avatar' /></div>
@@ -116,9 +110,9 @@ onClick={() => reportComment()}> Submit report
            <div>&nbsp;</div>
             <div className="newComment form">
             <div><h3>Select Report Reasons</h3></div>
-            {reportReasons}
+            {reportReasonsDropdown}
             <div>&nbsp;</div>
-            {reportReason}
+            {reportDescription}
             </div>
             {submitReport}   
             </div>
