@@ -95,6 +95,7 @@ const NewSession = () => {
             placeholder="Add your session title..."
             value={title}
             onChange={t => setTitle(t)}/>)
+
     
     let uploadPhoto = (
       <div className = "uploadImage">
@@ -153,11 +154,22 @@ const NewSession = () => {
             <div className="headerp1" ><h1>Create</h1></div>
             <div className="headerp2"><h1>a new session</h1></div>
         </div>
-
+        <div></div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
         <div className="newSession container">
             <div className="newSession form">
-                {sessionTitle}
-                {uploadPhoto}
+                <div className="newSession box">
+                    <div className="newSession list-item text">
+                        Name your session
+                    </div>
+                    {sessionTitle}
+                </div>
+                <div className="newSession box picture">
+                    <div className="newSession list-item text">Add your picture </div>
+                    {uploadPhoto}
+                </div>
                 {maxParticipantSetting}
                 {toggleOptions}
             </div>
