@@ -90,7 +90,7 @@ const Start = () => {
         obj.token = x["token"];
         obj.avatarUrl = x["avatarUrl"];
         obj.bio = x["bio"];
-        obj.participated_sessions = x["participated_sessions"]+1;
+        obj.participatedSessions = x["participatedSessions"]+1;
         obj.wonSessions = x["wonSessions"];
         await api.put(`/users/statistics/${x["userId"]}`, JSON.stringify(obj));
     }
