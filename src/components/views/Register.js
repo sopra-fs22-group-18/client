@@ -19,11 +19,14 @@ const FormField = props => {
         {props.label}
       </label>
       <input
-      
+
         className="register input"
         placeholder="Set your username..."
         value={props.value}
         onChange={e => props.onChange(e.target.value)}
+        onKeyDown={(event) => {
+          props.onKeyDown(event);
+        }}
       />
     </div>
   );
@@ -41,6 +44,9 @@ const FormField2 = props => {
         placeholder="Set your password..."
         value={props.value}
         onChange={e => props.onChange(e.target.value)}
+        onKeyDown={(event) => {
+          props.onKeyDown(event);
+        }}
       />
     </div>
   );
@@ -82,6 +88,12 @@ const Register = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      doRegister();
+    }
+  };
+
 
   return (
     <BaseContainer>
@@ -104,6 +116,7 @@ const Register = () => {
             label="Username"
             value={username}
             onChange={un => setUsername(un)}
+            onKeyDown = {handleKeyDown}
           />
          
           <FormField2
@@ -111,6 +124,7 @@ const Register = () => {
             label="Password"
             value={password}
             onChange={n => setPassword(n)}
+            onKeyDown = {handleKeyDown}
           />
 
       

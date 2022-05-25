@@ -22,6 +22,9 @@ const FormField = props => {
         placeholder="Set your username..."
         value={props.value}
         onChange={e => props.onChange(e.target.value)}
+        onKeyDown={(event) => {
+          props.onKeyDown(event);
+        }}
       />
     </div>
   );
@@ -40,6 +43,9 @@ const FormField2 = props => {
         placeholder="Set your password..."
         value={props.value}
         onChange={e => props.onChange(e.target.value)}
+        onKeyDown={(event) => {
+          props.onKeyDown(event);
+        }}
       />
     </div>
   );
@@ -84,6 +90,12 @@ const Login = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      doLogin();
+    }
+  };
+
 
   return (
     <BaseContainer>
@@ -106,6 +118,7 @@ const Login = () => {
             label="Username"
             value={username}
             onChange={un => setUsername(un)}
+            onKeyDown = {handleKeyDown}
           />
          
           <FormField2
@@ -113,6 +126,7 @@ const Login = () => {
             label="Password"
             value={password}
             onChange={n => setPassword(n)}
+            onKeyDown = {handleKeyDown}
           />
 
       
