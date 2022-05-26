@@ -12,6 +12,7 @@ import {Button} from "../ui/Button";
 import {Button3} from "../ui/Button";
 import {Button4} from "../ui/Button";
 import {Button5} from "../ui/Button";
+import noAvatar from "../../img/noAvatar.png";
 
 import image from "../views/avatar.jpg";
 import Textarea from 'react-expanding-textarea'
@@ -61,6 +62,8 @@ const ActiveSession = () => {
     const [noParticipants, setNoParticipants] = useState(false);
     const [identifier, setIdentifier] = useState("");
     const [sessionStatus, setSessionStatus] = useState(null);
+    const [host, setHost] = useState([]);
+    const [participants, setParticipants] = useState([]);
 
 
     let messageIndex = 0;
@@ -76,9 +79,25 @@ const ActiveSession = () => {
     };
 
     function MessageAdd(message) {
-        setInputMessages(messages => [...messages, <div className="chatMessage" key={messageIndex}> {message.from}: {message.content} </div>]);
+        setInputMessages(messages => [...messages, <div className="chatMessage" onClick={()=>goToProfile(message.from)} key={messageIndex}> {message.from}: {message.content} </div>]);
         //messages.push(<div className="chatMessage" key={messageIndex}> {message.from}: {message.content} </div>);
         messageIndex += 1;
+    }
+
+    function goToProfile(name) {
+      console.log(session.participants);
+      console.log(session.sessionId);
+      console.log(sessionId);
+    if(participants != undefined && sessionId != undefined) {
+          for (var i = 0; i < participants.length; i++) {
+            if(participants[i].username == name) {
+              history.push({
+                pathname: `/game/profile/` + participants[i].userId,
+                state: { data: sessionId },
+          });
+          }
+        }
+      }
     }
 
     useEffect(() => {
@@ -124,6 +143,8 @@ const ActiveSession = () => {
           setSession(response.data);
           setIdentifier(response.data.identifier);
           setSessionStatus(response.data.sessionStatus);
+          setHost(response.data.host);
+          setParticipants(response.data.participants);
 
           console.log('request to:', response.request.responseURL);
           console.log('status code:', response.status);
@@ -312,10 +333,11 @@ const ActiveSession = () => {
             <div className="newComment" >
                 <div className="newComment container">
                     <div className="newComment avatar">
-                        <img src={image} width={80} height={80} alt='Avatar' />
+                      { host.avatarUrl && host && (<img alt="Avatar"  src={host.avatarUrl}></img>)}
+                      { !host.avatarUrl && (<img alt="Avatar" src={noAvatar}></img>)}
                     </div>
                     <div className="newComment username">
-                        {"Session " + sessionId + ": " + username}
+                      <text>Host: <b>{host.username}</b></text>
                     </div>
                     <div className="chatContainer" >
                         <br/>
@@ -349,10 +371,11 @@ const ActiveSession = () => {
                 <div className="newComment" >
                     <div className="newComment container">
                         <div className="newComment avatar">
-                            <img src={image} width={80} height={80} alt='Avatar' />
+                          { host.avatarUrl && host && (<img alt="Avatar"  src={host.avatarUrl}></img>)}
+                          { !host.avatarUrl && (<img alt="Avatar" src={noAvatar}></img>)} 
                         </div>
                         <div className="newComment username">
-                            {"Session " + sessionId + ": " + username}
+                          <text>Host: <b>{host.username}</b></text>
                         </div>
                         <div className="chatContainer" >
                             {messages}
@@ -431,7 +454,7 @@ const ActiveSession = () => {
                   </div>
                 </div>
               </div>
-            <div class='session rightChild'>
+            <div className='session rightChild'>
                 <div>{commentingSection}</div>
             </div>
             </div>
