@@ -195,6 +195,7 @@ const ActiveSession = () => {
     const handleKeyDown = (e) => {
       if (e.keyCode === 13) {
         sendMessage();
+        setInputMessage("");
       }
     };
 
