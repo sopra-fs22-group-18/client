@@ -213,7 +213,7 @@ const ActiveSession = () => {
 
     function selectTheWinner(){
       session.participants.forEach(function(item, index, array){
-        console.log(item["participated_sessions"]);
+        console.log(item["participatedSessions"]);
         if(item["userId"] !== session.host["userId"]) {
           setParticipantsList(participantsList.push(item));
           console.log("participants activated");
@@ -257,7 +257,7 @@ const ActiveSession = () => {
       obj.token = x["token"];
       obj.avatarUrl = x["avatarUrl"];
       obj.bio = x["bio"];
-      obj.participated_sessions = x["participated_sessions"];
+      obj.participatedSessions = x["participatedSessions"];
       obj.wonSessions = x["wonSessions"] + 1;
       await api.put(`/users/statistics/${x["userId"]}`, JSON.stringify(obj));
     }
