@@ -143,7 +143,7 @@ let backToSessionButton = (
                 <h2>Participated Sessions: {user["participatedSessions"]}</h2>
                 <h2>Won Sessions: {user["wonSessions"]}</h2>
                 {localStorage.getItem('userId') == user.userId && editProfileButton}
-                {location.state.data != undefined && backToSessionButton}
+                {location.state !== undefined && backToSessionButton}
             </div>
       </div>
       </div>

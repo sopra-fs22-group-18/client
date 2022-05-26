@@ -63,6 +63,7 @@ const ActiveSession = () => {
     const [identifier, setIdentifier] = useState("");
     const [sessionStatus, setSessionStatus] = useState(null);
     const [host, setHost] = useState([]);
+    const [participants, setParticipants] = useState([]);
 
 
     let messageIndex = 0;
@@ -84,15 +85,18 @@ const ActiveSession = () => {
     }
 
     function goToProfile(name) {
-    if(session.participants != undefined && sessionId != undefined) {
-        session.participants.forEach(function(item, index, array){
-          if(item["username"] == name) {
-            history.push({
-              pathname: `/game/profile/` + item["userId"],
-              state: { data: sessionId }
+      console.log(session.participants);
+      console.log(session.sessionId);
+      console.log(sessionId);
+    if(participants != undefined && sessionId != undefined) {
+          for (var i = 0; i < participants.length; i++) {
+            if(participants[i].username == name) {
+              history.push({
+                pathname: `/game/profile/` + participants[i].userId,
+                state: { data: sessionId },
           });
           }
-        });
+        }
       }
     }
 
@@ -140,6 +144,7 @@ const ActiveSession = () => {
           setIdentifier(response.data.identifier);
           setSessionStatus(response.data.sessionStatus);
           setHost(response.data.host);
+          setParticipants(response.data.participants);
 
           console.log('request to:', response.request.responseURL);
           console.log('status code:', response.status);
@@ -449,7 +454,7 @@ const ActiveSession = () => {
                   </div>
                 </div>
               </div>
-            <div class='session rightChild'>
+            <div className='session rightChild'>
                 <div>{commentingSection}</div>
             </div>
             </div>
