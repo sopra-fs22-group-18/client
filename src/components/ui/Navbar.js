@@ -5,15 +5,15 @@ import {Spinner} from 'components/ui/Spinner';
 import {Link, useHistory} from "react-router-dom";
 import logoutIcon from "../../img/logout.png";
 
-import logoIcon from "../../img/roastmeIcon.svg";
-import gameIcon from "../../img/gamepad.svg";
-import profileIcon from "../../img/profile.svg";
+import logo from "../../img/logo.png";
+import gameIcon from "../../img/gameIcon.png";
+import profileIcon from "../../img/profileIcon.png";
 import commentIcon from "../../img/comment.svg";
-import postIcon from "../../img/post.svg";
-import helpIcon from "../../img/help.png";
+import homeIcon from "../../img/homeIcon.png";
+import helpIcon from "../../img/helpIcon.png";
 import  {useEffect, useState} from "react";
 import {Button} from 'components/ui/Button';
-
+import homeHover from "../../img/homeHover.png";
 
 
 export const Navbar = props => {
@@ -42,10 +42,6 @@ export const Navbar = props => {
         
         history.push(`/profile`)}
 
-
-    const goCommentList = () => {
-        history.push('/');
-    }
 
     const goToHelpPage = () => {
       history.push(`/game/helpPage` );
@@ -91,9 +87,9 @@ export const Navbar = props => {
               <li className="list-item">
 
               <button
-                className={` ${isActive === "home" ? 'btn__nav-bar-btn active-link' : 'btn__nav-bar-btn'}`} 
+                className= "nav-button"
                 onClick={() => goHome()}>
-                  <img className="home-icon" src={logoIcon} alt="home"/>
+                  <img className="logo-icon" src={logo} alt="logo" style={{ width: 80, height: 80 }}/>
               </button>
               </li>
           </div>
@@ -101,21 +97,9 @@ export const Navbar = props => {
           <ul className="middle-items" >
 
             <button
-                className={` ${isActive === "profile" ? 'btn__nav-bar-btn active-link' : 'btn__nav-bar-btn'}`}
-                onClick={() => setActive("home")}>
-                  <img className="post-icon" src={postIcon} alt="post"/>
-            </button>
-            &nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;
-            <button
                 className="nav-button"
-                onClick={() => goCommentList()}>
-                  <img className="comment-icon" src={commentIcon} alt="comment"/>
+                onClick={() => (goHome(), setActive("home"))}>
+                  <img className="home-icon" src={homeIcon} alt="home" style={{ width: 40, height: 40 }}/>
             </button>
             &nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;
@@ -127,7 +111,7 @@ export const Navbar = props => {
             <button
                 className="nav-button"
                 onClick={()=>goToMyProfile()}>
-                  <img className="profile-icon" src={profileIcon} alt="profile"/>
+                  <img className="profile-icon" src={profileIcon} alt="profile" style={{ width: 40, height: 40 }}/>
             </button>
             &nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;
@@ -139,7 +123,7 @@ export const Navbar = props => {
             <button
                 className="nav-button"
                 onClick={() => goCurrentSession()}>
-                  <img className="game-icon" src={gameIcon} alt="current-session"/>
+                  <img className="game-icon" src={gameIcon} alt="current-session" style={{ width: 48, height: 48 }}/>
             </button>
             &nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;
@@ -151,7 +135,7 @@ export const Navbar = props => {
             <button
                 className="nav-button"
                 onClick={() => goToHelpPage()}>
-                  <img className="help-icon" src={helpIcon} alt="help" style={{ width: 40, height:40 }}/>
+                  <img className="help-icon" src={helpIcon} alt="help" style={{ width: 40, height: 40 }}/>
             </button>
               
 
