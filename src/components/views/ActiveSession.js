@@ -78,7 +78,7 @@ const ActiveSession = () => {
     };
 
     function MessageAdd(message) {
-        setInputMessages(messages => [...messages, <div className="chatMessage" key={messageIndex}> {message.from}: {message.content} </div>]);
+        setInputMessages(messages => [...messages, <div className="chatMessage"  key={messageIndex}> {message.from}: {message.content} </div>]);
         //messages.push(<div className="chatMessage" key={messageIndex}> {message.from}: {message.content} </div>);
         messageIndex += 1;
     }
@@ -315,8 +315,8 @@ const ActiveSession = () => {
             <div className="newComment" >
                 <div className="newComment container">
                     <div className="newComment avatar">
-                    { host.avatarUrl && host && (<img alt="Avatar"  src={host.avatarUrl}></img>)}
-                    { !host.avatarUrl && (<img alt="Avatar" src={noAvatar}></img>)}
+                      { host.avatarUrl && host && (<img alt="Avatar"  src={host.avatarUrl}></img>)}
+                      { !host.avatarUrl && (<img alt="Avatar" src={noAvatar}></img>)}
                     </div>
                     <div className="newComment username">
                       <text>Host: <b>{host.username}</b></text>
@@ -353,10 +353,11 @@ const ActiveSession = () => {
                 <div className="newComment" >
                     <div className="newComment container">
                         <div className="newComment avatar">
-                            <img src={image} width={80} height={80} alt='Avatar' />
+                          { host.avatarUrl && host && (<img alt="Avatar"  src={host.avatarUrl}></img>)}
+                          { !host.avatarUrl && (<img alt="Avatar" src={noAvatar}></img>)} 
                         </div>
                         <div className="newComment username">
-                            {"Session " + sessionId + ": " + username}
+                          <text>Host: <b>{host.username}</b></text>
                         </div>
                         <div className="chatContainer" >
                             {messages}
