@@ -78,9 +78,22 @@ const ActiveSession = () => {
     };
 
     function MessageAdd(message) {
-        setInputMessages(messages => [...messages, <div className="chatMessage"  key={messageIndex}> {message.from}: {message.content} </div>]);
+        setInputMessages(messages => [...messages, <div className="chatMessage" onClick={()=>goToProfile(message.from)} key={messageIndex}> {message.from}: {message.content} </div>]);
         //messages.push(<div className="chatMessage" key={messageIndex}> {message.from}: {message.content} </div>);
         messageIndex += 1;
+    }
+
+    function goToProfile(name) {
+    if(session.participants != undefined && sessionId != undefined) {
+        session.participants.forEach(function(item, index, array){
+          if(item["username"] == name) {
+            history.push({
+              pathname: `/game/profile/` + item["userId"],
+              state: { data: sessionId }
+          });
+          }
+        });
+      }
     }
 
     useEffect(() => {

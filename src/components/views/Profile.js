@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import {useHistory, useParams} from 'react-router-dom';
+import {useHistory, useParams, useLocation} from 'react-router-dom';
 import "styles/views/Profile.scss";
 import {Navbar} from "../ui/Navbar";
 import { api, handleError } from 'helpers/api';
@@ -31,6 +31,7 @@ FormField.propTypes = {
 
 const Profile = () => {
   // use react-router-dom's hook to access the history
+  const location = useLocation();
   const history = useHistory();
   const userId = useParams().userId;
   const [user, setUser] = useState([]);
@@ -59,6 +60,19 @@ const Profile = () => {
       if(localStorage.getItem('userId') == user.userId){history.push(`/game/profile/${user.userId}/edit`)}
       
       else{alert("You can't access this profil page");}
+     } catch (error) {
+        console.error(`Something went wrong while trying to edit the user: \n${handleError(error)}`);
+        console.error("Details:", error);
+        alert("Something went wrong when trying to edit the profile! See the console for details.");
+    }
+  };
+
+  const goBackToSession = () => {
+    try {
+      if (location.state.data != undefined) {
+              history.push(`/game/session/` + location.state.data)
+      }
+
      } catch (error) {
         console.error(`Something went wrong while trying to edit the user: \n${handleError(error)}`);
         console.error("Details:", error);
@@ -103,6 +117,15 @@ const Profile = () => {
     </div>
 )
 
+let backToSessionButton = (
+  <div>
+      <Button6 width = "100%" 
+      onClick={() => goBackToSession()}>
+          Go back to session
+      </Button6>
+  </div>
+)
+
 
   return (
       <div><Navbar />
@@ -113,13 +136,14 @@ const Profile = () => {
                 { user.avatarUrl && user && (<img alt="Avatar" src={user.avatarUrl}></img>)}
                 { !user.avatarUrl && (<img alt="Avatar" src={noAvatar}></img>)}
                 </div>
-
+                
                 {user.username && user && <h1>{user.username}</h1>}
                 {user.name && user &&<h2>Name: {user.name}</h2>}
                 {user.bio && user && <h2>Bio: {user.bio}</h2>}
                 <h2>Participated Sessions: {user["participatedSessions"]}</h2>
                 <h2>Won Sessions: {user["wonSessions"]}</h2>
                 {localStorage.getItem('userId') == user.userId && editProfileButton}
+                {location.state.data != undefined && backToSessionButton}
             </div>
       </div>
       </div>
