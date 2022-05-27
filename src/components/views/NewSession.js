@@ -98,14 +98,14 @@ const NewSession = () => {
 
     
     let uploadPhoto = (
-      <div className = "uploadImage">
+      <div className = "uploadImage" style="height:1px; width:1px;">
         <div className = "uploadImage input">
         <label>
           <input type="file" onChange={handleChange} />
         </label>
         </div>
-        { error && <div className="uploadImage output"><div className="error">{ error }</div></div>}
-        { file && <div className="uploadImage output"><ProgressBar file={file} setFile={setFile} imageUrl={imageUrl} setImageUrl={setImageUrl} /> </div>}
+        { error && <div className="uploadImage output" style="height:1px; width:1px;"><div className="error">{ error }</div></div>}
+        { file && <div className="uploadImage output"style="height:1px; width:1px;"><ProgressBar file={file} setFile={setFile} imageUrl={imageUrl} setImageUrl={setImageUrl} /> </div>}
       </div>
     )
 
