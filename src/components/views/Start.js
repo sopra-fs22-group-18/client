@@ -143,7 +143,6 @@ const Start = () => {
                 onChange={id => setIdentifier(id)}
             />
           </div>
-          
           <div className="start button">
               {joinSessionByIdentifierButton}
           </div>

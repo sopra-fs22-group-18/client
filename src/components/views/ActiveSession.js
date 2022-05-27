@@ -9,9 +9,7 @@ import logoutIcon from "../../img/logout.png";
 import "styles/views/Comment.scss"
 import PropTypes from "prop-types";
 import {Button} from "../ui/Button";
-import {Button3} from "../ui/Button";
-import {Button4} from "../ui/Button";
-import {Button5} from "../ui/Button";
+import {Button3, Button4, Button5} from 'components/ui/Button';
 import noAvatar from "../../img/noAvatar.png";
 
 import image from "../views/avatar.jpg";
@@ -80,25 +78,9 @@ const ActiveSession = () => {
 
     function MessageAdd(message) {
         setInputMessages(messages => [...messages, <div className="chatMessage" onClick={()=>goToProfile(message.from)} key={messageIndex}> {message.from}: {message.content} </div>]);
-        //messages.push(<div className="chatMessage" key={messageIndex}> {message.from}: {message.content} </div>);
         messageIndex += 1;
     }
 
-    function goToProfile(name) {
-      console.log(session.participants);
-      console.log(session.sessionId);
-      console.log(sessionId);
-    if(participants != undefined && sessionId != undefined) {
-          for (var i = 0; i < participants.length; i++) {
-            if(participants[i].username == name) {
-              history.push({
-                pathname: `/game/profile/` + participants[i].userId,
-                state: { data: sessionId },
-          });
-          }
-        }
-      }
-    }
 
     useEffect(() => {
         let wsocket = new WebSocket(getWsDomain() + '/' + userId + '/' + sessionId);
@@ -162,7 +144,7 @@ const ActiveSession = () => {
 
     const closeSessionByHost = async () => {
       try {
-        const request = await api.post(`/sessions/${sessionId}/close`);
+        await api.post(`/sessions/${sessionId}/close`);
       } catch (error) {
         alert(`Something went wrong when trying to leave the session: \n${handleError(error)}`);
       }
@@ -171,7 +153,7 @@ const ActiveSession = () => {
     const leaveSession = async () => {
       try {
         const userId = localStorage.getItem('userId');
-        const request = await api.put(`/sessions/${sessionId}/leave/` + userId);
+        await api.put(`/sessions/${sessionId}/leave/` + userId);
 
         var msg = {
             from: "Server",
@@ -209,8 +191,6 @@ const ActiveSession = () => {
     width="100%"
     onClick={() => reportComment()}> Report comment
     </Button>)
-
-    let avatar = ( <FormField/>)
 
     let commentText = (
         <FormField
@@ -255,6 +235,23 @@ const ActiveSession = () => {
       }
     }
 
+
+    function goToProfile(name) {
+      console.log(session.participants);
+      console.log(session.sessionId);
+      console.log(sessionId);
+    if(participants != undefined && sessionId != undefined) {
+          for (var i = 0; i < participants.length; i++) {
+            if(participants[i].username == name) {
+              history.push({
+                pathname: `/game/profile/` + participants[i].userId,
+                state: { data: sessionId }
+          });
+          }
+        }
+      }
+    }
+
     function TheWinnerisSelected(x){
       setSessionWinner(x["username"]);
       setWinnerId(winnerId.push(x["userId"]));
@@ -262,8 +259,6 @@ const ActiveSession = () => {
       postTheWinner();
       updateWonSessions(x);
     }
-
-    //const delay = ms => new Promise(res => setTimeout(res, ms));
 
     const postTheWinner = async() => {
       await api.post(`/sessions/${sessionId}/close/${winnerId[0]}`);
