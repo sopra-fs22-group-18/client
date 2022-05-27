@@ -214,6 +214,7 @@ const ActiveSession = () => {
 
     let commentText = (
         <FormField
+        width="90%"
             placeholder="Add your comment..."
             value={inputMessage}
             onChange={im => setInputMessage(im)}
@@ -224,6 +225,8 @@ const ActiveSession = () => {
     let leaveSessionButton = (<Button5
       width="100%"
       onClick={() => leaveSession()}
+    
+
       > <div className = "leaveSession"><div width = "90%">Leave session</div> <div width = "10%"><img className="c" src={logoutIcon} alt="logout"/></div></div>
     </Button5>)
 
@@ -341,6 +344,7 @@ const ActiveSession = () => {
                       <text>Host: <b>{host.username}</b></text>
                     </div>
                     <div className="chatContainer" >
+                      
                         <br/>
                         <div>Session number {session.sessionId} hosted by {session.hostUsername} is waiting for participants.</div>
                         <br/>
@@ -372,20 +376,36 @@ const ActiveSession = () => {
                         <div className="chatContainer" >
                             {messages}
                             {(showWinner) && ShowMessage}
+                            
                             {(showWinner) && leaveSessionButton}
                         </div>
                         <div>&nbsp;</div>
+                        <div className="reportcomment">
+
+                            {reportComments}
+                        </div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+
                         <div className="newCommentform">
-                            {(username !== session.hostUsername) && <div>{commentText}</div>}
+                            {(username !== session.hostUsername) && <div className="newCommenta">{commentText}</div>}
                         </div>
                         
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>                        
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        
+                       
 
                         <div className="addcomment">
                             {(username !== session.hostUsername) && <div>{addComments}</div>}
                         </div>
-                        <div className="reportcomment">
-                            {reportComments}
-                        </div>
+                        
+
+                        
                     </div>
                 </div>
             )
@@ -419,7 +439,10 @@ const ActiveSession = () => {
                   <div>&nbsp;</div>
                   <div>&nbsp;</div>
                   <div>&nbsp;</div>
-
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+                  
 
 
                     <div className="newSession container">
@@ -445,6 +468,8 @@ const ActiveSession = () => {
                           {showList}
                       </center>}
                     {noParticipants && noActiveParticipants}
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
                     {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
                     {(username == session.hostUsername) && <div>{closeSessionByHostButton}</div>}
                   </div>
@@ -452,12 +477,16 @@ const ActiveSession = () => {
               </div>
 
             <div className='session rightChild'>
-                  <div>&nbsp;</div>
+
 
             <div className="headerrow">
-              
-                      <div className="headerp1" ><h1>Let the</h1></div>
-                      <div className="headerp2" ><h1>Roast begin</h1></div>
+            
+                      <div className="headerp1" ><h1>Let the Roast Begin</h1></div>
+                      <div>&nbsp;</div>
+                      <div>&nbsp;</div>
+                      <div>&nbsp;</div>
+                      <div>&nbsp;</div>
+
 
                   </div>
                 <div>{commentingSection}</div>
