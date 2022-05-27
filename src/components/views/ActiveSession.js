@@ -176,8 +176,8 @@ const ActiveSession = () => {
 
     const handleKeyDown = (e) => {
       if (e.keyCode === 13) {
+        e.preventDefault();
         sendMessage();
-        setInputMessage("");
       }
     };
 
@@ -214,25 +214,23 @@ const ActiveSession = () => {
     </Button5>)
 
     function selectTheWinner(){
-      session.participants.forEach(function(item, index, array){
-        console.log(item["participatedSessions"]);
-        if(item["userId"] !== session.host["userId"]) {
-          setParticipantsList(participantsList.push(item));
-          console.log("participants activated");
+        session.participants.forEach(function(item, index, array){
+          console.log(item["participatedSessions"]);
+          if(item["userId"] !== session.host["userId"]) {
+            setParticipantsList(participantsList.push(item));
+            console.log("participants activated");
+          }
+        });
+        setShow(true);
+        if(participantsList.length !== 0){
+          setNoParticipants(false);
+          setShowList(participantsList.map((i) => 
+              <Button3 width="100%" onClick={()=> TheWinnerisSelected(i)}>
+                {i["username"]+'\n'+'\n'+'\n'}
+              </Button3>
+        ));}else{
+          setNoParticipants(true);
         }
-      });
-      setShow(true);
-      if(participantsList.length !== 0){
-        setNoParticipants(false);
-        setShowList(participantsList.map((i) => 
-          
-            <Button3 width="100%" onClick={()=> TheWinnerisSelected(i)}>
-              {i["username"]+'\n'+'\n'+'\n'}
-            </Button3>
-
-      ));}else{
-        setNoParticipants(true);
-      }
     }
 
 
@@ -301,7 +299,7 @@ const ActiveSession = () => {
           </Button4>
       </div>
   )
-  
+
     let showParticipants = (
       <div>
         <Button4 width = "100%"
