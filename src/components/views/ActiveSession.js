@@ -62,6 +62,8 @@ const ActiveSession = () => {
     const [sessionStatus, setSessionStatus] = useState(null);
     const [host, setHost] = useState([]);
     const [participants, setParticipants] = useState([]);
+    var ha = null;
+    var participantsLis = [];
 
 
     let messageIndex = 0;
@@ -213,18 +215,18 @@ const ActiveSession = () => {
       > <div className = "leaveSession"><div width = "90%">Close session</div> <div width = "10%"><img className="icon" src={logoutIcon} alt="close session"/></div></div>
     </Button5>)
 
-    function selectTheWinner(){
-        session.participants.forEach(function(item, index, array){
-          console.log(item["participatedSessions"]);
+    const selectTheWinner = async() => {
+      ha = await api.get('/sessions/'+ sessionId );
+        ha.data.participants.forEach(function(item, index, array){
           if(item["userId"] !== session.host["userId"]) {
-            setParticipantsList(participantsList.push(item));
+            setParticipantsList(participantsLis.push(item));
             console.log("participants activated");
           }
         });
         setShow(true);
-        if(participantsList.length !== 0){
+        if(participantsLis.length !== 0){
           setNoParticipants(false);
-          setShowList(participantsList.map((i) => 
+          setShowList(participantsLis.map((i) => 
               <Button3 width="100%" onClick={()=> TheWinnerisSelected(i)}>
                 {i["username"]+'\n'+'\n'+'\n'}
               </Button3>
@@ -309,13 +311,17 @@ const ActiveSession = () => {
       </div>
     )
 
-    let noActiveParticipants = (
+    let updateParticipants = (
       <div>
-        <Button width =  "100%" onClick={() => hideAllParticipants()}>
-          No Active Participants
+        <Button width =  "100%" onClick={() => updateParticipantsList()}>
+          Update participants list
         </Button>
       </div>
     )
+    const updateParticipantsList = () => {
+      participantsLis = [];
+      selectTheWinner();
+    }
 
 
     let commentingSection = "";
@@ -442,9 +448,10 @@ const ActiveSession = () => {
                     {show && <center>
                           {showList}
                       </center>}
-                    {noParticipants && noActiveParticipants}
+                    {(username === session.hostUsername && show) && updateParticipants}
+                    <div>&nbsp;</div>
                     {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
-                    {(username == session.hostUsername) && <div>{closeSessionByHostButton}</div>}
+                    {(username === session.hostUsername) && <div>{closeSessionByHostButton}</div>}
                   </div>
                 </div>
               </div>
