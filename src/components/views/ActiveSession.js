@@ -207,7 +207,7 @@ const ActiveSession = () => {
 
     let reportComments = (<Button
     width="100%"
-    onClick={() => reportComment()}> Report comment
+    onClick={() => reportComment()}> Report Sesssion
     </Button>)
 
     let avatar = ( <FormField/>)
@@ -380,19 +380,17 @@ const ActiveSession = () => {
                             {(showWinner) && leaveSessionButton}
                         </div>
                         <div>&nbsp;</div>
-                        <div className="reportcomment">
 
-                            {reportComments}
-                        </div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
 
                         <div className="newCommentform">
                             {(username !== session.hostUsername) && <div className="newCommenta">{commentText}</div>}
                         </div>
                         
                         <div>&nbsp;</div>
-                        <div>&nbsp;</div>                        
+                        <div>&nbsp;</div>
+
+
+                        <div>&nbsp;</div>
                         <div>&nbsp;</div>
                         <div>&nbsp;</div>
                         <div>&nbsp;</div>
@@ -402,6 +400,11 @@ const ActiveSession = () => {
 
                         <div className="addcomment">
                             {(username !== session.hostUsername) && <div>{addComments}</div>}
+                        </div>
+                        <div>&nbsp;</div>
+                        <div className="reportcomment">
+
+                            {reportComments}
                         </div>
                         
 
