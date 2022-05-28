@@ -2,13 +2,15 @@
 
 .newSession {
   background-color: #873e23;
-  height: 100vh;
+  height: 150vh;
+  display: flex;
+  flex-direction: column;
   
   .headerrow{
     display: flex; 
     margin-left:0%;
-    margin-top:2%;
-    margin-right: 40%;
+    margin-top:0%;
+    margin-right:38%;
     text-align: left;
     margin-bottom:-2em;
     color:#FFFFFF;
@@ -32,6 +34,7 @@
 
     &.toggleOptions {
       display: flex;
+      flex-direction: row;
       background-color: white;
       height: 100px;
 
@@ -41,18 +44,19 @@
     }
 
 
-
     &.container {
+      position: absolute;
       display: flex;
       background-color: white;
-      width: 400px;
-      margin: auto;
+      width: 30%;
+      margin: 20px;
       height: auto;
       border-radius: $borderRadius;
       padding: 15px;
+      top: 20%;
       left: 35%;
-      flex-direction: column;
     }
+
     &.form {
       background-color: white;
       height: auto;
@@ -82,13 +86,35 @@
         padding-top: 10px;
       }
     }
+
+    &.field {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    &.input {
+      height: 35px;
+      padding-left: 15px;
+      margin-left: -4px;
+      border: none;
+      border-radius: 0.75em;
+      margin-bottom: 20px;
+      background: transparentize(white, 0.85);
+      color: $textColor;
+    }
+    &.label {
+      color: $textColor;
+      margin-bottom: 10px;
+      text-transform: lowercase;
+      font-weight: 300;
+    }
 }
 
 .title-field{
   border-radius: $borderRadius;
   background: white;
   height: 35px;
-  width: 332px;
+  width: 430px;
 }
 
 .box{
@@ -99,35 +125,8 @@
   width:auto;
   border-radius: $borderRadius;
   &.picture{
-    height: 120px;
-  }
-}
+    height: auto;
 
-.uploadImage {
-  margin-block-end: 0px;
-  &.input {
-    min-height: 50px;
-    overflow: hidden;
-    background:lightgrey;
-    border-color: black;
-    border-radius: $borderRadius;
-    border-style: dotted;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  &.output {
-    min-height: 20px;
-    overflow: hidden;
-    background:lightgrey;
-    border-color: black;
-    border-style: dotted;
-    display: flex;
-    justify-content: center;
-  }
-  img {
-    width:100%;
-    height:100%;
   }
 }
 
@@ -141,4 +140,49 @@
   width: 40px;
   border: white;
   background: white;
+  cursor: pointer;	
+}
+
+.image-upload {
+  height: auto;
+  width: auto;
+  box-shadow: rgb(0, 0, 0 / 16%) 0px 3px 6px, rgb(0, 0, 0 / 23%) 0px 3px 6px;
+  margin: 0px auto 0px auto;
+  
+  &.addIcon {
+    width: 50x;
+    top: 200px;
+    left: 100px;
+  }
+  img {
+    width:100%;
+    height:100%;
+    cursor: pointer;	
+    
+  }
+  
+}
+
+
+  .image-upload > input
+  {
+    display: none;
+  }
+
+  .uploadImage {
+  margin-block-end: 20px;
+
+  &.output {
+    padding: 10px;
+    min-height: 20px;
+    overflow: hidden;
+    border-color: black;
+    border-style: solid;
+    display: flex;
+    justify-content: center;
+  }
+  img {
+    width:100%;
+    height:100%;
+  }
 }
