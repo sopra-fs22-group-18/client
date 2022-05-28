@@ -62,7 +62,7 @@ const ActiveSession = () => {
     const [sessionStatus, setSessionStatus] = useState(null);
     const [host, setHost] = useState([]);
     const [participants, setParticipants] = useState([]);
-    var ha = null;
+    var sessionData = null;
     var participantsLis = [];
 
 
@@ -216,8 +216,8 @@ const ActiveSession = () => {
     </Button5>)
 
     const selectTheWinner = async() => {
-      ha = await api.get('/sessions/'+ sessionId );
-        ha.data.participants.forEach(function(item, index, array){
+      sessionData = await api.get('/sessions/'+ sessionId );
+        sessionData.data.participants.forEach(function(item, index, array){
           if(item["userId"] !== session.host["userId"]) {
             setParticipantsList(participantsLis.push(item));
             console.log("participants activated");
@@ -236,20 +236,19 @@ const ActiveSession = () => {
     }
 
 
-    function goToProfile(name) {
-      console.log(session.participants);
-      console.log(session.sessionId);
+    const goToProfile = async(name) => {
+      sessionData = await api.get('/sessions/'+ sessionId );
+      console.log(sessionData.participants);
+      console.log(sessionData.sessionId);
       console.log(sessionId);
-    if(participants != undefined && sessionId != undefined) {
-          for (var i = 0; i < participants.length; i++) {
-            if(participants[i].username == name) {
-              history.push({
-                pathname: `/game/profile/` + participants[i].userId,
-                state: { data: sessionId }
+      sessionData.data.participants.forEach(function(item, index, array){
+        if(item.username == name) {
+          history.push({
+            pathname: `/game/profile/` + item.userId,
+            state: { data: sessionId }
           });
-          }
         }
-      }
+      });
     }
 
     function TheWinnerisSelected(x){
