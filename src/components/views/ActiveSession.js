@@ -191,11 +191,12 @@ const ActiveSession = () => {
 
     let reportComments = (<Button
     width="100%"
-    onClick={() => reportComment()}> Report comment
+    onClick={() => reportComment()}> Report Sesssion
     </Button>)
 
     let commentText = (
         <FormField
+        width="90%"
             placeholder="Add your comment..."
             value={inputMessage}
             onChange={im => setInputMessage(im)}
@@ -206,7 +207,9 @@ const ActiveSession = () => {
     let leaveSessionButton = (<Button5
       width="100%"
       onClick={() => leaveSession()}
-      > <div className = "leaveSession"><div width = "90%">Leave session</div> <div width = "10%"><img className="icon" src={logoutIcon} alt="logout"/></div></div>
+    
+
+      > <div className = "leaveSession"><div width = "90%">Leave session</div> <div width = "10%"><img className="c" src={logoutIcon} alt="logout"/></div></div>
     </Button5>)
 
     let closeSessionByHostButton = (<Button5
@@ -339,6 +342,7 @@ const ActiveSession = () => {
                       <text>Host: <b>{host.username}</b></text>
                     </div>
                     <div className="chatContainer" >
+                      
                         <br/>
                         <div>Session number {session.sessionId} hosted by {session.hostUsername} is waiting for participants.</div>
                         <br/>
@@ -348,18 +352,9 @@ const ActiveSession = () => {
                         {(showWinner) && ShowMessage}
                         {(showWinner) && leaveSessionButton}
                     </div>
-                    <div>&nbsp;</div>
+                   
 
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
+                  
                 </div>
             </div>
             )
@@ -379,30 +374,39 @@ const ActiveSession = () => {
                         <div className="chatContainer" >
                             {messages}
                             {(showWinner) && ShowMessage}
+                            
                             {(showWinner) && leaveSessionButton}
                         </div>
                         <div>&nbsp;</div>
+
+
                         <div className="newCommentform">
-                            {(username !== session.hostUsername) && <div>{commentText}</div>}
+                            {(username !== session.hostUsername) && <div className="newCommenta">{commentText}</div>}
                         </div>
+                        
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+
+
                         <div>&nbsp;</div>
                         <div>&nbsp;</div>
                         <div>&nbsp;</div>
                         <div>&nbsp;</div>
                         <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
+                        
+                       
 
                         <div className="addcomment">
                             {(username !== session.hostUsername) && <div>{addComments}</div>}
                         </div>
                         <div>&nbsp;</div>
                         <div className="reportcomment">
+
                             {reportComments}
                         </div>
+                        
+
+                        
                     </div>
                 </div>
             )
@@ -417,44 +421,74 @@ const ActiveSession = () => {
 
 
     return (
+      
 
         <div className="session">
+          
             <Navbar/>
             <div class='session parent'>
               <div class='session leftChild'>
                   <div className="newSession">
-                  <div className="headerrow">
-                      <div className="headerp1" ><h1>Let the</h1></div>
-                      <div className="headerp2"><h1>roast begin</h1></div>
-                </div>
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+          
+                  
+                  <div>&nbsp;</div>
+
+                  <div>&nbsp;</div>               
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+                  
+
+
                     <div className="newSession container">
+                      
+                      
                         <div className="newSession form">
-                        <div className = "uploadImage">
+                          
+                        <div className = "uploadImage" >
                           <div className = "uploadImage input">
                             <label>
                             <div className title-field>{session.title}</div>
                             </label>
                           </div>
-                          <div className="uploadImage output">
-                            <img alt="Image" src={session.imageUrl}></img>
+
+                          <div className="uploadImageoutput">
+                            <img id="image1" alt="Image1" src={session.imageUrl}></img>
                           </div>
                         </div>
                     </div>
                     {(username === session.hostUsername && !show) && showParticipants}
-                    <div>&nbsp;</div>
                     {(username === session.hostUsername && show) && hideParticipants}
-                    <div>&nbsp;</div>
                     {show && <center>
                           {showList}
                       </center>}
-                    {(username === session.hostUsername && show) && updateParticipants}
+                    {noParticipants && noActiveParticipants}
                     <div>&nbsp;</div>
                     {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
                     {(username === session.hostUsername) && <div>{closeSessionByHostButton}</div>}
                   </div>
                 </div>
               </div>
+
             <div className='session rightChild'>
+
+
+            <div className="headerrow">
+            
+                      <div className="headerp1" ><h1>Let the Roast Begin</h1></div>
+                      <div>&nbsp;</div>
+                      <div>&nbsp;</div>
+                      <div>&nbsp;</div>
+                      <div>&nbsp;</div>
+
+
+                  </div>
                 <div>{commentingSection}</div>
             </div>
             </div>
