@@ -11,6 +11,7 @@ import User from "../../models/User";
 import Session from "../../models/Session";
 import ProgressBar from 'components/firebase comps/uploadImage'
 import Switch from "components/ui/Switch";
+import noImage from "../../img/noImage.png";
 
 const FormField = props => {
     return (
@@ -97,17 +98,6 @@ const NewSession = () => {
             onChange={t => setTitle(t)}/>)
 
     
-    let uploadPhoto = (
-      <div className = "uploadImage">
-        <div className = "uploadImage input">
-        <label>
-          <input type="file" onChange={handleChange} />
-        </label>
-        </div>
-        { error && <div className="uploadImage output"><div className="error">{ error }</div></div>}
-        { file && <div className="uploadImage output"><ProgressBar file={file} setFile={setFile} imageUrl={imageUrl} setImageUrl={setImageUrl} /> </div>}
-      </div>
-    )
 
     let maxParticipantSetting = (
         <ul className="newSession maxParticipants">
@@ -168,7 +158,18 @@ const NewSession = () => {
                 </div>
                 <div className="newSession box picture">
                     <div className="newSession list-item text">Add your picture </div>
-                    {uploadPhoto}
+                    <div class="image-upload">
+          
+                    <label for="file-input">
+                        {imageUrl && <img alt="Image" src={imageUrl}></img>}
+                        {!imageUrl && <img alt="Image" src={noImage}></img>}
+                        
+            
+                    </label>
+                    <input id="file-input" type="file" onChange={handleChange}/>
+                </div>
+                { error && <div className="uploadImage output"><div className="error">{ error }</div></div>}
+                { file && <div className="uploadImage output"><ProgressBar file={file} setFile={setFile} imageUrl={imageUrl} setImageUrl={setImageUrl} /> </div>}
                 </div>
                 {maxParticipantSetting}
                 {toggleOptions}
