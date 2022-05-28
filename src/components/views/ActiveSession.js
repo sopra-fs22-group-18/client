@@ -11,6 +11,7 @@ import PropTypes from "prop-types";
 import {Button} from "../ui/Button";
 import {Button3, Button4, Button5} from 'components/ui/Button';
 import noAvatar from "../../img/noAvatar.png";
+import ReactScrollableFeed from 'react-scrollable-feed';
 
 import image from "../views/avatar.jpg";
 import Textarea from 'react-expanding-textarea'
@@ -67,7 +68,6 @@ const ActiveSession = () => {
 
 
     let messageIndex = 0;
-
 
     const sendMessage = async () => {
         var msg = {
@@ -349,18 +349,22 @@ const ActiveSession = () => {
                     <div className="newComment username">
                       <text>Host: <b>{host.username}</b></text>
                     </div>
-                    <div className="chatContainer" >
-                      
-                        <br/>
-                        <div>Session number {session.sessionId} hosted by {session.hostUsername} is waiting for participants.</div>
-                        <br/>
-                        <div>Total number of participants required for the session to start: {session.maxParticipants}</div>
-                        <br/>
-                        {messages}
-                        {(showWinner) && ShowMessage}
-                        {(showWinner) && leaveSessionButton}
-                    </div>
-                   
+
+                      <div className="chatContainer" >
+                        <ReactScrollableFeed>
+                          <br/>
+                          <div>Session number {session.sessionId} hosted by {session.hostUsername} is waiting for participants.</div>
+                          <br/>
+                          <div>Total number of participants required for the session to start: {session.maxParticipants}</div>
+                          <br/>
+                          {messages}
+                          {(showWinner) && ShowMessage}
+                          {(showWinner) && leaveSessionButton}
+                        </ReactScrollableFeed>
+                      </div>
+                    <div>&nbsp;</div>
+
+
 
                   
                 </div>
@@ -379,11 +383,14 @@ const ActiveSession = () => {
                         <div className="newComment username">
                           <text>Host: <b>{host.username}</b></text>
                         </div>
+                        
                         <div className="chatContainer" >
+                          <ReactScrollableFeed>
                             {messages}
                             {(showWinner) && ShowMessage}
                             
                             {(showWinner) && leaveSessionButton}
+                          </ReactScrollableFeed>
                         </div>
                         <div>&nbsp;</div>
 
