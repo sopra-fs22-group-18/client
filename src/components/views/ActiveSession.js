@@ -324,6 +324,14 @@ const ActiveSession = () => {
       participantsLis = [];
       selectTheWinner();
     }
+    
+    let noActiveParticipants = (
+      <div>
+        <Button width =  "100%" onClick={() => hideAllParticipants()}>
+          No Active Participants
+        </Button>
+      </div>
+    )
 
 
     let commentingSection = "";
