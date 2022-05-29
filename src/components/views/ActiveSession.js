@@ -9,10 +9,9 @@ import logoutIcon from "../../img/logout.png";
 import "styles/views/Comment.scss"
 import PropTypes from "prop-types";
 import {Button} from "../ui/Button";
-import {Button3} from "../ui/Button";
-import {Button4} from "../ui/Button";
-import {Button5} from "../ui/Button";
+import {Button3, Button4, Button5} from 'components/ui/Button';
 import noAvatar from "../../img/noAvatar.png";
+import ReactScrollableFeed from 'react-scrollable-feed';
 
 import image from "../views/avatar.jpg";
 import Textarea from 'react-expanding-textarea'
@@ -64,10 +63,11 @@ const ActiveSession = () => {
     const [sessionStatus, setSessionStatus] = useState(null);
     const [host, setHost] = useState([]);
     const [participants, setParticipants] = useState([]);
+    var sessionData = null;
+    var participantsLis = [];
 
 
     let messageIndex = 0;
-
 
     const sendMessage = async () => {
         var msg = {
@@ -80,25 +80,9 @@ const ActiveSession = () => {
 
     function MessageAdd(message) {
         setInputMessages(messages => [...messages, <div className="chatMessage" onClick={()=>goToProfile(message.from)} key={messageIndex}> {message.from}: {message.content} </div>]);
-        //messages.push(<div className="chatMessage" key={messageIndex}> {message.from}: {message.content} </div>);
         messageIndex += 1;
     }
 
-    function goToProfile(name) {
-      console.log(session.participants);
-      console.log(session.sessionId);
-      console.log(sessionId);
-    if(participants != undefined && sessionId != undefined) {
-          for (var i = 0; i < participants.length; i++) {
-            if(participants[i].username == name) {
-              history.push({
-                pathname: `/game/profile/` + participants[i].userId,
-                state: { data: sessionId },
-          });
-          }
-        }
-      }
-    }
 
     useEffect(() => {
         let wsocket = new WebSocket(getWsDomain() + '/' + userId + '/' + sessionId);
@@ -162,7 +146,7 @@ const ActiveSession = () => {
 
     const closeSessionByHost = async () => {
       try {
-        const request = await api.post(`/sessions/${sessionId}/close`);
+        await api.post(`/sessions/${sessionId}/close`);
       } catch (error) {
         alert(`Something went wrong when trying to leave the session: \n${handleError(error)}`);
       }
@@ -171,7 +155,7 @@ const ActiveSession = () => {
     const leaveSession = async () => {
       try {
         const userId = localStorage.getItem('userId');
-        const request = await api.put(`/sessions/${sessionId}/leave/` + userId);
+        await api.put(`/sessions/${sessionId}/leave/` + userId);
 
         var msg = {
             from: "Server",
@@ -194,8 +178,8 @@ const ActiveSession = () => {
 
     const handleKeyDown = (e) => {
       if (e.keyCode === 13) {
+        e.preventDefault();
         sendMessage();
-        setInputMessage("");
       }
     };
 
@@ -209,8 +193,6 @@ const ActiveSession = () => {
     width="100%"
     onClick={() => reportComment()}> Report Sesssion
     </Button>)
-
-    let avatar = ( <FormField/>)
 
     let commentText = (
         <FormField
@@ -236,26 +218,40 @@ const ActiveSession = () => {
       > <div className = "leaveSession"><div width = "90%">Close session</div> <div width = "10%"><img className="icon" src={logoutIcon} alt="close session"/></div></div>
     </Button5>)
 
-    function selectTheWinner(){
-      session.participants.forEach(function(item, index, array){
-        console.log(item["participatedSessions"]);
-        if(item["userId"] !== session.host["userId"]) {
-          setParticipantsList(participantsList.push(item));
-          console.log("participants activated");
+    const selectTheWinner = async() => {
+      sessionData = await api.get('/sessions/'+ sessionId );
+        sessionData.data.participants.forEach(function(item, index, array){
+          if(item["userId"] !== session.host["userId"]) {
+            setParticipantsList(participantsLis.push(item));
+            console.log("participants activated");
+          }
+        });
+        setShow(true);
+        if(participantsLis.length !== 0){
+          setNoParticipants(false);
+          setShowList(participantsLis.map((i) => 
+              <Button3 width="100%" onClick={()=> TheWinnerisSelected(i)}>
+                {i["username"]+'\n'+'\n'+'\n'}
+              </Button3>
+        ));}else{
+          setNoParticipants(true);
+        }
+    }
+
+
+    const goToProfile = async(name) => {
+      sessionData = await api.get('/sessions/'+ sessionId );
+      console.log(sessionData.participants);
+      console.log(sessionData.sessionId);
+      console.log(sessionId);
+      sessionData.data.participants.forEach(function(item, index, array){
+        if(item.username == name) {
+          history.push({
+            pathname: `/game/profile/` + item.userId,
+            state: { data: sessionId }
+          });
         }
       });
-      setShow(true);
-      if(participantsList.length !== 0){
-        setNoParticipants(false);
-        setShowList(participantsList.map((i) => 
-          
-            <Button3 width="100%" onClick={()=> TheWinnerisSelected(i)}>
-              {i["username"]+'\n'+'\n'+'\n'}
-            </Button3>
-
-      ));}else{
-        setNoParticipants(true);
-      }
     }
 
     function TheWinnerisSelected(x){
@@ -265,8 +261,6 @@ const ActiveSession = () => {
       postTheWinner();
       updateWonSessions(x);
     }
-
-    //const delay = ms => new Promise(res => setTimeout(res, ms));
 
     const postTheWinner = async() => {
       await api.post(`/sessions/${sessionId}/close/${winnerId[0]}`);
@@ -309,7 +303,7 @@ const ActiveSession = () => {
           </Button4>
       </div>
   )
-  
+
     let showParticipants = (
       <div>
         <Button4 width = "100%"
@@ -319,6 +313,18 @@ const ActiveSession = () => {
       </div>
     )
 
+    let updateParticipants = (
+      <div>
+        <Button width =  "100%" onClick={() => updateParticipantsList()}>
+          Update participants list
+        </Button>
+      </div>
+    )
+    const updateParticipantsList = () => {
+      participantsLis = [];
+      selectTheWinner();
+    }
+    
     let noActiveParticipants = (
       <div>
         <Button width =  "100%" onClick={() => hideAllParticipants()}>
@@ -343,18 +349,22 @@ const ActiveSession = () => {
                     <div className="newComment username">
                       <text>Host: <b>{host.username}</b></text>
                     </div>
-                    <div className="chatContainer" >
-                      
-                        <br/>
-                        <div>Session number {session.sessionId} hosted by {session.hostUsername} is waiting for participants.</div>
-                        <br/>
-                        <div>Total number of participants required for the session to start: {session.maxParticipants}</div>
-                        <br/>
-                        {messages}
-                        {(showWinner) && ShowMessage}
-                        {(showWinner) && leaveSessionButton}
-                    </div>
-                   
+
+                      <div className="chatContainer" >
+                        <ReactScrollableFeed>
+                          <br/>
+                          <div>Session number {session.sessionId} hosted by {session.hostUsername} is waiting for participants.</div>
+                          <br/>
+                          <div>Total number of participants required for the session to start: {session.maxParticipants}</div>
+                          <br/>
+                          {messages}
+                          {(showWinner) && ShowMessage}
+                          {(showWinner) && leaveSessionButton}
+                        </ReactScrollableFeed>
+                      </div>
+                    <div>&nbsp;</div>
+
+
 
                   
                 </div>
@@ -373,11 +383,14 @@ const ActiveSession = () => {
                         <div className="newComment username">
                           <text>Host: <b>{host.username}</b></text>
                         </div>
+                        
                         <div className="chatContainer" >
+                          <ReactScrollableFeed>
                             {messages}
                             {(showWinner) && ShowMessage}
                             
                             {(showWinner) && leaveSessionButton}
+                          </ReactScrollableFeed>
                         </div>
                         <div>&nbsp;</div>
 
@@ -472,9 +485,8 @@ const ActiveSession = () => {
                       </center>}
                     {noParticipants && noActiveParticipants}
                     <div>&nbsp;</div>
-                    <div>&nbsp;</div>
                     {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
-                    {(username == session.hostUsername) && <div>{closeSessionByHostButton}</div>}
+                    {(username === session.hostUsername) && <div>{closeSessionByHostButton}</div>}
                   </div>
                 </div>
               </div>
