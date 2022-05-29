@@ -101,17 +101,37 @@ export const Navbar = props => {
                 onClick={() => (goHome(), setActive("home"))}>
                   <img className="home-icon" src={homeIcon} alt="home" style={{ width: 40, height: 40 }}/>
             </button>
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
             <button
                 className="nav-button"
                 onClick={()=>goToMyProfile()}>
                   <img className="profile-icon" src={profileIcon} alt="profile" style={{ width: 40, height: 40 }}/>
             </button>
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
             <button
                 className="nav-button"
                 onClick={() => goCurrentSession()}>
                   <img className="game-icon" src={gameIcon} alt="current-session" style={{ width: 48, height: 48 }}/>
             </button>
-          
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
             <button
                 className="nav-button"
                 onClick={() => goToHelpPage()}>
@@ -127,7 +147,7 @@ export const Navbar = props => {
                   <button
                       className= "nav-button"
                       onClick={() => doLogout()} >
-                  <img className="icon"  src={logoutIcon} alt="logout" style={{ width: 40, height:40, right:20}} />
+                  <img className="icon"  src={logoutIcon} alt="logout" style={{ width: 40, height:40 }} />
                   </button>
               </li>
           </ul>
