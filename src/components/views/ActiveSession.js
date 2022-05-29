@@ -195,6 +195,8 @@ const ActiveSession = () => {
     </Button>)
 
     let commentText = (
+      <div className="newCommentform">
+        
         <FormField
         width="90%"
             placeholder="Add your comment..."
@@ -202,7 +204,7 @@ const ActiveSession = () => {
             onChange={im => setInputMessage(im)}
             onKeyDown={handleKeyDown}
             />
-      );
+      </div>);
     
     let leaveSessionButton = (<Button5
       width="100%"
@@ -340,15 +342,16 @@ const ActiveSession = () => {
         case "CREATED":
             console.log("SessionStatus is CREATED");
             commentingSection = (
-            <div className="newComment" >
+              
                 <div className="newComment container">
+                <div className="newComment username">
+                      <text>Host: <b>{host.username}</b></text>
+                    </div>
                     <div className="newComment avatar">
                       { host.avatarUrl && host && (<img alt="Avatar"  src={host.avatarUrl}></img>)}
                       { !host.avatarUrl && (<img alt="Avatar" src={noAvatar}></img>)}
                     </div>
-                    <div className="newComment username">
-                      <text>Host: <b>{host.username}</b></text>
-                    </div>
+                    
 
                       <div className="chatContainer" >
                         <ReactScrollableFeed>
@@ -362,19 +365,17 @@ const ActiveSession = () => {
                           {(showWinner) && leaveSessionButton}
                         </ReactScrollableFeed>
                       </div>
-                    <div>&nbsp;</div>
 
 
 
                   
                 </div>
-            </div>
             )
             break;
         case "ONGOING":
             console.log("SessionStatus is ONGOING");
             commentingSection = (
-                <div className="newComment" >
+              
                     <div className="newComment container">
                         <div className="newComment avatar">
                           { host.avatarUrl && host && (<img alt="Avatar"  src={host.avatarUrl}></img>)}
@@ -396,20 +397,17 @@ const ActiveSession = () => {
 
 
                         <div className="newCommentform">
-                            {(username !== session.hostUsername) && <div className="newCommenta">{commentText}</div>}
+                            {(username !== session.hostUsername) && <div >{commentText}</div>}
                         </div>
                         
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-
-
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
                         
                        
+                       
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+
 
                         <div className="addcomment">
                             {(username !== session.hostUsername) && <div>{addComments}</div>}
@@ -423,7 +421,6 @@ const ActiveSession = () => {
 
                         
                     </div>
-                </div>
             )
             break;
         case "FINISHED":
@@ -439,30 +436,33 @@ const ActiveSession = () => {
       
 
         <div className="session">
+
           
-            <Navbar/>
-            <div class='session parent'>
-              <div class='session leftChild'>
-                  <div className="newSession">
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
           
-                  
-                  <div>&nbsp;</div>
-
-                  <div>&nbsp;</div>               
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
-                  
+           <Navbar></Navbar>
+           
+           <div className="headerrow">
+            
+            <div className="headerp1" ><h1>Let the Roast Begin</h1></div>
+            
 
 
-                    <div className="newSession container">
+        </div>
+
+<ul class="list">      
+  <li class="list-item"> 
+    <div class="list-content">{commentingSection}
+   </div>
+   </li>
+
+   <li class="list-item"> 
+    <div class="list-content">
+  
+
+          <div className="newSession container">            
+
                       
+
                       
                         <div className="newSession form">
                           
@@ -478,6 +478,7 @@ const ActiveSession = () => {
                           </div>
                         </div>
                     </div>
+                    
                     {(username === session.hostUsername && !show) && showParticipants}
                     {(username === session.hostUsername && show) && hideParticipants}
                     {show && <center>
@@ -488,25 +489,13 @@ const ActiveSession = () => {
                     {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
                     {(username === session.hostUsername) && <div>{closeSessionByHostButton}</div>}
                   </div>
-                </div>
-              </div>
-
-            <div className='session rightChild'>
-
-
-            <div className="headerrow">
-            
-                      <div className="headerp1" ><h1>Let the Roast Begin</h1></div>
-                      <div>&nbsp;</div>
-                      <div>&nbsp;</div>
-                      <div>&nbsp;</div>
-                      <div>&nbsp;</div>
-
-
                   </div>
-                <div>{commentingSection}</div>
-            </div>
-            </div>
+   </li>
+   </ul>
+                  
+
+
+           
         </div>
         )
     }
