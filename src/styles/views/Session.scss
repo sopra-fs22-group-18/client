@@ -15,6 +15,8 @@
   these allow you to create small snippets that you can insert with a one-liner in other stylesheets
   for an example, see styles/views/Login.scss
 */
+body{max-width: 100vh;overflow-x:hidden;overflow-y:auto}
+
 .session {
   max-height:100vh;
 
@@ -60,7 +62,7 @@ float:left;
 
 
 }
-.nav-bar-container-light {min-width: 100vh}
+.nasv-bar-container-light {min-width: 100vh}
   .session .c {
     width: 8vh;
     height: 5vh; }

@@ -141,8 +141,8 @@ const NewSession = () => {
 
         <Navbar></Navbar>
      
-        
-        
+       
+
         
         <div className="newSession container">
             <div className="newSession form">
