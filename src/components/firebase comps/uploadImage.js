@@ -10,6 +10,7 @@ const ProgressBar = ({ file, setFile, imageUrl, setImageUrl}) => {
     if (url) {
       deleteFile(imageUrl);
       setImageUrl(url);
+      
     }
   }, [url, setFile, setImageUrl]);
 

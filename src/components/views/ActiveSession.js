@@ -11,6 +11,7 @@ import PropTypes from "prop-types";
 import {Button} from "../ui/Button";
 import {Button3, Button4, Button5} from 'components/ui/Button';
 import noAvatar from "../../img/noAvatar.png";
+import ReactScrollableFeed from 'react-scrollable-feed';
 
 import image from "../views/avatar.jpg";
 import Textarea from 'react-expanding-textarea'
@@ -67,7 +68,6 @@ const ActiveSession = () => {
 
 
     let messageIndex = 0;
-
 
     const sendMessage = async () => {
         var msg = {
@@ -191,11 +191,12 @@ const ActiveSession = () => {
 
     let reportComments = (<Button
     width="100%"
-    onClick={() => reportComment()}> Report comment
+    onClick={() => reportComment()}> Report Sesssion
     </Button>)
 
     let commentText = (
         <FormField
+        width="90%"
             placeholder="Add your comment..."
             value={inputMessage}
             onChange={im => setInputMessage(im)}
@@ -206,7 +207,9 @@ const ActiveSession = () => {
     let leaveSessionButton = (<Button5
       width="100%"
       onClick={() => leaveSession()}
-      > <div className = "leaveSession"><div width = "90%">Leave session</div> <div width = "10%"><img className="icon" src={logoutIcon} alt="logout"/></div></div>
+    
+
+      > <div className = "leaveSession"><div width = "90%">Leave session</div> <div width = "10%"><img className="c" src={logoutIcon} alt="logout"/></div></div>
     </Button5>)
 
     let closeSessionByHostButton = (<Button5
@@ -321,6 +324,14 @@ const ActiveSession = () => {
       participantsLis = [];
       selectTheWinner();
     }
+    
+    let noActiveParticipants = (
+      <div>
+        <Button width =  "100%" onClick={() => hideAllParticipants()}>
+          No Active Participants
+        </Button>
+      </div>
+    )
 
 
     let commentingSection = "";
@@ -329,8 +340,9 @@ const ActiveSession = () => {
         case "CREATED":
             console.log("SessionStatus is CREATED");
             commentingSection = (
-            <div className="newComment" >
+              
                 <div className="newComment container">
+                
                     <div className="newComment avatar">
                       { host.avatarUrl && host && (<img alt="Avatar"  src={host.avatarUrl}></img>)}
                       { !host.avatarUrl && (<img alt="Avatar" src={noAvatar}></img>)}
@@ -338,36 +350,35 @@ const ActiveSession = () => {
                     <div className="newComment username">
                       <text>Host: <b>{host.username}</b></text>
                     </div>
-                    <div className="chatContainer" >
-                        <br/>
-                        <div>Session number {session.sessionId} hosted by {session.hostUsername} is waiting for participants.</div>
-                        <br/>
-                        <div>Total number of participants required for the session to start: {session.maxParticipants}</div>
-                        <br/>
-                        {messages}
-                        {(showWinner) && ShowMessage}
-                        {(showWinner) && leaveSessionButton}
+                    <div className="newComment username">
+                      <text>Identifier: <b> {identifier} </b></text>
                     </div>
+                    
+
+                      <div className="chatContainer" >
+                        <ReactScrollableFeed>
+                          <br/>
+                          <div>Session number {session.sessionId} hosted by {session.hostUsername} is waiting for participants.</div>
+                          <br/>
+                          <div>Total number of participants required for the session to start: {session.maxParticipants}</div>
+                          <br/>
+                          {messages}
+                          {(showWinner) && ShowMessage}
+                          {(showWinner) && leaveSessionButton}
+                        </ReactScrollableFeed>
+                      </div>
                     <div>&nbsp;</div>
 
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
+
+
+                  
                 </div>
-            </div>
             )
             break;
         case "ONGOING":
             console.log("SessionStatus is ONGOING");
             commentingSection = (
-                <div className="newComment" >
+              
                     <div className="newComment container">
                         <div className="newComment avatar">
                           { host.avatarUrl && host && (<img alt="Avatar"  src={host.avatarUrl}></img>)}
@@ -376,35 +387,41 @@ const ActiveSession = () => {
                         <div className="newComment username">
                           <text>Host: <b>{host.username}</b></text>
                         </div>
+                        
                         <div className="chatContainer" >
+                          <ReactScrollableFeed>
                             {messages}
                             {(showWinner) && ShowMessage}
+                            
                             {(showWinner) && leaveSessionButton}
+                          </ReactScrollableFeed>
                         </div>
-                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>                        <div>&nbsp;</div>
+
+
+
                         <div className="newCommentform">
                             {(username !== session.hostUsername) && <div>{commentText}</div>}
                         </div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
+                        
+                        
+                       
 
                         <div className="addcomment">
+                      
+                        <div>&nbsp;</div>
+
                             {(username !== session.hostUsername) && <div>{addComments}</div>}
                         </div>
                         <div>&nbsp;</div>
                         <div className="reportcomment">
+
                             {reportComments}
+                            
                         </div>
+
+                        
                     </div>
-                </div>
             )
             break;
         case "FINISHED":
@@ -417,47 +434,59 @@ const ActiveSession = () => {
 
 
     return (
+      
 
         <div className="session">
-            <Navbar/>
-            <div class='session parent'>
-              <div class='session leftChild'>
-                  <div className="newSession">
-                  <div className="headerrow">
-                      <div className="headerp1" ><h1>Let the</h1></div>
-                      <div className="headerp2"><h1>roast begin</h1></div>
-                </div>
-                    <div className="newSession container">
+
+          
+          
+           <Navbar></Navbar>
+           
+           {commentingSection}
+           <div className="headerrow">
+            
+            <div className="headerp1" ><h1>Let the Roast Begin</h1></div>
+            
+
+
+        </div>
+
+
+          <div className="newSession container">            
+
+                      
+                      
+                      
                         <div className="newSession form">
-                        <div className = "uploadImage">
+                          
+                        <div className = "uploadImage" >
                           <div className = "uploadImage input">
                             <label>
                             <div className title-field>{session.title}</div>
                             </label>
                           </div>
-                          <div className="uploadImage output">
-                            <img alt="Image" src={session.imageUrl}></img>
+
+                          <div className="uploadImageoutput">
+                            <img id="image1" alt="Image1" src={session.imageUrl}></img>
                           </div>
                         </div>
                     </div>
+                    
                     {(username === session.hostUsername && !show) && showParticipants}
-                    <div>&nbsp;</div>
                     {(username === session.hostUsername && show) && hideParticipants}
-                    <div>&nbsp;</div>
                     {show && <center>
                           {showList}
                       </center>}
-                    {(username === session.hostUsername && show) && updateParticipants}
+                    {noParticipants && noActiveParticipants}
                     <div>&nbsp;</div>
                     {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
                     {(username === session.hostUsername) && <div>{closeSessionByHostButton}</div>}
                   </div>
-                </div>
-              </div>
-            <div className='session rightChild'>
-                <div>{commentingSection}</div>
-            </div>
-            </div>
+                  
+
+
+
+           
         </div>
         )
     }
