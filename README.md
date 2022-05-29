@@ -1,5 +1,12 @@
 # SoPra FS22 - Group 18 Roast me
 
+## Introduction
+“Roast Me!” is a game, where a user can host a roasting session and upload a picture, e.g. of a meal they cooked, a sweater they are wearing, or their pet. 
+
+Other users can then join the roasting session as participants, and comment on the picture, making fun of it. 
+
+The host will decide at the end of the session which participant wins the game.
+
 ## Technologies
 - JSX, npm and React
 - HTTP/Rest
