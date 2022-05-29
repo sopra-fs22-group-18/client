@@ -350,10 +350,6 @@ const ActiveSession = () => {
                     <div className="newComment username">
                       <text>Host: <b>{host.username}</b></text>
                     </div>
-                    <div className="newComment username">
-                      <text>Identifier: <b> {identifier} </b></text>
-                    </div>
-                    
 
                       <div className="chatContainer" >
                         <ReactScrollableFeed>
@@ -446,9 +442,7 @@ const ActiveSession = () => {
            <div className="headerrow">
             
             <div className="headerp1" ><h1>Let the Roast Begin</h1></div>
-            
-
-
+          
         </div>
 
 
