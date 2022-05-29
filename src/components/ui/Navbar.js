@@ -127,7 +127,7 @@ export const Navbar = props => {
                   <button
                       className= "nav-button"
                       onClick={() => doLogout()} >
-                  <img className="icon"  src={logoutIcon} alt="logout" style={{ width: 40, height:40 }} />
+                  <img className="icon"  src={logoutIcon} alt="logout" style={{ width: 40, height:40, right:20}} />
                   </button>
               </li>
           </ul>
