@@ -1,7 +1,5 @@
 # SoPra FS22 - Group 18 Roast me
 
-## Introduction
-
 ## Technologies
 - JSX, npm and React
 - HTTP/Rest
