@@ -19,7 +19,6 @@ body{max-width: 100vh;overflow-x:hidden;overflow-y:auto}
 
 .session {
   max-height:100vh;
-
   background-color: #873e23;
   height: 100vh;min-width: 100vh;
   ; padding-bottom:30vh;
@@ -92,14 +91,10 @@ float:left;
 
 
   .session .leaveSession {
-    display: flex;margin-left:5%;margin-bottom:10%;
+    display: flex;
     justify-content: space-around;
     font-size: large;
     height: 28px; }
-    textarea{min-width: 100%;}
-    
-
-
 
       
 
