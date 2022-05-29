@@ -2,41 +2,28 @@
 
 .newSession {
   background-color: #873e23;
-  height: 150vh;
-  display: flex;
-  flex-direction: column;
+flex:1;  flex-direction: column;
+  .headerrow{color:#EF8943;padding-top:3vh;padding-bottom:0em}
+.session.headerrow.headerp1 {
+  overflow:hidden;
+  margin-bottom:-5vh;
+  text-align: center;
+  color: red;
+  font-size: large;
+  font-family: "Manrope", sans-serif;
+  padding-right: 10%;
+  margin-left: 0vh; }
   
-  .headerrow{
-    display: flex; 
-    margin-left:0%;
-    margin-top:0%;
-    margin-right:38%;
-    text-align: left;
-    margin-bottom:-2em;
-    color:#FFFFFF;
-    z-index: 1;
-  }
-  .headerp1{
-    margin-right:1em;
-    flex:1;
-    color: $headertextColor1;
-    font-family: $fontHeader;
-    text-align: right;
-    z-index: 1;
-  }
-
-  &.headerp2{
-    flex:1;
-    font-family: $fontHeader;
-    text-align: left;
-      z-index: 1;
-    }
+.center{
+    color:$headertextColor1;
+    display: block;
+   }
+  
 
     &.toggleOptions {
       display: flex;
       flex-direction: row;
       background-color: white;
-      height: 100px;
 
       .toggleButton {
         width: 40%;
@@ -44,18 +31,16 @@
     }
 
 
-    &.container {
-      position: absolute;
-      display: flex;
+    .container {margin-top:1vh;
+      float:left;min-height: 100%;max-height: 100%;
+      display: block;
+      margin-left:20%;        margin-right:20%;   
+ 
       background-color: white;
-      width: 30%;
-      margin: 20px;
-      height: auto;
       border-radius: $borderRadius;
       padding: 15px;
-      top: 20%;
-      left: 35%;
-    }
+      padding-bottom:50vh;
+  }
 
     &.form {
       background-color: white;
@@ -78,7 +63,8 @@
     }
     &.list-item {
       height: 35px;
-      font-size: 16px;
+      text-align: left;
+      font-size: 20px;
       font-weight: bold;
       background-color: white;
 
@@ -109,13 +95,27 @@
       font-weight: 300;
     }
 }
-
 .title-field{
-  border-radius: $borderRadius;
+  border-radius:0;
   background: white;
-  height: 35px;
-  width: 430px;
+  max-width: 0vh;
+  min-width:100%;
+  margin-right:10%
 }
+
+.newSession {
+  background-color: #873e23;
+  height: auto;text-align: center;
+flex:1;  flex-direction: column;}
+
+
+
+.title-field{max-width:80vh; border:none; outline: none;padding-right: 0%;background-color: transparent;text-align: center;
+}
+
+
+
+
 
 .box{
   box-shadow: 5px 10px;
@@ -185,4 +185,5 @@
     width:100%;
     height:100%;
   }
+  
 }

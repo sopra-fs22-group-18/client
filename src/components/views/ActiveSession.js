@@ -195,8 +195,6 @@ const ActiveSession = () => {
     </Button>)
 
     let commentText = (
-      <div className="newCommentform">
-        
         <FormField
         width="90%"
             placeholder="Add your comment..."
@@ -204,7 +202,7 @@ const ActiveSession = () => {
             onChange={im => setInputMessage(im)}
             onKeyDown={handleKeyDown}
             />
-      </div>);
+      );
     
     let leaveSessionButton = (<Button5
       width="100%"
@@ -344,14 +342,14 @@ const ActiveSession = () => {
             commentingSection = (
               
                 <div className="newComment container">
-                <div className="newComment username">
-                      <text>Host: <b>{host.username}</b></text>
-                    </div>
+                
                     <div className="newComment avatar">
                       { host.avatarUrl && host && (<img alt="Avatar"  src={host.avatarUrl}></img>)}
                       { !host.avatarUrl && (<img alt="Avatar" src={noAvatar}></img>)}
                     </div>
-                    
+                    <div className="newComment username">
+                      <text>Host: <b>{host.username}</b></text>
+                    </div>
 
                       <div className="chatContainer" >
                         <ReactScrollableFeed>
@@ -365,6 +363,7 @@ const ActiveSession = () => {
                           {(showWinner) && leaveSessionButton}
                         </ReactScrollableFeed>
                       </div>
+                    <div>&nbsp;</div>
 
 
 
@@ -393,31 +392,29 @@ const ActiveSession = () => {
                             {(showWinner) && leaveSessionButton}
                           </ReactScrollableFeed>
                         </div>
-                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>                        <div>&nbsp;</div>
+
 
 
                         <div className="newCommentform">
-                            {(username !== session.hostUsername) && <div >{commentText}</div>}
+                            {(username !== session.hostUsername) && <div>{commentText}</div>}
                         </div>
                         
                         
                        
-                       
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-
 
                         <div className="addcomment">
+                      
+                        <div>&nbsp;</div>
+
                             {(username !== session.hostUsername) && <div>{addComments}</div>}
                         </div>
                         <div>&nbsp;</div>
                         <div className="reportcomment">
 
                             {reportComments}
+                            
                         </div>
-                        
 
                         
                     </div>
@@ -441,6 +438,7 @@ const ActiveSession = () => {
           
            <Navbar></Navbar>
            
+           {commentingSection}
            <div className="headerrow">
             
             <div className="headerp1" ><h1>Let the Roast Begin</h1></div>
@@ -449,20 +447,11 @@ const ActiveSession = () => {
 
         </div>
 
-<ul class="list">      
-  <li class="list-item"> 
-    <div class="list-content">{commentingSection}
-   </div>
-   </li>
-
-   <li class="list-item"> 
-    <div class="list-content">
-  
 
           <div className="newSession container">            
 
                       
-
+                      
                       
                         <div className="newSession form">
                           
@@ -489,10 +478,8 @@ const ActiveSession = () => {
                     {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
                     {(username === session.hostUsername) && <div>{closeSessionByHostButton}</div>}
                   </div>
-                  </div>
-   </li>
-   </ul>
                   
+
 
 
            

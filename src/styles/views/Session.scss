@@ -15,33 +15,66 @@
   these allow you to create small snippets that you can insert with a one-liner in other stylesheets
   for an example, see styles/views/Login.scss
 */
-
-
 .session {
-  overflow:hidden;
-  padding-bottom: 3vh;
+  max-height:100vh;
 
   background-color: #873e23;
-  height: 100vh;
-  min-width: 100%; }
+  height: 100vh;min-width: 100vh;
+  ; padding-bottom:30vh;
+
+  .newSession.container {
+    overflow:auto;
+float:left;
+    max-height: 90vh;
+    max-width: 80vh;
+  
+    display: flex;margin-top: 1.5cm;
+
+    background-color: white;
+    height: auto;
+    border-radius: 0.75em;
+    padding: 15px;
+    margin-left: 2cm;
+    margin-right: 5cm;
+
+  }
+
+
+
+  .newComment.container {
+    max-height: 100vh;
+    
+    background-color: white;
+    height: auto;
+    position:absolute;
+    border-radius: 0.75em;
+    padding: 15px;margin-top: 4cm;
+    flex-direction: column;
+    float:right;      
+    overflow: h;
+    margin-left:4cm;
+    flex:3;}
+
+
+
+
+
+}
+.nav-bar-container-light {min-width: 100vh}
   .session .c {
     width: 8vh;
     height: 5vh; }
   .session img {
-display:block;
-margin-left: auto;
-margin-right: auto;
     max-width: 40vh;
     width: 60vh;
     height: 100%;
     max-height: 45vh; }
-.newComment.avatar{max-width: 7vh;max-height: 7vh;}
-.newComment.username{text-align: left;}
+.newComment.avatar{max-width: 10vh;max-height: 10vh;}
   
   
   .session .headerp1 {
     overflow:hidden;
-margin-bottom:-5vh;
+    margin-bottom:-5vh;
     text-align: center;
     color: #EF8943;
     font-size: large;
@@ -49,55 +82,23 @@ margin-bottom:-5vh;
     padding-right: 10%;
     margin-left: 0vh; }
 
-  .session.container {      overflow-y:scroll;
-    border-radius: 0.75em; }
-  .session.parent {
-    display: flex;
-    
-    /* Standard syntax */ }
+
+.chatContainer{min-height: 35vh;max-height:35vh; overflow:hidden;}
   .session textarea {
-    max-width: 85%; }
+    width: 100%;text-align: left; }
+ 
+
+
   .session .leaveSession {
     display: flex;
     justify-content: space-around;
     font-size: large;
     height: 28px; }
-    .session .container .list{display:table;vertical-align: center;      overflow-y:scroll;
-    }
-     .session .list .newComment.container {
-      overflow-y:scroll;
-      textarea{min-width:81vh}
-
-      margin-top: 2.6cm;
-      margin-left:20%;
-      margin-right: 15vh;
-      max-height: 70vh;
-      min-height: 70vh;
-      max-width:85vh;
-      min-width:85vh;
-      display: relative;
-      background-color: white;
-      border-radius: 0.75em;
-      flex-direction: column;
-      flex: 1;}
+    textarea{min-width: 100%;}
+    
 
 
-.container textarea{min-height:10vh;max-height: 40vh}
-.container .chatContainer{min-height:20vh;max-height:70vh;overflow: hidden;}
-      .newSession.container {
-        display: table-cell;vertical-align: auto;
-        left: 0;
-        background-color: white;
-        height: auto;
-        border-radius: 0.75em;
-        flex: 1;
-        margin-left: 0.1cm;
-        max-height: 50vh;
-        min-height: 50vh;
-        max-width: 60vh;
 
-
-      }
-
+      
 
 
