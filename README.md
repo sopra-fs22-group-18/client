@@ -3,8 +3,15 @@
 ## Introduction
 
 ## Technologies
+- JSX, npm and React
+- HTTP/Rest
+- gradle, spring, java and mysql
+- github, sonarqube and heroku
 
 ## High-level components
+- Websocket: Socket.java uses the javax.websocket library to build a real time chat with different rooms
+- TextApi: TextApi.java is hooked to a free API for text moderation. This component ensures that no blocked words are used in our chat rooms.
+- Database: Application.java uses the jpa interface to store all kinds of information in a remote mysql server.
 
 ## Launch & Deployment
 ### Tutorials
