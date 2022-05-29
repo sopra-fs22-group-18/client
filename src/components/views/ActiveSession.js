@@ -425,7 +425,7 @@ const ActiveSession = () => {
            {commentingSection}
            <div className="headerrow">
             
-            <div className="headerp1" ><h1>Let the Roast Begin</h1></div>
+            <div className="headerp1" ><h1>Let the roast begin!</h1></div>
           
         </div>
           <div className="newSession container">            

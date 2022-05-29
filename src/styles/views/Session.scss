@@ -72,15 +72,18 @@ float:left;
     max-height: 45vh; }
 .newComment.avatar{max-width: 10vh;max-height: 10vh;}
   
-  
+
+.headerrow{
+
+  display: flex; 
+  justify-content: center;
+}
+
   .session .headerp1 {
-    overflow:hidden;
     margin-bottom:-5vh;
-    text-align: center;
     color: #EF8943;
     font-size: large;
     font-family: "Manrope", sans-serif;
-    padding-right: 10%;
     margin-left: 0vh; }
 
 
