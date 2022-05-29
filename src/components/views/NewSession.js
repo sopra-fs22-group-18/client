@@ -139,18 +139,10 @@ const NewSession = () => {
     return (
     <div className="newSession">
 
-        <Navbar/>
-        <div className="headerrow">
-            
-            <div className="headerp1" ><h1>Let the Roast Begin</h1></div>
-            
-
-
-        </div>
-
+        <Navbar></Navbar>
      
         
-        <div></div>
+        
         
         <div className="newSession container">
             <div className="newSession form">

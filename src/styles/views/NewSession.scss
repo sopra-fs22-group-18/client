@@ -1,12 +1,14 @@
 @import 'styles/theme';
 
 .newSession {
-  background-color: #873e23;
+  background-color: #873e23;margin-right: -0%;
 flex:1;  flex-direction: column;
-  .headerrow{color:#EF8943;padding-top:3vh;padding-bottom:0em}
+  .headerrow{color:#EF8943;text-align: center;
+  }
 .session.headerrow.headerp1 {
   overflow:hidden;
-  text-align: center;
+
+  margin-bottom:-5vh;
   color: red;
   font-size: large;
   font-family: "Manrope", sans-serif;
@@ -25,31 +27,24 @@ flex:1;  flex-direction: column;
       background-color: white;
 
       .toggleButton {
-        width: 40%;
       }
     }
 
+    .container {margin-top:1vh;  margin-top: 20vh;
 
-    .container {margin-top:1vh;
-      float:left;
-      min-height: 40%;
-      max-height: 40%;
+      margin-right:50vh;margin-left:100vh;max-height: 100vh;min-width:50vh;max-width:50vh;
       display: block;
-      margin-left:20%;        
-      margin-right:20%;   
-      
+      flex:2;
       background-color: white;
       border-radius: $borderRadius;
       padding: 15px;
-      padding-bottom:5px;
+   
+
   }
 
     &.form {
       background-color: white;
-      height: auto;
-      width: 100%;
       display: flex;
-      flex-direction: column;
       justify-content: left;
       gap: 15px;
       margin-bottom: 10px;
@@ -76,17 +71,11 @@ flex:1;  flex-direction: column;
     }
 
     &.field {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
     &.input {
-      height: 35px;
-      padding-left: 15px;
       margin-left: -4px;
       border: none;
       border-radius: 0.75em;
-      margin-bottom: 20px;
       background: transparentize(white, 0.85);
       color: $textColor;
     }
@@ -94,28 +83,35 @@ flex:1;  flex-direction: column;
       color: $textColor;
       margin-bottom: 10px;
       text-transform: lowercase;
-      font-weight: 300;
+      font-weight: 30;
     }
 }
 .title-field{
   border-radius:0;
   background: white;
-  max-width: 0vh;
-  min-width:100%;
   margin-right:10%
 }
 
 .newSession {
   background-color: #873e23;
-  height: 50px;
-  text-align: center;
-flex:1;  flex-direction: column;}
+
+  height: auto;text-align: center;}
 
 
 
-.title-field{max-width:80vh; border:none; outline: none;padding-right: 0%;background-color: transparent;text-align: center;
+.title-field{ border:none; outline: none;background-color: transparent;text-align: center;
 }
 
+.nav-bar-container-light {
+  position: fixed;
+  justify-content: space-between;
+  align-items: center;
+  /* width: 100%; */
+  background-color: white;
+  border-bottom-style: solid;
+  border-bottom-color: #dcdcdc;
+  border-bottom-width: 2px;;
+  height: 60px;}
 
 
 
@@ -125,7 +121,6 @@ flex:1;  flex-direction: column;}
   background-color: #FFFFFF;
   font-weight:bold;
   height: 100px;
-  width:auto;
   border-radius: $borderRadius;
   &.picture{
     height: auto;
@@ -135,12 +130,10 @@ flex:1;  flex-direction: column;}
 
 .setting-icon {
   height: 30px;
-  width: auto;
 }
 
 .setting-button {
   height: 40px;
-  width: 40px;
   border: white;
   background: white;
   cursor: pointer;	
@@ -148,18 +141,15 @@ flex:1;  flex-direction: column;}
 
 .image-upload {
   height: auto;
-  width: auto;
   box-shadow: rgb(0, 0, 0 / 16%) 0px 3px 6px, rgb(0, 0, 0 / 23%) 0px 3px 6px;
   margin: 0px auto 0px auto;
   
   &.addIcon {
-    width: 50x;
     top: 200px;
     left: 100px;
   }
   img {
-    width:100%;
-    height:100%;
+    height:26vh;
     cursor: pointer;	
     
   }
@@ -177,16 +167,11 @@ flex:1;  flex-direction: column;}
 
   &.output {
     padding: 10px;
-    min-height: 20px;
     overflow: hidden;
     border-color: black;
     border-style: solid;
-    display: flex;
-    justify-content: center;
   }
   img {
-    width:100%;
-    height:100%;
   }
   
 }
