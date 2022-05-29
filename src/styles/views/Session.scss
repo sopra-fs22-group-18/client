@@ -41,8 +41,8 @@ img{
     width: 67vh;
 }
 .chatContainer{max-height:20vh}
-&.rightChild {min-width:170vh; flex: 2;}
-&.leftChild {max-width:100vh;margin-left:10vh; flex: 5;}
+&.rightChild {min-width:170vh;padding-right:-200%}
+&.leftChild {max-width:100vh;margin-left:10vh}
 .newCommenta{min-width:100%}
 .leaveSession { 
     display: flex;
