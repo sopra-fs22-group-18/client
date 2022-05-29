@@ -158,8 +158,13 @@ You can leave the the session while the others are still playing, but as a punis
 2. In addition, it would be useful to be able to see your own post and comment history. 
 3. It would also be interesting if users could send voice messages or videos while "roasting" pictures.
 ## Authors and acknowledgment
-Benjamin Bajralija, Carol Ernst, Niels Zweifel, Said Haji Abukar, Timon Fopp
-Used: Template: SoPra FS22 - Client Template by Roy
+
+- [Benjamin Bajralija](https://github.com/bbajrari)
+- [Carol Ernst](https://github.com/carolernst-uzh)
+- [Niels Zweifel](https://github.com/itsniezwe)
+- [Said Haji Abukar](https://github.com/awhoa)
+- [Timon Fopp](https://github.com/trofej)
+
 
 
 
