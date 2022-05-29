@@ -3,7 +3,7 @@ body{max-width: 100vh;overflow-x:hidden;overflow-y:hidden}
 .newSession {
   background-color: #873e23;margin-right: -0%;
 flex:1;  flex-direction: column;
-  
+
   
 .center{
     color:$headertextColor1;
@@ -29,6 +29,7 @@ flex:1;  flex-direction: column;
       border-radius: $borderRadius;
       padding: 14px;
    
+
   }
 
     &.form {
@@ -84,6 +85,7 @@ flex:1;  flex-direction: column;
 .newSession {
   background-color: #873e23;
   height: auto;text-align: center;}
+
 
 
 .title-field{ border:none; outline: none;background-color: transparent;text-align: center;

@@ -25,8 +25,6 @@
   /* Center and scale the image nicely */
   background-repeat: no-repeat;
   background-position: right top;
- 
-
 
 }
 .headerrow{
@@ -36,23 +34,18 @@
   text-align: center;
 }
 
-
 &.headerp1{
   flex:2;
   color: $headertextColor1;
   font-family: $fontHeader;
   text-align: right;
-
-
 }
-
 
 &.headerp2{
   flex:2;
   color: $headertextColor2;
   font-family: $fontHeader;
   text-align: left
-
 
   }
   .login {
@@ -63,9 +56,9 @@
     background-size: cover;*/
     resize: both;
     display: flex;
+    padding-top: 20%;
   
     /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
-    @include center;
   
     flex-direction: column;
   }
@@ -102,7 +95,7 @@
     font-weight: 600;
   }
   .login-button-container {
-    margin-top:40%;
+    margin-top:10%;
     color: $headertextColor1;
   }
   .register-button-container {
