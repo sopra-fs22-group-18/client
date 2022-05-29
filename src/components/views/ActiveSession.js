@@ -340,9 +340,7 @@ const ActiveSession = () => {
         case "CREATED":
             console.log("SessionStatus is CREATED");
             commentingSection = (
-              
                 <div className="newComment container">
-                
                     <div className="newComment avatar">
                       { host.avatarUrl && host && (<img alt="Avatar"  src={host.avatarUrl}></img>)}
                       { !host.avatarUrl && (<img alt="Avatar" src={noAvatar}></img>)}
@@ -367,17 +365,12 @@ const ActiveSession = () => {
                         </ReactScrollableFeed>
                       </div>
                     <div>&nbsp;</div>
-
-
-
-                  
                 </div>
             )
             break;
         case "ONGOING":
             console.log("SessionStatus is ONGOING");
             commentingSection = (
-              
                     <div className="newComment container">
                         <div className="newComment avatar">
                           { host.avatarUrl && host && (<img alt="Avatar"  src={host.avatarUrl}></img>)}
@@ -386,10 +379,6 @@ const ActiveSession = () => {
                         <div className="newComment username">
                           <text>Host: <b>{host.username}</b></text>
                         </div>
-                        <div className="newComment username">
-                          <text>Identifier: <b>{identifier}</b></text>
-                        </div>
-                        
                         <div className="chatContainer" >
                           <ReactScrollableFeed>
                             {messages}
@@ -399,20 +388,11 @@ const ActiveSession = () => {
                           </ReactScrollableFeed>
                         </div>
                         <div>&nbsp;</div>                        <div>&nbsp;</div>
-
-
-
                         <div className="newCommentform">
                             {(username !== session.hostUsername) && <div>{commentText}</div>}
                         </div>
-                        
-                        
-                       
-
                         <div className="addcomment">
-                      
                         <div>&nbsp;</div>
-
                             {(username !== session.hostUsername) && <div>{addComments}</div>}
                         </div>
                         <div>&nbsp;</div>
@@ -440,8 +420,6 @@ const ActiveSession = () => {
 
         <div className="session">
 
-          
-          
            <Navbar></Navbar>
            
            {commentingSection}
@@ -450,13 +428,8 @@ const ActiveSession = () => {
             <div className="headerp1" ><h1>Let the Roast Begin</h1></div>
           
         </div>
-
-
           <div className="newSession container">            
 
-                      
-                      
-                      
                         <div className="newSession form">
                           
                         <div className = "uploadImage" >
