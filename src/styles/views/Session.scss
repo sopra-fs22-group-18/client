@@ -30,7 +30,7 @@ float:left;
     max-height: 90vh;
     max-width: 80vh;
   
-    display: flex;margin-top: 1.5cm;
+    display: flex;margin-top: 1.8cm;
 
     background-color: white;
     height: auto;
@@ -92,7 +92,7 @@ float:left;
 
 
   .session .leaveSession {
-    display: flex;
+    display: flex;margin-left:5%;margin-bottom:10%;
     justify-content: space-around;
     font-size: large;
     height: 28px; }
