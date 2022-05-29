@@ -215,7 +215,7 @@ const ActiveSession = () => {
     let closeSessionByHostButton = (<Button5
       width="100%"
       onClick={() => closeSessionByHost()}
-      > <div className = "leaveSession"><div width = "90%">Close session</div> <div width = "10%"><img className="icon" src={logoutIcon} alt="close session"/></div></div>
+      > <div className = "leaveSession"><div width = "90%">Close session</div> <div width = "10%"><img className="c" src={logoutIcon} alt="close session"/></div></div>
     </Button5>)
 
     const selectTheWinner = async() => {
