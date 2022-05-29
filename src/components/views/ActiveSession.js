@@ -350,6 +350,10 @@ const ActiveSession = () => {
                     <div className="newComment username">
                       <text>Host: <b>{host.username}</b></text>
                     </div>
+                    <div className="newComment username">
+                      <text>Identifier: <b> {identifier} </b></text>
+                    </div>
+                    
 
                       <div className="chatContainer" >
                         <ReactScrollableFeed>
