@@ -1,60 +1,103 @@
-@import 'styles/theme';
+/*
+  This file contains the most basic variables that control how your application will look.
+ */
+/* Theme Colors
+
+   these values control the colors of your application.
+   feel free to play around with these and see what other look you can come up with! :D
+*/
+/* some constants */
+/* some standard elements */
+/* fonts */
+/* a standard drop shadow */
+/* mixins
+
+  these allow you to create small snippets that you can insert with a one-liner in other stylesheets
+  for an example, see styles/views/Login.scss
+*/
+
+
 .session {
+  overflow:hidden;
+  padding-bottom: 3vh;
+
   background-color: #873e23;
-  height: auto;
-  width:auto;
-
+  height: 100vh;
+  min-width: 100%; }
+  .session .c {
+    width: 8vh;
+    height: 5vh; }
+  .session img {
+display:block;
+margin-left: auto;
+margin-right: auto;
+    max-width: 40vh;
+    width: 60vh;
+    height: 100%;
+    max-height: 45vh; }
+.newComment.avatar{max-width: 7vh;max-height: 7vh;}
+.newComment.username{text-align: left;}
   
-.newSession{
   
-  
-}
+  .session .headerp1 {
+    overflow:hidden;
+margin-bottom:-5vh;
+    text-align: center;
+    color: #EF8943;
+    font-size: large;
+    font-family: "Manrope", sans-serif;
+    padding-right: 10%;
+    margin-left: 0vh; }
 
-.c{
-  width:8vh;
-  height:5vh;
-}
-
-img{
-  max-width:40vh;
-  width:60vh;
-  height:100%;
- max-height: 45vh;
-}
-
-.headerp1{color: $headertextColor1;align-items: left;font-size: xx-large;font-family: $fontHeader;padding-right:20%;margin-bottom:-13vh;margin-left:0vh;}
-
-
-
-
-  &.container {
-    display:table;
-    border-radius: $borderRadius;
-  }
-
-  &.parent {
-    padding-top:-10%;
-    display: flex; 
-    /* Standard syntax */
-  }
-  textarea {
-    width: 67vh;
-}
-.chatContainer{max-height:20vh}
-&.rightChild {min-width:170vh;padding-right:-200%}
-&.leftChild {max-width:100vh;margin-left:10vh}
-.newCommenta{min-width:100%}
-.leaveSession { 
+  .session.container {      overflow-y:scroll;
+    border-radius: 0.75em; }
+  .session.parent {
     display: flex;
-
+    
+    /* Standard syntax */ }
+  .session textarea {
+    max-width: 85%; }
+  .session .leaveSession {
+    display: flex;
     justify-content: space-around;
     font-size: large;
-    height: 28px;
-  
-  }
+    height: 28px; }
+    .session .container .list{display:table;vertical-align: center;      overflow-y:scroll;
+    }
+     .session .list .newComment.container {
+      overflow-y:scroll;
+      textarea{min-width:81vh}
+
+      margin-top: 2.6cm;
+      margin-left:20%;
+      margin-right: 15vh;
+      max-height: 70vh;
+      min-height: 70vh;
+      max-width:85vh;
+      min-width:85vh;
+      display: relative;
+      background-color: white;
+      border-radius: 0.75em;
+      flex-direction: column;
+      flex: 1;}
 
 
+.container textarea{min-height:10vh;max-height: 40vh}
+.container .chatContainer{min-height:20vh;max-height:70vh;overflow: hidden;}
+      .newSession.container {
+        display: table-cell;vertical-align: auto;
+        left: 0;
+        background-color: white;
+        height: auto;
+        border-radius: 0.75em;
+        flex: 1;
+        margin-left: 0.1cm;
+        max-height: 50vh;
+        min-height: 50vh;
+        max-width: 60vh;
 
-}  
+
+      }
+
 
 
