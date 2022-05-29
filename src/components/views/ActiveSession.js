@@ -215,7 +215,7 @@ const ActiveSession = () => {
     let closeSessionByHostButton = (<Button5
       width="100%"
       onClick={() => closeSessionByHost()}
-      > <div className = "leaveSession"><div width = "90%">Close session</div> <div width = "10%"><img className="icon" src={logoutIcon} alt="close session"/></div></div>
+      > <div className = "leaveSession"><div width = "90%">Close session</div> <div width = "10%"><img className="c" src={logoutIcon} alt="close session"/></div></div>
     </Button5>)
 
     const selectTheWinner = async() => {
@@ -340,7 +340,6 @@ const ActiveSession = () => {
         case "CREATED":
             console.log("SessionStatus is CREATED");
             commentingSection = (
-            <div className="newComment" >
                 <div className="newComment container">
                     <div className="newComment avatar">
                       { host.avatarUrl && host && (<img alt="Avatar"  src={host.avatarUrl}></img>)}
@@ -348,6 +347,9 @@ const ActiveSession = () => {
                     </div>
                     <div className="newComment username">
                       <text>Host: <b>{host.username}</b></text>
+                    </div>
+                    <div className="newComment username">
+                      <text>Identifier: <b> {identifier} </b></text>
                     </div>
 
                       <div className="chatContainer" >
@@ -363,18 +365,12 @@ const ActiveSession = () => {
                         </ReactScrollableFeed>
                       </div>
                     <div>&nbsp;</div>
-
-
-
-                  
                 </div>
-            </div>
             )
             break;
         case "ONGOING":
             console.log("SessionStatus is ONGOING");
             commentingSection = (
-                <div className="newComment" >
                     <div className="newComment container">
                         <div className="newComment avatar">
                           { host.avatarUrl && host && (<img alt="Avatar"  src={host.avatarUrl}></img>)}
@@ -383,7 +379,6 @@ const ActiveSession = () => {
                         <div className="newComment username">
                           <text>Host: <b>{host.username}</b></text>
                         </div>
-                        
                         <div className="chatContainer" >
                           <ReactScrollableFeed>
                             {messages}
@@ -392,38 +387,23 @@ const ActiveSession = () => {
                             {(showWinner) && leaveSessionButton}
                           </ReactScrollableFeed>
                         </div>
-                        <div>&nbsp;</div>
-
-
+                        <div>&nbsp;</div>                        <div>&nbsp;</div>
                         <div className="newCommentform">
-                            {(username !== session.hostUsername) && <div className="newCommenta">{commentText}</div>}
+                            {(username !== session.hostUsername) && <div>{commentText}</div>}
                         </div>
-                        
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-
-
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        
-                       
-
                         <div className="addcomment">
+                        <div>&nbsp;</div>
                             {(username !== session.hostUsername) && <div>{addComments}</div>}
                         </div>
                         <div>&nbsp;</div>
                         <div className="reportcomment">
 
                             {reportComments}
+                            
                         </div>
-                        
 
                         
                     </div>
-                </div>
             )
             break;
         case "FINISHED":
@@ -439,31 +419,17 @@ const ActiveSession = () => {
       
 
         <div className="session">
+
+           <Navbar></Navbar>
+           
+           {commentingSection}
+           <div className="headerrow">
+            
+            <div className="headerp1" ><h1>Let the roast begin!</h1></div>
           
-            <Navbar/>
-            <div class='session parent'>
-              <div class='session leftChild'>
-                  <div className="newSession">
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
-          
-                  
-                  <div>&nbsp;</div>
+        </div>
+          <div className="newSession container">            
 
-                  <div>&nbsp;</div>               
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
-                  
-
-
-                    <div className="newSession container">
-                      
-                      
                         <div className="newSession form">
                           
                         <div className = "uploadImage" >
@@ -478,6 +444,7 @@ const ActiveSession = () => {
                           </div>
                         </div>
                     </div>
+                    
                     {(username === session.hostUsername && !show) && showParticipants}
                     {(username === session.hostUsername && show) && hideParticipants}
                     {show && <center>
@@ -488,25 +455,11 @@ const ActiveSession = () => {
                     {(username !== session.hostUsername) && <div>{leaveSessionButton}</div>}
                     {(username === session.hostUsername) && <div>{closeSessionByHostButton}</div>}
                   </div>
-                </div>
-              </div>
-
-            <div className='session rightChild'>
+                  
 
 
-            <div className="headerrow">
-            
-                      <div className="headerp1" ><h1>Let the Roast Begin</h1></div>
-                      <div>&nbsp;</div>
-                      <div>&nbsp;</div>
-                      <div>&nbsp;</div>
-                      <div>&nbsp;</div>
 
-
-                  </div>
-                <div>{commentingSection}</div>
-            </div>
-            </div>
+           
         </div>
         )
     }

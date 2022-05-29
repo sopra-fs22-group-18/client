@@ -1,7 +1,7 @@
 import {useHistory, useParams} from "react-router-dom";
 import {Navbar} from "../ui/Navbar";
 import React, {useState} from "react";
-import "styles/views/Session.scss"
+import "styles/views/Report.scss"
 import {api, handleError} from "../../helpers/api";
 
 import "styles/views/Comment.scss"
@@ -87,6 +87,7 @@ const Report = () => {
 
 let reportDescription = (
     <FormField
+    width="90%"
         placeholder="Add a description..."
         value={description}
         onChange={desc => setDescription(desc)}/>)
